@@ -399,258 +399,3412 @@
       <section class="topics" aria-labelledby="additional-topics">
         <h2 id="additional-topics">Zagadnienia 159–163</h2>
 
-        <article class="topic-card">
-          <span class="pill">159</span>
-          <h3>Podstawowe układy cyfrowe</h3>
-          <p>
-            Układy cyfrowe operują na stanach logicznych 0 i 1 oraz na poziomach
-            napięć odpowiadających tym stanom. Najprostsze elementy to bramki
-            logiczne (AND, OR, NOT, NAND, NOR, XOR), które łączy się w bardziej
-            złożone bloki, np. multipleksery, dekodery, komparatory, sumatory i
-            rejestry. Przerzutniki (RS, JK, D, T) przechowują informację i
-            umożliwiają budowę liczników oraz układów sekwencyjnych, gdzie istotne
-            są pojęcia zegara, opóźnień propagacji i narzutów czasowych (setup/hold).
-            Projektowanie opiera się na algebrze Boole’a, tabelach prawdy i
-            minimalizacji (np. mapy Karnaugha), a w praktyce uwzględnia się
-            parametry technologii (TTL/CMOS), pobór mocy i odporność na zakłócenia.
-          </p>
-        </article>
+        <article class="topic-card" id="topic-159">
+  <span class="pill">159</span>
+  <h3>Podstawowe układy cyfrowe</h3>
 
-        <article class="topic-card">
-          <span class="pill">160</span>
-          <h3>Podstawowe prawa teorii obwodów</h3>
-          <p>
-            Podstawę analizy obwodów stanowią prawa Kirchhoffa: prądowe (suma
-            prądów w węźle wynosi zero) oraz napięciowe (suma spadków napięć w
-            oczku jest równa zero). Uzupełnia je prawo Ohma (U = I·R) oraz
-            definicje mocy i energii (P = U·I, W = P·t). W praktyce wykorzystuje
-            się zasady superpozycji, twierdzenia Thevenina i Nortona, zamiany
-            źródeł oraz analizę obwodów RC/RL (stałe czasowe, odpowiedzi
-            przejściowe). Ważne są też pojęcia impedancji, reaktancji i fazy,
-            które pozwalają opisywać obwody prądu przemiennego.
-          </p>
-        </article>
+  <p>
+    Układy cyfrowe przetwarzają informację w postaci stanów logicznych <b>0/1</b>
+    (zwykle odpowiadających zakresom napięć). Dzielą się na <b>kombinacyjne</b>
+    (wyjście zależy tylko od bieżących wejść) oraz <b>sekwencyjne</b> (wyjście zależy
+    od wejść i stanu pamiętanego). Na obronie często pytają o: bramki, układy
+    z bramek (MUX/DEMUX, dekodery, sumatory), pamięć (przerzutniki/rejestry/liczniki),
+    parametry czasowe (opóźnienia, setup/hold), technologie (TTL/CMOS) i typowe problemy
+    praktyczne (metastabilność, drgania styków, hazardy, fan-out, marginesy zakłóceń).
+  </p>
 
-        <article class="topic-card">
-          <span class="pill">161</span>
-          <h3>Pomiary napięcia, prądu i rezystancji</h3>
-          <p>
-            Napięcie mierzy się woltomierzem włączanym równolegle do elementu,
-            a prąd — amperomierzem włączanym szeregowo w obwód. Rezystancję
-            sprawdza się omomierzem lub mostkiem pomiarowym, zwykle przy
-            odłączonym zasilaniu. Kluczowe jest dobranie zakresu pomiarowego,
-            uwzględnienie rezystancji wewnętrznej przyrządu oraz minimalizowanie
-            błędów obciążenia. W praktyce stosuje się też pomiary czteroprzewodowe
-            (Kelvina) dla małych rezystancji, pomiary True RMS dla przebiegów
-            odkształconych oraz ocenę niepewności i kalibrację przyrządów.
-          </p>
-        </article>
+  <h4 style="margin: 0;">1) Poziomy logiczne i rodziny układów</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Poziomy logiczne</b>: 0/1 to nie pojedyncze napięcie, tylko zakres (ważne: <b>marginesy zakłóceń</b>).</li>
+    <li><b>TTL vs CMOS</b> (intuicyjnie):
+      <ul style="margin: 6px 0 0; padding-left: 18px;">
+        <li>CMOS: zwykle mniejszy pobór mocy statycznej, duża integracja, wrażliwość na ESD.</li>
+        <li>TTL: historycznie szybsze „stare” rodziny, inne poziomy wej/wy i większe prądy.</li>
+      </ul>
+    </li>
+    <li><b>Fan-in / fan-out</b>: ile wejść bramki i ile wejść można zasilić z jednego wyjścia (ograniczenia prądowe).</li>
+    <li><b>Tri-state</b> (Z): stan wysokiej impedancji, podstawa magistral/busów (uwaga na konflikty na linii).</li>
+  </ul>
 
-        <article class="topic-card">
-          <span class="pill">162</span>
-          <h3>Pomiary bezpośrednie i pośrednie</h3>
-          <p>
-            Pomiar bezpośredni polega na odczycie wartości z przyrządu
-            (np. napięcia z woltomierza). Pomiar pośredni wyznacza wielkość
-            obliczeniowo na podstawie innych pomiarów, np. rezystancję z
-            zależności R = U/I lub moc z P = U·I. W pomiarach pośrednich kluczowa
-            jest analiza niepewności i propagacja błędów, dlatego stosuje się
-            metody statystyczne, wyznaczanie odchylenia standardowego oraz
-            budżet niepewności. W praktyce ważne są też warunki środowiskowe
-            (temperatura, wilgotność) i powtarzalność pomiaru.
-          </p>
-        </article>
+  <h4 style="margin: 0;">2) Bramki logiczne i algebra Boole’a</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Podstawowe bramki: <b>NOT, AND, OR</b>; często w praktyce: <b>NAND, NOR</b> (funkcyjnie pełne), <b>XOR/XNOR</b>.</li>
+    <li><b>Tabela prawdy</b> opisuje funkcję logiczną; z tabeli → równanie Boole’a → schemat bramek.</li>
+    <li><b>Prawa Boole’a</b>: De Morgana, absorpcja, idempotentność – do upraszczania układów.</li>
+    <li><b>Minimalizacja</b>: mapy Karnaugha (K-map), czasem Quine–McCluskey (dla większych funkcji).</li>
+  </ul>
 
-        <article class="topic-card">
-          <span class="pill">163</span>
-          <h3>Dzielniki napięcia i prądu</h3>
-          <p>
-            Dzielnik napięcia to układ rezystorów połączonych szeregowo, który
-            pozwala uzyskać niższe napięcie na wybranym elemencie zgodnie z
-            proporcjami rezystancji (Uwy = Uwe · R2 / (R1 + R2)). Dzielnik prądu
-            opiera się na połączeniu równoległym, gdzie prąd rozdziela się
-            odwrotnie proporcjonalnie do rezystancji gałęzi. W praktyce należy
-            uwzględniać obciążenie, rezystancję wejściową miernika oraz tolerancje
-            elementów. Dla prądu przemiennego stosuje się dzielniki impedancyjne
-            z kondensatorami lub cewkami, a przy wysokich napięciach dba się o
-            bezpieczeństwo i odpowiednią izolację.
-          </p>
-        </article>
+  <h4 style="margin: 0;">3) Układy kombinacyjne – co trzeba umieć wyjaśnić</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Multiplekser (MUX)</b>: wybiera jedno z wielu wejść (S) na wyjście – „logiczny przełącznik”.</li>
+    <li><b>Demultiplekser (DEMUX)</b>: rozsyła sygnał z wejścia na jedno z wielu wyjść.</li>
+    <li><b>Dekoder / enkoder</b>: np. <i>n→2ⁿ</i> (dekoder) i <i>2ⁿ→n</i> (enkoder), często z wejściem EN.</li>
+    <li><b>Komparator</b>: porównuje liczby (A&lt;B, A=B, A&gt;B), bywa kaskadowany.</li>
+    <li><b>Sumatory</b>: półsumator (HA), pełny sumator (FA), łańcuch ripple-carry i jego wada (opóźnienie przeniesienia).</li>
+    <li><b>ALU (w skrócie)</b>: blok wykonujący operacje arytm.-logiczne (ADD/SUB/AND/OR/XOR, flagi Z/C/N/V).</li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Przykład: pełny sumator (FA) – co mogą zapytać</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li>Wejścia: A, B, Cin; Wyjścia: S, Cout.</li>
+      <li>Dlaczego ripple-carry jest wolny? Bo <b>Cout zależy od Cin</b> i „niesie” się przez kolejne bity.</li>
+      <li>Jak przyspieszyć? <b>Carry Lookahead</b> (propagate/generate) albo struktury drzewiaste (np. sumowanie równoległe).</li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">4) Układy sekwencyjne – pamięć, zegar, automaty</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Przerzutniki</b> (najczęściej D): przechowują 1 bit; działają względem zbocza zegara (edge-triggered).</li>
+    <li><b>Latch</b> vs <b>flip-flop</b>: latch jest „przezroczysty” przy aktywnym sygnale sterującym, FF próbuje próbkuje na zboczu.</li>
+    <li><b>Rejestry</b>: wiele przerzutników + logika; typowo: rejestr równoległy, rejestr przesuwny (shift register).</li>
+    <li><b>Liczniki</b>: asynchroniczne (ripple) vs synchroniczne; zastosowania: dzielniki częstotliwości, timery.</li>
+    <li><b>FSM</b> (automaty stanów): Mealy/Moore – na obronie lubią pytanie: „czym się różnią?”</li>
+    <li><b>Reset</b>: synchroniczny vs asynchroniczny (plus konsekwencje przy projektowaniu i weryfikacji).</li>
+  </ul>
+
+  <h4 style="margin: 0;">5) Parametry czasowe i problemy praktyczne (częsty „killer” na obronie)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Opóźnienie propagacji</b> (tpd): czas od zmiany wejścia do stabilizacji wyjścia (wpływa na maks. f zegara).</li>
+    <li><b>Setup time</b> i <b>hold time</b>: dane muszą być stabilne odpowiednio przed i po zboczu zegara.</li>
+    <li><b>Metastabilność</b>: gdy naruszysz setup/hold (lub sygnał asynchroniczny), FF może wejść w stan pośredni.</li>
+    <li><b>Synchronizacja sygnałów asynchronicznych</b>: zwykle 2 przerzutniki D w szeregu (synchronizer).</li>
+    <li><b>Hazardy/glitche</b> w logice kombinacyjnej: krótkie impulsy przez różne czasy propagacji → pomaga rejestracja sygnału lub poprawna minimalizacja.</li>
+    <li><b>Drgania styków</b> (debounce) przy przyciskach: filtr RC, przerzutnik Schmitta, filtr programowy.</li>
+  </ul>
+
+  <h4 style="margin: 0;">6) Pamięci i magistrale – minimum do „podstawowych układów”</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>ROM</b> vs <b>RAM</b> (SRAM/DRAM): trwałość danych, szybkość, zastosowania.</li>
+    <li><b>Adresowanie</b>: linie adresowe wybierają komórkę; linie danych przenoszą słowo; sygnały sterujące (CS/OE/WE).</li>
+    <li><b>Magistrale</b>: wspólne linie danych i adresu; tri-state i arbitraż dostępu.</li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Pytania kontrolne na obronę (najczęstsze)</summary>
+    <ol style="margin: 8px 0 0; padding-left: 18px;">
+      <li>Jaka jest różnica między układem kombinacyjnym a sekwencyjnym? Podaj przykłady.</li>
+      <li>Co to jest przerzutnik D i dlaczego jest ważny w systemach synchronicznych?</li>
+      <li>Wyjaśnij setup/hold i co się stanie, jeśli je złamiesz (metastabilność).</li>
+      <li>Dlaczego ripple-carry adder jest wolny i jak można go przyspieszyć?</li>
+      <li>Co daje tri-state i jakie ryzyko jest przy magistrali współdzielonej?</li>
+      <li>Latch vs flip-flop – kiedy latch jest problematyczny w projektowaniu synchronicznym?</li>
+      <li>Jak synchronizujesz sygnał asynchroniczny do domeny zegara?</li>
+      <li>Co to są hazardy/glitche i jak im zapobiegać?</li>
+      <li>Licznik asynchroniczny vs synchroniczny – plusy/minusy.</li>
+      <li>FSM Moore vs Mealy – różnice na wyjściach i opóźnieniach.</li>
+    </ol>
+  </details>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeżeli promotor dopyta „od strony praktycznej”, powiedz o
+    <i>marginesach zakłóceń, fan-out, czasach setup/hold, metastabilności i debouncingu</i> —
+    to zwykle robi wrażenie, bo pokazuje, że rozumiesz nie tylko teorię, ale też implementację.
+  </p>
+</article>
+
+
+        <article class="topic-card" id="topic-160">
+  <span class="pill">160</span>
+  <h3>Podstawowe prawa teorii obwodów</h3>
+
+  <p>
+    Teoria obwodów opisuje zachowanie układów elektrycznych za pomocą zależności między
+    <b>napięciem</b> (U), <b>prądem</b> (I), <b>rezystancją</b> (R), mocą (P) oraz elementami
+    takimi jak rezystory, kondensatory, cewki i źródła. Na obronie zwykle pytają o:
+    <b>prawo Ohma</b>, <b>prawa Kirchhoffa</b>, <b>moc i energię</b>, <b>połączenia szeregowe/równoległe</b>,
+    <b>dzielniki</b>, <b>źródła idealne i rzeczywiste</b>, a także o metody analizy:
+    <b>superpozycję</b>, <b>Thevenina/Nortona</b>, metody węzłową i oczkową.
+  </p>
+
+  <h4 style="margin: 0;">1) Podstawowe wielkości i jednostki</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Napięcie (U)</b> [V] – różnica potencjałów, „siła” wymuszająca przepływ ładunku.</li>
+    <li><b>Prąd (I)</b> [A] – przepływ ładunku w czasie: I = dQ/dt.</li>
+    <li><b>Rezystancja (R)</b> [Ω] – miara przeciwstawiania się przepływowi prądu.</li>
+    <li><b>Moc (P)</b> [W] – szybkość przekazywania energii: P = U·I.</li>
+    <li><b>Energia (E)</b> [J] – E = ∫ P dt, w DC: E = P·t.</li>
+  </ul>
+
+  <h4 style="margin: 0;">2) Prawo Ohma (podstawa absolutna)</h4>
+  <p style="margin: 0;">
+    Prawo Ohma dla elementu rezystancyjnego:
+    <b>U = R · I</b>. Obowiązuje dla rezystorów liniowych (w pewnym zakresie pracy).
+    W praktyce na obronie warto dopowiedzieć, że elementy nieliniowe (np. dioda)
+    nie spełniają prostego U=RI w całym zakresie.
+  </p>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Co mogą dopytać o prawo Ohma?</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li>Różnica między <b>rezystancją</b> a <b>rezystywnością</b> (ρ) i zależność: R = ρ·l/A.</li>
+      <li>Co to jest element liniowy i nieliniowy (np. dioda, tranzystor).</li>
+      <li>Jak prawo Ohma wygląda w AC: U i I jako wartości skuteczne / fazory.</li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">3) Prawa Kirchhoffa</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>I Prawo Kirchhoffa (KCL)</b> – prawo prądów (węzłowe):
+      suma prądów wpływających do węzła = suma prądów wypływających.
+      Wynika z zasady zachowania ładunku.
+    </li>
+    <li>
+      <b>II Prawo Kirchhoffa (KVL)</b> – prawo napięć (oczka):
+      suma spadków napięć w zamkniętej pętli = suma napięć źródeł.
+      Wynika z zasady zachowania energii.
+    </li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Uwaga praktyczna:</b> KVL w postaci idealnej może „się psuć” w układach,
+    gdzie występują silne pola elektromagnetyczne i indukcja (np. pętle w pobliżu cewek),
+    ale w klasycznej analizie obwodowej (elementy skupione) jest podstawą.
+  </p>
+
+  <h4 style="margin: 0;">4) Połączenia elementów: szeregowe i równoległe</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Rezystory szeregowo:</b> Rz = R1 + R2 + ... + Rn
+      (ten sam prąd, napięcia się sumują).
+    </li>
+    <li>
+      <b>Rezystory równolegle:</b> 1/Rz = 1/R1 + 1/R2 + ... + 1/Rn
+      (to samo napięcie, prądy się sumują).
+    </li>
+    <li>
+      Dla dwóch równoległych: <b>Rz = (R1·R2)/(R1+R2)</b>.
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">5) Dzielniki napięcia i prądu</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Dzielnik napięcia</b> (rezystory szeregowe):
+      Uwy = Uwe · (R2 / (R1 + R2)).
+    </li>
+    <li>
+      <b>Dzielnik prądu</b> (rezystory równoległe):
+      prąd dzieli się odwrotnie proporcjonalnie do rezystancji.
+    </li>
+    <li>
+      Typowe pytanie: dlaczego dzielnik napięcia „siada” po podłączeniu obciążenia?
+      (bo powstaje równoległa rezystancja i zmienia się stosunek).
+    </li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Najczęstsza pułapka: dzielnik pod obciążeniem</summary>
+    <p style="margin: 8px 0 0;">
+      Jeśli do R2 podłączysz obciążenie RL, to efektywnie masz:
+      R2' = R2 || RL, więc napięcie wyjściowe spada.
+      Na obronie warto powiedzieć: „dlatego stosuje się bufor (wzmacniacz operacyjny)
+      albo dobiera rezystory tak, aby RL było dużo większe od R2”.
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">6) Moc w obwodach – co musisz umieć policzyć</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>P = U · I</b></li>
+    <li><b>P = I² · R</b></li>
+    <li><b>P = U² / R</b></li>
+    <li>
+      Bilans mocy: suma mocy pobranej przez elementy pasywne
+      = suma mocy dostarczonej przez źródła (z uwzględnieniem znaków).
+    </li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Na obronie często dopytują:</b> „kiedy element oddaje moc, a kiedy pobiera?”
+    – tu wchodzi <b>konwencja znaków</b> (pasywna): jeśli prąd wpływa do zacisku o wyższym potencjale,
+    to element pobiera moc.
+  </p>
+
+  <h4 style="margin: 0;">7) Źródła idealne i rzeczywiste</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Źródło napięciowe idealne</b> – stałe U niezależnie od obciążenia (teoretyczne).</li>
+    <li><b>Źródło prądowe idealne</b> – stały I niezależnie od napięcia (teoretyczne).</li>
+    <li>
+      <b>Źródło rzeczywiste</b>:
+      <ul style="margin: 6px 0 0; padding-left: 18px;">
+        <li>napięciowe: idealne źródło U + rezystancja wewnętrzna w szeregu,</li>
+        <li>prądowe: idealne źródło I + rezystancja wewnętrzna równolegle.</li>
+      </ul>
+    </li>
+    <li>W praktyce: im mniejsza rezystancja wewnętrzna źródła napięciowego, tym lepiej.</li>
+  </ul>
+
+  <h4 style="margin: 0;">8) Zasada superpozycji (dla układów liniowych)</h4>
+  <p style="margin: 0;">
+    W obwodach <b>liniowych</b> z wieloma źródłami:
+    odpowiedź całkowita = suma odpowiedzi od każdego źródła osobno.
+    Pozostałe źródła „zerujemy”:
+    <b>źródło napięciowe</b> → zwarcie, <b>źródło prądowe</b> → rozwarcie.
+  </p>
+
+  <p style="margin-top: 6px;">
+    <b>Ważne:</b> superpozycja nie działa dla mocy (P) bezpośrednio,
+    bo moc jest funkcją nieliniową (np. I²R).
+  </p>
+
+  <h4 style="margin: 0;">9) Twierdzenia Thevenina i Nortona (mega częste na obronie)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Thevenin</b>: dowolny liniowy obwód widziany z dwóch zacisków
+      można zastąpić źródłem napięciowym Uth w szeregu z Rth.
+    </li>
+    <li>
+      <b>Norton</b>: ten sam obwód można zastąpić źródłem prądowym In równolegle z Rn.
+    </li>
+    <li>
+      Zależność: <b>Uth = In · R</b> oraz <b>Rth = Rn</b>.
+    </li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Jak policzyć Rth w praktyce?</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li>Wyłącz źródła niezależne: napięciowe → zwarcie, prądowe → rozwarcie.</li>
+      <li>Policz rezystancję widzianą z zacisków.</li>
+      <li>
+        Jeśli są źródła zależne (sterowane) – wtedy zwykle wstawiasz źródło testowe
+        i liczysz R = Utest / Itest.
+      </li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">10) Maksymalny transfer mocy (częste pytanie „na logikę”)</h4>
+  <p style="margin: 0;">
+    Dla źródła Thevenina (Uth + Rth) maksymalna moc na obciążeniu występuje gdy:
+    <b>RL = Rth</b>. Wtedy:
+    Pmax = (Uth²) / (4·Rth).
+  </p>
+
+  <p style="margin-top: 6px;">
+    <b>Praktyczna uwaga:</b> w zasilaniu zwykle NIE chcemy maksymalnego transferu mocy,
+    tylko wysokiej sprawności → wtedy RL ≫ Rth.
+  </p>
+
+  <h4 style="margin: 0;">11) Metody analizy obwodów (w skrócie, ale „pod obronę”)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Metoda węzłowa</b> – piszesz równania KCL dla węzłów, niewiadome to napięcia węzłowe.</li>
+    <li><b>Metoda oczkowa</b> – piszesz równania KVL dla oczek, niewiadome to prądy oczkowe.</li>
+    <li><b>Redukcja</b> – łączenie rezystancji szeregowo/równolegle, przekształcenia Δ↔Y.</li>
+  </ul>
+
+  <h4 style="margin: 0;">12) Elementy R, L, C – absolutne minimum, które mogą zahaczyć</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Rezystor:</b> U = R·I, energia zamieniana w ciepło.</li>
+    <li><b>Kondensator:</b> i(t) = C·du/dt, napięcie nie zmienia się skokowo.</li>
+    <li><b>Cewka:</b> u(t) = L·di/dt, prąd nie zmienia się skokowo.</li>
+    <li>
+      W AC: impedancje:
+      ZR = R,
+      ZC = 1/(jωC),
+      ZL = jωL.
+    </li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Bardzo częste pytanie: „co nie może zmienić się skokowo?”</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li>W kondensatorze: <b>napięcie</b> nie może zmienić się skokowo (w idealnym modelu).</li>
+      <li>W cewce: <b>prąd</b> nie może zmienić się skokowo (w idealnym modelu).</li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">13) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Podaj i wyjaśnij I oraz II prawo Kirchhoffa.</li>
+    <li>Jakie są warunki stosowania superpozycji?</li>
+    <li>Jak obliczyć moc na rezystorze w DC i w AC (wartości skuteczne)?</li>
+    <li>Co to jest źródło rzeczywiste i jak je modelujemy?</li>
+    <li>Co oznacza Thevenin i Norton oraz jak wyznaczasz parametry zastępcze?</li>
+    <li>Dlaczego dzielnik napięcia zmienia się po podłączeniu obciążenia?</li>
+    <li>Kiedy występuje maksymalny transfer mocy i dlaczego to nie zawsze jest korzystne?</li>
+    <li>Co nie może zmienić się skokowo: prąd w cewce czy napięcie na kondensatorze?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeśli chcesz zabrzmieć „inżyniersko”, to przy prawach Kirchhoffa
+    dopowiedz, że wynikają z <i>zachowania ładunku</i> i <i>zachowania energii</i>, a przy
+    Theveninie/Nortonie powiedz, że to ułatwia analizę obciążenia i dopasowanie.
+  </p>
+</article>
+
+
+        <article class="topic-card" id="topic-161">
+  <span class="pill">161</span>
+  <h3>Pomiary napięcia, prądu i rezystancji</h3>
+
+  <p>
+    Pomiary podstawowych wielkości elektrycznych (<b>U, I, R</b>) są fundamentem
+    diagnostyki i uruchamiania układów elektronicznych oraz teleinformatycznych.
+    Na obronie najczęściej pytają nie tylko „jak mierzyć”, ale też:
+    <b>jak podłączyć miernik</b>, jaki ma wpływ na obwód, jakie są
+    <b>błędy pomiaru</b>, co oznacza <b>rezystancja wejściowa</b>,
+    czym jest <b>shunt</b>, co wolno mierzyć na zakresie Ω oraz
+    jakie są zasady bezpieczeństwa.
+  </p>
+
+  <h4 style="margin: 0;">1) Co mierzymy i w jakich jednostkach?</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Napięcie (U)</b> [V] – różnica potencjałów między dwoma punktami.</li>
+    <li><b>Prąd (I)</b> [A] – przepływ ładunku w czasie.</li>
+    <li><b>Rezystancja (R)</b> [Ω] – opór elektryczny elementu/odcinka obwodu.</li>
+  </ul>
+
+  <h4 style="margin: 0;">2) Przyrządy pomiarowe – co powinieneś umieć nazwać</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Multimetr cyfrowy (DMM)</b> – najczęstszy na laboratoriach i w praktyce.</li>
+    <li><b>Woltomierz</b>, <b>amperomierz</b>, <b>omomierz</b> – często jako funkcje DMM.</li>
+    <li><b>Oscyloskop</b> – do przebiegów w czasie (szczególnie sygnały impulsowe, zakłócenia, ripple).</li>
+    <li><b>Miernik cęgowy</b> – do pomiaru prądu bez rozpinania obwodu (AC i często DC).</li>
+    <li><b>Mostek RLC / LCR meter</b> – do dokładniejszych pomiarów R, L, C.</li>
+  </ul>
+
+  <h4 style="margin: 0;">3) Pomiar napięcia (woltomierz)</h4>
+  <p style="margin: 0;">
+    Napięcie mierzy się <b>zawsze równolegle</b> do elementu lub punktów, między którymi
+    chcesz znać różnicę potencjałów.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>
+      <b>Rezystancja wejściowa</b> woltomierza powinna być duża (np. 10 MΩ),
+      żeby nie obciążać obwodu.
+    </li>
+    <li>
+      W praktyce woltomierz tworzy z badanym układem <b>dzielnik napięcia</b>,
+      więc w układach o dużej impedancji (np. czujniki, dzielniki rezystorowe)
+      może znacząco zaniżać wynik.
+    </li>
+    <li>
+      W AC ważne jest: czy miernik podaje <b>wartość skuteczną (RMS)</b>,
+      czy tylko „dla sinusa” (True RMS vs Average-responding).
+    </li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Typowe pytania na obronie o pomiar napięcia</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li>Dlaczego woltomierz ma dużą rezystancję wejściową?</li>
+      <li>Co się stanie, gdy rezystancja wejściowa miernika jest porównywalna z rezystancją obwodu?</li>
+      <li>Co oznacza True RMS i kiedy ma znaczenie?</li>
+      <li>Jak mierzyć napięcie w układzie z masą wspólną i dlaczego trzeba uważać?</li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">4) Pomiar prądu (amperomierz)</h4>
+  <p style="margin: 0;">
+    Prąd mierzy się <b>zawsze w szereg</b> z gałęzią, w której płynie.
+    Oznacza to, że trzeba <b>rozpiąć obwód</b> i włączyć miernik w tor prądu.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>
+      Amperomierz ma bardzo małą rezystancję wewnętrzną (ale nie zerową),
+      aby nie powodować dużego spadku napięcia.
+    </li>
+    <li>
+      W multimetrze pomiar prądu realizuje się przez <b>rezystor bocznikowy (shunt)</b>,
+      na którym miernik mierzy spadek napięcia i przelicza go na prąd.
+    </li>
+    <li>
+      Najczęstszy błąd: wpięcie miernika ustawionego na prąd równolegle do źródła
+      → praktycznie zwarcie → spalony bezpiecznik w mierniku.
+    </li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Shunt i burden voltage (bardzo lubią o to pytać)</summary>
+    <p style="margin: 8px 0 0;">
+      Ponieważ prąd jest mierzony na rezystorze shunt, to na mierniku pojawia się
+      spadek napięcia (tzw. <b>burden voltage</b>). W układach niskonapięciowych
+      (np. 3.3 V) może to powodować błędy, bo obniża napięcie zasilania badanego układu.
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">5) Pomiar prądu bez rozpinania obwodu</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Miernik cęgowy AC</b> – wykorzystuje transformator prądowy (działa dla AC).</li>
+    <li><b>Miernik cęgowy DC</b> – wykorzystuje czujnik Halla (działa dla DC i AC).</li>
+    <li>
+      W elektronice precyzyjnej stosuje się też:
+      <b>shunt + wzmacniacz pomiarowy</b> (np. INA219/INA226 itp.).
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">6) Pomiar rezystancji (omomierz)</h4>
+  <p style="margin: 0;">
+    Rezystancję mierzy się, gdy element jest <b>odłączony od zasilania</b>.
+    Omomierz w rzeczywistości podaje mały prąd lub napięcie testowe
+    i mierzy odpowiedź (U/I), a potem wylicza R.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Nie wolno</b> mierzyć rezystancji w obwodzie pod napięciem – grozi uszkodzeniem miernika.</li>
+    <li>
+      Jeśli rezystor jest wlutowany w układ, to inne elementy mogą tworzyć ścieżki równoległe,
+      więc wynik może być zaniżony.
+    </li>
+    <li>
+      Przy bardzo małych rezystancjach (np. 0.1 Ω) błąd przewodów pomiarowych
+      jest porównywalny z mierzonym R.
+    </li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Pomiar małych rezystancji – metoda 4-przewodowa (Kelvina)</summary>
+    <p style="margin: 8px 0 0;">
+      W pomiarze 2-przewodowym rezystancja przewodów i styków dodaje się do wyniku.
+      W metodzie <b>4-przewodowej</b> (Kelvina) osobne przewody podają prąd,
+      a osobne mierzą napięcie bez wpływu spadków na przewodach.
+      To standard w pomiarach precyzyjnych.
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">7) Błędy i niepewność pomiaru (mega ważne na obronie)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Błąd systematyczny</b> – np. źle skalibrowany miernik, offset.</li>
+    <li><b>Błąd przypadkowy</b> – fluktuacje, szumy, zakłócenia.</li>
+    <li><b>Klasa dokładności</b> / specyfikacja DMM – np. ±(0.5% + 2 cyfry).</li>
+    <li><b>Rozdzielczość</b> – ile cyfr/bitów ma wynik (np. 6000 counts, 20000 counts).</li>
+    <li><b>Wpływ miernika na obwód</b> – obciążenie wejściem woltomierza, burden voltage w amperomierzu.</li>
+  </ul>
+
+  <h4 style="margin: 0;">8) Pomiar DC i AC – o czym trzeba pamiętać</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>DC</b>: stałe napięcie/prąd, miernik podaje wartość średnią (w praktyce stałą).</li>
+    <li><b>AC</b>: miernik zwykle podaje wartość skuteczną (RMS).</li>
+    <li>
+      Dla przebiegów niesinusoidalnych (PWM, prostokąt, przebiegi odkształcone):
+      tylko miernik <b>True RMS</b> poda poprawny RMS.
+    </li>
+    <li>
+      Oscyloskop bywa lepszy, bo pokazuje przebieg i pozwala policzyć RMS z przebiegu.
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">9) Bezpieczeństwo pomiarów (to lubią sprawdzać!)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Kategorie przepięciowe</b> (CAT II / CAT III / CAT IV) – określają gdzie miernik może pracować bezpiecznie.
+    </li>
+    <li>
+      Zawsze zaczynaj od <b>najwyższego zakresu</b>, jeśli nie znasz wartości.
+    </li>
+    <li>
+      W pomiarze prądu: upewnij się, że przewód jest wpięty w gniazdo A/mA
+      i że bezpiecznik w mierniku jest sprawny.
+    </li>
+    <li>
+      Wysokie napięcia: zasada jednej ręki, izolowane sondy, brak metalowej biżuterii.
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">10) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Jak podłączasz woltomierz, a jak amperomierz i dlaczego?</li>
+    <li>Dlaczego woltomierz powinien mieć dużą rezystancję wejściową?</li>
+    <li>Co to jest shunt i burden voltage w pomiarze prądu?</li>
+    <li>Dlaczego nie wolno mierzyć rezystancji w zasilonym układzie?</li>
+    <li>Co się stanie, jeśli ustawisz miernik na prąd i podepniesz go równolegle do źródła?</li>
+    <li>Kiedy potrzebujesz True RMS?</li>
+    <li>Dlaczego pomiar rezystora wlutowanego w układ może dać zaniżony wynik?</li>
+    <li>Na czym polega metoda 4-przewodowa (Kelvina) i po co się ją stosuje?</li>
+    <li>Jakie są podstawowe źródła błędów pomiarowych?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeśli chcesz zabrzmieć bardzo „praktycznie”, wspomnij o tym,
+    że pomiar prądu w multimetrach potrafi obniżać napięcie zasilania (burden voltage),
+    a przy pomiarach małych rezystancji przewody i styki mogą stanowić większość wyniku,
+    więc stosuje się metodę 4-przewodową.
+  </p>
+</article>
+
+
+        <article class="topic-card" id="topic-162">
+  <span class="pill">162</span>
+  <h3>Pomiary bezpośrednie i pośrednie</h3>
+
+  <p>
+    W metrologii i praktyce inżynierskiej rozróżnia się <b>pomiary bezpośrednie</b>
+    oraz <b>pomiary pośrednie</b>. To temat pozornie prosty, ale na obronie często
+    pojawiają się pytania o: różnicę między nimi, przykłady, wpływ przyrządu na wynik,
+    <b>niepewność pomiaru</b>, propagację błędów i to, kiedy pomiar pośredni bywa
+    lepszy od bezpośredniego.
+  </p>
+
+  <h4 style="margin: 0;">1) Definicje – najważniejsze do zapamiętania</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Pomiar bezpośredni</b> – wartość wielkości mierzonej odczytujemy
+      bezpośrednio z przyrządu pomiarowego (lub z jego wskazania cyfrowego).
+    </li>
+    <li>
+      <b>Pomiar pośredni</b> – wartość wielkości mierzonej wyznaczamy na podstawie
+      pomiaru innych wielkości i znanej zależności (wzoru).
+    </li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Prosta intuicja:</b> bezpośredni = „miernik pokazuje wynik”, pośredni = „liczę wynik”.
+  </p>
+
+  <h4 style="margin: 0;">2) Przykłady pomiarów bezpośrednich</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Pomiar <b>napięcia</b> multimetrem (U w V).</li>
+    <li>Pomiar <b>prądu</b> multimetrem wpiętym w szereg (I w A).</li>
+    <li>Pomiar <b>rezystancji</b> omomierzem (R w Ω).</li>
+    <li>Pomiar <b>częstotliwości</b> licznikiem częstotliwości lub funkcją Hz w DMM.</li>
+    <li>Pomiar <b>temperatury</b> termometrem/sondą (np. termopara + miernik).</li>
+  </ul>
+
+  <h4 style="margin: 0;">3) Przykłady pomiarów pośrednich (bardzo częste na obronie)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      Wyznaczenie <b>rezystancji</b> metodą techniczną:
+      mierzysz U i I, liczysz R = U/I.
+    </li>
+    <li>
+      Wyznaczenie <b>mocy</b> elementu:
+      mierzysz U i I, liczysz P = U·I (lub P = I²R).
+    </li>
+    <li>
+      Wyznaczenie <b>impedancji</b> w AC:
+      mierzysz U i I (oraz fazę), liczysz Z = U/I.
+    </li>
+    <li>
+      Wyznaczenie <b>rezystywności</b> materiału:
+      mierzysz R, długość l i pole przekroju A, liczysz ρ = R·A/l.
+    </li>
+    <li>
+      Wyznaczenie <b>prędkości transmisji</b> lub opóźnienia:
+      mierzysz czas i liczbę bitów/pakietów → liczysz parametry.
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">4) Zalety i wady pomiaru bezpośredniego</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Zalety:</b> szybki, prosty, zwykle mniej obliczeń, mniejsze ryzyko błędu rachunkowego.</li>
+    <li>
+      <b>Wady:</b> zależy od jakości przyrządu; czasem przyrząd silnie wpływa na obwód
+      (np. pomiar prądu – burden voltage).
+    </li>
+    <li>
+      Ograniczenia zakresu i rozdzielczości (np. DMM nie mierzy mikroohmów dokładnie).
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">5) Zalety i wady pomiaru pośredniego</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Zalety:</b> często pozwala mierzyć wielkości, których nie da się zmierzyć bezpośrednio,
+      albo daje większą dokładność (np. pomiar małych rezystancji metodą 4-przewodową).
+    </li>
+    <li>
+      <b>Wady:</b> błąd końcowy zależy od błędów kilku pomiarów (propagacja niepewności),
+      ryzyko złego wzoru lub złych założeń modelu.
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">6) Niepewność pomiaru i propagacja błędów (to lubią sprawdzać)</h4>
+  <p style="margin: 0;">
+    W pomiarach pośrednich wynik jest funkcją kilku zmiennych:
+    <b>y = f(x1, x2, ..., xn)</b>.
+    Każda z nich ma swoją niepewność, więc wynik też ją ma.
+  </p>
+
+  <p style="margin-top: 6px;">
+    W praktyce (na poziomie inżynierskim) często stosuje się uproszczenie:
+    <b>niepewności względne</b> „sumują się” dla iloczynu i ilorazu.
+  </p>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Przykład: niepewność R = U/I</summary>
+    <p style="margin: 8px 0 0;">
+      Jeśli R = U/I, to (w przybliżeniu) niepewność względna:
+      <b>ΔR/R ≈ ΔU/U + ΔI/I</b>.
+      To oznacza, że jeśli prąd mierzysz mało dokładnie, to wynik rezystancji też będzie słaby,
+      nawet jeśli napięcie jest zmierzone bardzo dokładnie.
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">7) Błędy pomiarowe – co trzeba umieć nazwać</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Błędy systematyczne</b> – np. przesunięcie (offset), złe wzorcowanie, wpływ temperatury.</li>
+    <li><b>Błędy przypadkowe</b> – szumy, wahania, zakłócenia środowiskowe.</li>
+    <li><b>Błędy grube</b> – np. zły zakres, zły sposób podłączenia, pomyłka w odczycie.</li>
+    <li>
+      <b>Wpływ przyrządu na obwód</b>:
+      <ul style="margin: 6px 0 0; padding-left: 18px;">
+        <li>woltomierz: obciążenie (rezystancja wejściowa),</li>
+        <li>amperomierz: spadek napięcia na shuncie (burden voltage).</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">8) Kiedy pomiar pośredni jest lepszy?</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Gdy przyrząd bezpośredni ma zbyt małą rozdzielczość lub zbyt duży błąd.</li>
+    <li>Gdy wielkości nie da się zmierzyć bezpośrednio (np. moc strat, parametry kanału).</li>
+    <li>Gdy model jest dobrze znany i pomiary wejściowe są precyzyjne.</li>
+    <li>
+      Gdy pomiar bezpośredni zakłóca układ bardziej niż pomiar pośredni
+      (np. pomiar prądu przez wpięcie DMM vs shunt + wzmacniacz).
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">9) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Jaka jest różnica między pomiarem bezpośrednim i pośrednim?</li>
+    <li>Podaj po 3 przykłady każdego rodzaju pomiaru.</li>
+    <li>Dlaczego pomiar rezystancji metodą R = U/I jest pomiarem pośrednim?</li>
+    <li>Co to jest propagacja niepewności i dlaczego jest ważna?</li>
+    <li>Dlaczego pomiar pośredni może być dokładniejszy niż bezpośredni?</li>
+    <li>Jak miernik wpływa na obwód podczas pomiaru napięcia i prądu?</li>
+    <li>Jakie są główne źródła błędów pomiarowych?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeśli chcesz zabrzmieć „na poziomie”, powiedz, że pomiar pośredni
+    jest często konieczny, ale wymaga kontroli niepewności i poprawnego modelu.
+    To jest dokładnie to, co robi się w inżynierii: mierzy się coś prostego, a resztę wylicza.
+  </p>
+</article>
+
+
+        <article class="topic-card" id="topic-163">
+  <span class="pill">163</span>
+  <h3>Dzielniki napięcia i prądu</h3>
+
+  <p>
+    <b>Dzielniki napięcia i prądu</b> to jedne z najważniejszych i najczęściej używanych
+    układów w elektronice. Na obronie zwykle pytają o wzory, sposób wyprowadzenia,
+    zachowanie po podłączeniu obciążenia, dobór rezystorów, wpływ miernika oraz
+    interpretację w kategoriach <b>modelu Thevenina</b> i <b>Nortona</b>.
+  </p>
+
+  <h4 style="margin: 0;">1) Dzielnik napięcia – definicja i zasada działania</h4>
+  <p style="margin: 0;">
+    <b>Dzielnik napięcia</b> to układ (najczęściej dwóch rezystorów połączonych szeregowo),
+    który umożliwia uzyskanie na wyjściu napięcia będącego częścią napięcia wejściowego.
+  </p>
+
+  <p style="margin-top: 6px;">
+    Dla dwóch rezystorów w szeregu (R1 na górze, R2 na dole), napięcie wyjściowe
+    mierzone na R2 wynosi:
+    <b>Uwy = Uwe · (R2 / (R1 + R2))</b>
+  </p>
+
+  <p style="margin-top: 6px;">
+    <b>Intuicja:</b> w szeregu płynie ten sam prąd, a spadki napięcia są proporcjonalne
+    do rezystancji.
+  </p>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Szybkie wyprowadzenie wzoru (często pytają)</summary>
+    <p style="margin: 8px 0 0;">
+      Prąd w szeregu:
+      I = Uwe / (R1 + R2).<br/>
+      Napięcie na R2:
+      Uwy = I · R2 = Uwe · (R2 / (R1 + R2)).
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">2) Najważniejsza rzecz: dzielnik pod obciążeniem</h4>
+  <p style="margin: 0;">
+    W praktyce dzielnik prawie nigdy nie pracuje „na pusto”. Jeśli do wyjścia podłączysz
+    obciążenie <b>RL</b>, to RL jest równolegle do R2, więc:
+    <b>R2' = R2 || RL</b>
+    i dopiero wtedy:
+    <b>Uwy = Uwe · (R2' / (R1 + R2'))</b>
+  </p>
+
+  <p style="margin-top: 6px;">
+    <b>Wniosek:</b> obciążenie prawie zawsze <b>obniża</b> napięcie wyjściowe w porównaniu
+    do idealnego wzoru bez RL.
+  </p>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Zasada projektowa (ważna na obronie)</summary>
+    <p style="margin: 8px 0 0;">
+      Aby dzielnik działał poprawnie, zwykle przyjmuje się:
+      <b>RL ≥ 10 · R2</b> (czasem nawet ≥ 100 · R2),
+      czyli obciążenie powinno mieć dużo większą rezystancję niż dolny rezystor.
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">3) Dzielnik napięcia jako źródło Thevenina</h4>
+  <p style="margin: 0;">
+    Dzielnik napięcia można traktować jako źródło Thevenina:
+    <b>Uth</b> w szeregu z <b>Rth</b>.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>
+      <b>Uth</b> = Uwe · (R2 / (R1 + R2)) (czyli napięcie na pusto).
+    </li>
+    <li>
+      <b>Rth</b> = R1 || R2 (rezystancja widziana od strony wyjścia).
+    </li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    To podejście jest bardzo wygodne, bo łatwo wtedy policzyć spadek napięcia po podłączeniu RL:
+    Uwy = Uth · (RL / (Rth + RL)).
+  </p>
+
+  <h4 style="margin: 0;">4) Dzielnik prądu – definicja i zasada działania</h4>
+  <p style="margin: 0;">
+    <b>Dzielnik prądu</b> występuje w połączeniu równoległym. Napięcie na gałęziach jest takie samo,
+    ale prąd rozdziela się między gałęzie w zależności od rezystancji.
+  </p>
+
+  <p style="margin-top: 6px;">
+    Dla dwóch rezystorów równolegle (R1 i R2) prąd w gałęzi R1 wynosi:
+    <b>I1 = I · (R2 / (R1 + R2))</b><br/>
+    a prąd w gałęzi R2:
+    <b>I2 = I · (R1 / (R1 + R2))</b>
+  </p>
+
+  <p style="margin-top: 6px;">
+    <b>Intuicja:</b> prąd płynie chętniej przez mniejszą rezystancję, więc gałąź o mniejszym R
+    dostaje większy prąd.
+  </p>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Szybkie wyprowadzenie (KCL + prawo Ohma)</summary>
+    <p style="margin: 8px 0 0;">
+      W równoległym: U jest takie samo.<br/>
+      I1 = U/R1, I2 = U/R2, a I = I1 + I2.<br/>
+      Po przekształceniu dostajesz zależności powyżej.
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">5) Praktyczne zastosowania dzielników napięcia</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Pomiar napięć</b> – dopasowanie zakresu do ADC (np. 0–3.3 V).</li>
+    <li><b>Polaryzacja tranzystorów</b> – ustawienie napięcia bazy/bramki.</li>
+    <li><b>Ustawianie poziomów logicznych</b> – np. proste dopasowanie napięć (uwaga: nie zawsze poprawne).</li>
+    <li><b>Sprzężenia zwrotne</b> w stabilizatorach i przetwornicach.</li>
+    <li><b>Referencje napięciowe</b> i układy progowe (komparatory).</li>
+  </ul>
+
+  <h4 style="margin: 0;">6) Praktyczne zastosowania dzielników prądu</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Bocznikowanie prądu</b> – np. w amperomierzach (shunt).</li>
+    <li><b>Rozdział prądu</b> w układach równoległych.</li>
+    <li><b>Układy zabezpieczeń</b> i ograniczania prądu.</li>
+  </ul>
+
+  <h4 style="margin: 0;">7) Dobór rezystorów w dzielniku napięcia – na co patrzeć</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Stosunek R1/R2</b> ustala napięcie wyjściowe.
+    </li>
+    <li>
+      <b>Wartości bezwzględne</b> (czyli „jak duże rezystory”) wpływają na:
+      <ul style="margin: 6px 0 0; padding-left: 18px;">
+        <li>pobór prądu (im mniejsze R, tym większy prąd i straty),</li>
+        <li>wrażliwość na zakłócenia (im większe R, tym większa podatność),</li>
+        <li>wpływ obciążenia (im większe R, tym łatwiej „siada” napięcie).</li>
+      </ul>
+    </li>
+    <li>
+      <b>Moc na rezystorach</b>: P = U²/R lub P = I²R – ważne, żeby nie przekroczyć mocy znamionowej.
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">8) Wpływ miernika (bardzo częsty „trick” na obronie)</h4>
+  <p style="margin: 0;">
+    Gdy mierzysz Uwy multimetrem, to rezystancja wejściowa miernika (np. 10 MΩ)
+    jest obciążeniem RL. W większości przypadków jest bardzo duża i wpływ jest mały,
+    ale przy dzielnikach z dużymi rezystorami (np. setki kΩ / MΩ) wynik może się zmienić.
+  </p>
+
+  <h4 style="margin: 0;">9) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Podaj wzór na dzielnik napięcia i krótko go wyprowadź.</li>
+    <li>Co się dzieje z napięciem wyjściowym, gdy podłączysz obciążenie?</li>
+    <li>Dlaczego dzielnik napięcia można opisać modelem Thevenina?</li>
+    <li>Jaka jest rezystancja wyjściowa dzielnika (Rth) i po co ją liczymy?</li>
+    <li>Podaj wzór na dzielnik prądu dla dwóch rezystorów równoległych.</li>
+    <li>Dlaczego prąd dzieli się odwrotnie proporcjonalnie do rezystancji?</li>
+    <li>Jak dobrać wartości rezystorów w dzielniku pod ADC 3.3 V?</li>
+    <li>Jak rezystancja wejściowa miernika wpływa na wynik pomiaru dzielnika?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeśli zapytają „dlaczego dzielnik nie działa”, prawie zawsze
+    chodzi o to, że ktoś nie uwzględnił obciążenia. Powiedz wtedy o:
+    <i>R2 || RL</i> oraz o tym, że dzielnik ma niezerową rezystancję wyjściową (R1 || R2).
+  </p>
+</article>
+
       </section>
 
       <section class="topics" aria-labelledby="additional-topics-164">
         <h2 id="additional-topics-164">Zagadnienia 164–168</h2>
 
-        <article class="topic-card">
-          <span class="pill">164</span>
-          <h3>Przyrządy pomiarowe</h3>
-          <p>
-            Przyrządy pomiarowe dzielą się na analogowe i cyfrowe oraz na
-            laboratoryjne i eksploatacyjne. Woltomierze, amperomierze i
-            multimetry służą do podstawowych pomiarów, a oscyloskopy, generatory
-            funkcyjne i analizatory widma do obserwacji przebiegów czasowych i
-            częstotliwościowych. Kluczowe parametry to zakres, rozdzielczość,
-            dokładność, klasa przyrządu, rezystancja wejściowa, pasmo oraz
-            czas próbkowania. W praktyce zwraca się uwagę na kalibrację,
-            niepewność, wpływ obciążenia oraz procedury bezpieczeństwa
-            (np. kategorie przepięciowe CAT).
-          </p>
-        </article>
+        <article class="topic-card" id="topic-164">
+  <span class="pill">164</span>
+  <h3>Przyrządy pomiarowe</h3>
 
-        <article class="topic-card">
-          <span class="pill">165</span>
-          <h3>Pomiary charakterystyk elementów elektronicznych</h3>
-          <p>
-            Charakterystyki elementów (np. diod, tranzystorów, rezystorów) wyznacza
-            się poprzez pomiar zależności prądowo-napięciowych oraz parametrów
-            częstotliwościowych. Stosuje się źródła zasilania, układy polaryzacji
-            i przyrządy rejestrujące (multimetry, oscyloskopy, analizatory).
-            Dla diod istotne są parametry progowe, prąd wsteczny i rezystancja
-            dynamiczna; dla tranzystorów — charakterystyki wejściowe i wyjściowe,
-            wzmocnienie, punkt pracy i obszary pracy. Ważne są stabilne warunki
-            termiczne, kompensacja temperatury oraz eliminacja błędów wynikających
-            z oporności przewodów i źródła zasilania.
-          </p>
-        </article>
+  <p>
+    <b>Przyrządy pomiarowe</b> to urządzenia służące do wyznaczania wartości wielkości
+    fizycznych (w elektronice najczęściej: U, I, R, f, P, parametry sygnału).
+    Na obronie pytania zazwyczaj idą w kierunku: jakie są typy mierników, do czego służą,
+    jak wpływają na obwód, jakie mają ograniczenia oraz jakie parametry opisują ich jakość
+    (dokładność, rozdzielczość, pasmo, True RMS, CAT, itp.).
+  </p>
 
-        <article class="topic-card">
-          <span class="pill">166</span>
-          <h3>Komparator analogowy i jego zastosowania</h3>
-          <p>
-            Komparator analogowy porównuje dwa napięcia i generuje sygnał
-            binarny wskazujący, które z nich jest większe. Stosuje się go w
-            układach progowych, detekcji zera, generatorach PWM, przetwornikach
-            A/C oraz w zabezpieczeniach nadnapięciowych. Kluczowe parametry to
-            czas propagacji, histereza (przerzutnik Schmitta), napięcie
-            niezrównoważenia, zakres napięć wejściowych (common-mode) i
-            kompatybilność z logiką cyfrową. W praktyce uwzględnia się też
-            zakłócenia i potrzebę filtracji, aby uniknąć drgań na wyjściu.
-          </p>
-        </article>
+  <h4 style="margin: 0;">1) Podstawowe rodzaje przyrządów pomiarowych</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Multimetr</b> (analogowy lub cyfrowy) – pomiar U, I, R oraz często: f, C, test diody, ciągłość.</li>
+    <li><b>Oscyloskop</b> – obserwacja przebiegów w czasie (U(t)).</li>
+    <li><b>Generator funkcyjny</b> – źródło sygnałów testowych (sinus, prostokąt, trójkąt, PWM).</li>
+    <li><b>Zasilacz laboratoryjny</b> – regulowane napięcie/prąd, tryb CV/CC.</li>
+    <li><b>Miernik cęgowy</b> – pomiar prądu bez rozpinania obwodu.</li>
+    <li><b>LCR meter</b> – pomiar R, L, C (często z wyborem częstotliwości pomiarowej).</li>
+    <li><b>Analizator widma</b> – analiza sygnałów w dziedzinie częstotliwości.</li>
+    <li><b>Liczniki częstotliwości</b> – dokładny pomiar f, okresu, czasu.</li>
+    <li><b>Watomierz</b> – pomiar mocy (szczególnie w AC i energetyce).</li>
+  </ul>
 
-        <article class="topic-card">
-          <span class="pill">167</span>
-          <h3>Zjawiska w kanale radiokomunikacji ruchomej</h3>
-          <p>
-            Kanał ruchomy charakteryzuje się zanikiem sygnału (fading),
-            wielodrogowością i przesunięciem Dopplera wynikającym z ruchu
-            użytkownika. Pojawiają się interferencje, szumy, zmiany tłumienia
-            i zjawiska cieniowania. Istotne są modele propagacji (np. Rayleigh,
-            Rician), szerokość pasma koherencji i czas koherencji, które wpływają
-            na dobór modulacji i kodowania. Systemy mobilne stosują dywersyfikację,
-            równoważenie kanału, kodowanie korekcyjne i adaptację modulacji, aby
-            utrzymać jakość transmisji.
-          </p>
-        </article>
+  <h4 style="margin: 0;">2) Multimetr (DMM) – co musisz umieć powiedzieć</h4>
+  <p style="margin: 0;">
+    <b>Multimetr cyfrowy</b> jest podstawowym przyrządem do pomiaru wielkości elektrycznych.
+    Najczęściej mierzy:
+    napięcie DC/AC, prąd DC/AC, rezystancję, ciągłość, diodę, pojemność, częstotliwość.
+  </p>
 
-        <article class="topic-card">
-          <span class="pill">168</span>
-          <h3>Komórkowe sieci dostępowe</h3>
-          <p>
-            Sieci komórkowe dzielą obszar na komórki obsługiwane przez stacje
-            bazowe, co umożliwia wielokrotne wykorzystanie częstotliwości.
-            Architektura obejmuje warstwę radiową (RAN), rdzeń sieci oraz
-            systemy zarządzania i monitoringu. Kluczowe zagadnienia to planowanie
-            komórek, handover, kontrola mocy, alokacja zasobów radiowych i
-            obsługa wielu usług (głos, dane, IoT). W praktyce istotne są też
-            mechanizmy QoS, bezpieczeństwo, roaming oraz ewolucja standardów
-            (3G/4G/5G) wpływająca na opóźnienia i przepustowość.
-          </p>
-        </article>
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Pomiar napięcia</b> – równolegle, duża rezystancja wejściowa (np. 10 MΩ).</li>
+    <li><b>Pomiar prądu</b> – w szereg, shunt + bezpiecznik (uwaga na spalenie bezpiecznika).</li>
+    <li><b>Pomiar rezystancji</b> – tylko w układzie bez zasilania.</li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Parametry DMM, o które lubią pytać</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li><b>Dokładność</b> – np. ±(0.5% + 2 cyfry).</li>
+      <li><b>Rozdzielczość</b> – np. 6000 counts / 20000 counts.</li>
+      <li><b>True RMS</b> – ważne dla przebiegów niesinusoidalnych.</li>
+      <li><b>Rezystancja wejściowa</b> – wpływa na obciążenie obwodu.</li>
+      <li><b>Zakresy</b> – ręczne lub automatyczne (autoranging).</li>
+      <li><b>CAT</b> – bezpieczeństwo pomiarów (CAT II / CAT III / CAT IV).</li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">3) Oscyloskop – do czego jest i co może pokazać</h4>
+  <p style="margin: 0;">
+    <b>Oscyloskop</b> pozwala obserwować sygnał w czasie, czyli U(t).
+    Jest niezastąpiony do diagnozy: zakłóceń, szumów, impulsów, przebiegów PWM,
+    opóźnień, overshoot/undershoot, jittera, czasów narastania.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Pasmo</b> (MHz/GHz) – maksymalna częstotliwość poprawnego pomiaru.</li>
+    <li><b>Próbkowanie</b> (MS/s, GS/s) – jak często próbkowany jest sygnał.</li>
+    <li><b>Wyzwalanie (trigger)</b> – stabilizacja obrazu (zbocze, poziom, tryby).</li>
+    <li><b>AC/DC coupling</b> – odcięcie składowej stałej w trybie AC.</li>
+    <li><b>Pomiar automatyczny</b> – f, RMS, Vpp, duty cycle, itp.</li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Sondy oscyloskopowe (bardzo częste pytanie)</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li><b>x1</b> – większe obciążenie obwodu (większa pojemność wejściowa), mniejsze pasmo.</li>
+      <li><b>x10</b> – mniejsze obciążenie, większe pasmo, typowy wybór w praktyce.</li>
+      <li><b>Kompensacja sondy</b> – ustawiana na sygnale prostokątnym z wyjścia kalibracyjnego.</li>
+      <li><b>Uwaga na masę</b> – klips masy tworzy pętlę i może łapać zakłócenia (indukcyjność przewodu).</li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">4) Miernik cęgowy – pomiar prądu bez rozpinania</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>AC</b> – zwykle transformator prądowy (działa tylko dla prądu zmiennego).</li>
+    <li><b>DC</b> – czujnik Halla (działa dla prądu stałego i zmiennego).</li>
+    <li>Plus: wygoda i bezpieczeństwo. Minus: mniejsza dokładność przy małych prądach.</li>
+  </ul>
+
+  <h4 style="margin: 0;">5) LCR meter i mostki pomiarowe</h4>
+  <p style="margin: 0;">
+    <b>LCR meter</b> mierzy parametry elementów biernych:
+    rezystancję, indukcyjność i pojemność.
+    W przeciwieństwie do prostych funkcji DMM, LCR mierzy często przy zadanej częstotliwości
+    (np. 100 Hz / 1 kHz / 10 kHz) i potrafi podać parametry jakościowe.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>ESR</b> kondensatora – rezystancja szeregowa (ważna w zasilaczach impulsowych).</li>
+    <li><b>Q</b> (dobroć) cewek.</li>
+    <li><b>Tan δ</b> – straty dielektryczne.</li>
+  </ul>
+
+  <h4 style="margin: 0;">6) Analizator widma – co mierzy</h4>
+  <p style="margin: 0;">
+    <b>Analizator widma</b> pokazuje amplitudę sygnału w funkcji częstotliwości.
+    Używa się go do badania emisji, zakłóceń, harmonicznych, modulacji, pasma sygnału.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>W telekomunikacji: pomiar szerokości pasma, poziomów kanałów, zakłóceń.</li>
+    <li>W elektronice: harmoniczne przetwornic, zakłócenia EMI, szumy.</li>
+  </ul>
+
+  <h4 style="margin: 0;">7) Zasilacz laboratoryjny – jako „przyrząd pomiarowy”</h4>
+  <p style="margin: 0;">
+    Zasilacz lab nie tylko zasila układ, ale często pokazuje też prąd pobierany przez urządzenie,
+    co jest bardzo użyteczne diagnostycznie.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Tryb CV</b> (constant voltage) – utrzymuje napięcie, prąd zależy od obciążenia.</li>
+    <li><b>Tryb CC</b> (constant current) – ogranicza prąd, napięcie spada, gdy układ chce pobrać więcej.</li>
+    <li><b>Ograniczenie prądu</b> – kluczowe przy uruchamianiu nowych układów (chroni przed zwarciem).</li>
+  </ul>
+
+  <h4 style="margin: 0;">8) Kluczowe pojęcia metrologiczne (to robi wrażenie na obronie)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Dokładność</b> – jak blisko wartości rzeczywistej jest wynik.</li>
+    <li><b>Precyzja</b> – jak powtarzalne są wyniki.</li>
+    <li><b>Rozdzielczość</b> – najmniejsza zauważalna zmiana.</li>
+    <li><b>Niepewność</b> – zakres, w którym z pewnym prawdopodobieństwem jest wartość rzeczywista.</li>
+    <li><b>Kalibracja</b> – porównanie ze wzorcem i korekta/ocena błędów.</li>
+  </ul>
+
+  <h4 style="margin: 0;">9) Bezpieczeństwo pomiarów (częsty punkt obrony)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Kategorie CAT</b>:
+      <ul style="margin: 6px 0 0; padding-left: 18px;">
+        <li>CAT II – urządzenia zasilane z gniazdka (sprzęt domowy),</li>
+        <li>CAT III – instalacje budynkowe (rozdzielnie, tablice),</li>
+        <li>CAT IV – przyłącza, linie zasilające (najwyższe przepięcia).</li>
+      </ul>
+    </li>
+    <li>Wysokie napięcia: zasada jednej ręki, izolowane końcówki, brak metalowej biżuterii.</li>
+    <li>Pomiar prądu: ryzyko zwarcia → zawsze sprawdzaj gniazdo i zakres w DMM.</li>
+    <li>Pomiar rezystancji: układ musi być odłączony od zasilania.</li>
+  </ul>
+
+  <h4 style="margin: 0;">10) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Jakie podstawowe przyrządy pomiarowe wykorzystuje się w elektronice?</li>
+    <li>Czym różni się multimetr od oscyloskopu i kiedy używa się którego?</li>
+    <li>Co to jest True RMS i dlaczego ma znaczenie?</li>
+    <li>Jakie parametry opisują oscyloskop (pasmo, próbkowanie, trigger)?</li>
+    <li>Dlaczego używa się sond x10 w oscyloskopie?</li>
+    <li>Jak działa miernik cęgowy i dlaczego AC i DC mierzy się inaczej?</li>
+    <li>Jakie są różnice między dokładnością, precyzją i rozdzielczością?</li>
+    <li>Co oznaczają kategorie bezpieczeństwa CAT?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeśli chcesz zabrzmieć profesjonalnie, przy oscyloskopie wspomnij o
+    <i>pasie, próbkowaniu i sondzie x10</i>, a przy multimetrach o
+    <i>True RMS, burden voltage i CAT</i>. To są hasła, które prowadzący często uznają za „praktyczne”.
+  </p>
+</article>
+
+
+        <article class="topic-card" id="topic-165">
+  <span class="pill">165</span>
+  <h3>Pomiary charakterystyk elementów elektronicznych</h3>
+
+  <p>
+    <b>Pomiary charakterystyk elementów elektronicznych</b> polegają na wyznaczaniu zależności
+    między wielkościami elektrycznymi opisującymi element, np. <b>I(U)</b>, <b>U(I)</b>,
+    parametry dynamiczne, częstotliwościowe oraz temperaturowe. Na obronie zwykle pytają:
+    jak mierzy się charakterystyki <b>diody</b>, <b>tranzystora bipolarnego (BJT)</b>,
+    <b>MOSFET-a</b>, elementów <b>RLC</b>, jak odczytywać parametry z charakterystyki
+    i jakie błędy pomiaru mogą wystąpić.
+  </p>
+
+  <h4 style="margin: 0;">1) Co to jest „charakterystyka” elementu?</h4>
+  <p style="margin: 0;">
+    Charakterystyka to wykres lub zależność opisująca zachowanie elementu w funkcji
+    określonych wielkości. Najczęściej:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Charakterystyka prądowo-napięciowa (I-V)</b> – np. dioda, tranzystor, LED.</li>
+    <li><b>Charakterystyka dynamiczna</b> – np. czas przełączania, odpowiedź na skok.</li>
+    <li><b>Charakterystyka częstotliwościowa</b> – np. impedancja kondensatora, dobroć cewki.</li>
+    <li><b>Charakterystyka temperaturowa</b> – np. zmiana Vf diody z temperaturą.</li>
+  </ul>
+
+  <h4 style="margin: 0;">2) Podstawowa zasada pomiaru charakterystyki</h4>
+  <p style="margin: 0;">
+    Najprościej: zmieniasz wymuszenie (np. napięcie) i mierzysz odpowiedź (np. prąd),
+    zapisujesz punkty i rysujesz wykres.
+  </p>
+
+  <p style="margin-top: 6px;">
+    W praktyce do pomiarów charakterystyk używa się:
+    <b>zasilacza laboratoryjnego</b>, <b>multimetru</b>, <b>oscyloskopu</b>,
+    generatora oraz czasem <b>źródła prądowego</b> lub <b>SMU</b> (Source Measure Unit).
+  </p>
+
+  <h4 style="margin: 0;">3) Charakterystyka diody (I-V) – klasyk na obronie</h4>
+  <p style="margin: 0;">
+    Najczęściej mierzy się zależność <b>I = f(U)</b> dla polaryzacji w kierunku przewodzenia
+    oraz w kierunku zaporowym.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Napięcie przewodzenia</b> (Vf) – np. ~0.7 V dla krzemowej (zależy od prądu i temperatury).</li>
+    <li><b>Prąd wsteczny</b> (leakage) – mały prąd w kierunku zaporowym.</li>
+    <li><b>Napięcie przebicia</b> – ważne w diodach Zenera i przy dużych napięciach.</li>
+    <li><b>Rezystancja dynamiczna</b> – nachylenie charakterystyki (dU/dI) w punkcie pracy.</li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Układ pomiarowy diody – jak to się robi w praktyce</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li>Zasilacz + rezystor ograniczający prąd + dioda.</li>
+      <li>Mierzysz napięcie na diodzie (U) i prąd (I) w szeregu.</li>
+      <li>Zmieniasz napięcie zasilacza lub rezystor i zapisujesz punkty.</li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">4) Charakterystyka LED</h4>
+  <p style="margin: 0;">
+    LED jest diodą, ale dodatkowo istotne jest:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Vf</b> zależy od koloru (materiału półprzewodnika).</li>
+    <li><b>Jasność</b> zależy od prądu (w pewnym zakresie prawie liniowo).</li>
+    <li><b>Przegrzanie</b> zmienia Vf i skraca żywotność.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    Na obronie można dodać: LED powinno się zasilać <b>źródłem prądowym</b>
+    (albo rezystorem), bo ma nieliniową charakterystykę.
+  </p>
+
+  <h4 style="margin: 0;">5) Charakterystyki tranzystora bipolarnego (BJT)</h4>
+  <p style="margin: 0;">
+    Dla BJT najczęściej rozróżnia się:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Charakterystykę wejściową</b>: IB = f(UBE) (zachowuje się jak dioda).</li>
+    <li><b>Charakterystykę wyjściową</b>: IC = f(UCE) dla różnych IB.</li>
+    <li><b>Charakterystykę przenoszenia</b>: IC = f(IB) (wzmocnienie prądowe β/hFE).</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    Typowe parametry:
+    <b>β (hFE)</b>, <b>UBE</b>, <b>VCE(sat)</b>, prądy upływu, pasmo (fT).
+  </p>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Co mogą dopytać o BJT?</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li>Różnica między obszarem aktywnym, nasyceniem i odcięciem.</li>
+      <li>Jak wyznaczyć β z pomiaru?</li>
+      <li>Dlaczego β nie jest stałe (zależy od IC, temperatury, egzemplarza)?</li>
+      <li>Co to jest VCE(sat) i kiedy występuje?</li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">6) Charakterystyki tranzystora MOSFET</h4>
+  <p style="margin: 0;">
+    Dla MOSFET-a najczęściej mierzy się:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Charakterystykę przejściową</b>: ID = f(VGS) (przy stałym VDS).</li>
+    <li><b>Charakterystykę wyjściową</b>: ID = f(VDS) dla różnych VGS.</li>
+    <li><b>Parametry bramki</b>: Vth (napięcie progowe), pojemności, ładunek bramki Qg.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    W praktyce ważne są też:
+    <b>RDS(on)</b> (rezystancja w stanie włączenia),
+    straty przełączania oraz wpływ temperatury.
+  </p>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Pułapka: Vth to nie „napięcie pełnego włączenia”</summary>
+    <p style="margin: 8px 0 0;">
+      Napięcie progowe Vth jest definiowane dla małego prądu (np. 250 µA).
+      To nie oznacza, że MOSFET przy VGS = Vth przewodzi duży prąd.
+      W praktyce do pełnego włączenia potrzeba większego VGS (np. 4.5 V lub 10 V),
+      zależnie od typu MOSFET-a.
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">7) Pomiary charakterystyk elementów R, L, C</h4>
+  <p style="margin: 0;">
+    Dla elementów biernych często bada się:
+    wartości nominalne oraz zachowanie w funkcji częstotliwości.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Rezystor</b>: R oraz współczynnik temperaturowy (TCR).</li>
+    <li><b>Kondensator</b>: C, ESR, prąd upływu, zależność od częstotliwości.</li>
+    <li><b>Cewka</b>: L, rezystancja uzwojenia, dobroć Q, nasycenie rdzenia.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    Do pomiarów używa się zwykle <b>LCR meter</b> lub układów z generatorem i oscyloskopem.
+  </p>
+
+  <h4 style="margin: 0;">8) Charakterystyki dynamiczne – przełączanie i czas odpowiedzi</h4>
+  <p style="margin: 0;">
+    Charakterystyki dynamiczne opisują zachowanie elementu w czasie, np. podczas przełączania.
+    Przykłady:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>czasy narastania/opadania sygnału (tr, tf),</li>
+    <li>opóźnienie propagacji,</li>
+    <li>czasy przełączania tranzystorów (turn-on/turn-off),</li>
+    <li>odpowiedź RC/RL na skok.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    Do tego typu pomiarów praktycznie zawsze potrzebujesz <b>oscyloskopu</b>.
+  </p>
+
+  <h4 style="margin: 0;">9) Wpływ temperatury na charakterystyki (często pytają)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Dioda: Vf maleje wraz ze wzrostem temperatury (w przybliżeniu ok. -2 mV/°C).</li>
+    <li>BJT: UBE też maleje z temperaturą; prądy upływu rosną.</li>
+    <li>MOSFET: RDS(on) zwykle rośnie z temperaturą.</li>
+    <li>Rezystory: TCR – zmiana R z temperaturą.</li>
+  </ul>
+
+  <h4 style="margin: 0;">10) Typowe błędy pomiaru charakterystyk</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Brak ograniczenia prądu</b> – łatwo spalić diodę lub tranzystor.</li>
+    <li><b>Samonagrzewanie</b> elementu – zmienia parametry w trakcie pomiaru.</li>
+    <li><b>Wpływ miernika</b> – np. burden voltage przy pomiarze prądu.</li>
+    <li><b>Złe punkty odniesienia</b> – np. błędne masy przy oscyloskopie.</li>
+    <li><b>Za mała liczba punktów</b> – charakterystyka jest niedokładna.</li>
+    <li><b>Nie uwzględnienie tolerancji</b> elementów i rozrzutu produkcyjnego.</li>
+  </ul>
+
+  <h4 style="margin: 0;">11) Jak łączyć pomiar z datasheetem (bardzo ważne na obronie)</h4>
+  <p style="margin: 0;">
+    Na obronie często pojawia się pytanie:
+    „czy wyniki pomiarów zgadzają się z dokumentacją?”
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>Parametry w datasheet są podane dla konkretnych warunków (prąd, temperatura, VDS, itp.).</li>
+    <li>Jeśli warunki są inne, wynik będzie inny – i to jest normalne.</li>
+    <li>Ważne jest, żeby umieć powiedzieć: „mierzyłem w takich warunkach, więc wynik jest taki”.</li>
+  </ul>
+
+  <h4 style="margin: 0;">12) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Co to jest charakterystyka I-V i jak ją zmierzyć?</li>
+    <li>Jakie parametry diody można odczytać z charakterystyki?</li>
+    <li>Jak mierzy się charakterystyki tranzystora BJT (wejściową/wyjściową)?</li>
+    <li>Co oznacza β (hFE) i dlaczego nie jest stałe?</li>
+    <li>Jakie są najważniejsze parametry MOSFET-a (Vth, RDS(on), Qg)?</li>
+    <li>Dlaczego Vth nie oznacza „pełnego włączenia” MOSFET-a?</li>
+    <li>Jak temperatura wpływa na Vf diody i RDS(on) MOSFET-a?</li>
+    <li>Jakie błędy pomiaru charakterystyk występują najczęściej?</li>
+    <li>Dlaczego przy pomiarze charakterystyk trzeba ograniczać prąd?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeżeli prowadzący będzie dociskał „praktycznie”, to wspomnij o
+    <i>ograniczeniu prądu, samonagrzewaniu, wpływie temperatury i tym, że datasheet podaje warunki pomiaru</i>.
+    To są dokładnie te rzeczy, które odróżniają „teorię” od realnego pomiaru.
+  </p>
+</article>
+
+
+        <article class="topic-card" id="topic-166">
+  <span class="pill">166</span>
+  <h3>Komparator analogowy i jego zastosowania</h3>
+
+  <p>
+    <b>Komparator analogowy</b> to układ, który porównuje dwa napięcia i na wyjściu
+    generuje sygnał logiczny informujący, które z nich jest większe.
+    W praktyce jest to „przetwornik” sygnału analogowego na sygnał dwustanowy.
+    Na obronie często pytają o: zasadę działania, różnice między komparatorem a
+    wzmacniaczem operacyjnym, histerezę (Schmitt trigger), parametry praktyczne
+    (offset, czas propagacji), typ wyjścia (open collector / push-pull) oraz typowe zastosowania.
+  </p>
+
+  <h4 style="margin: 0;">1) Zasada działania komparatora</h4>
+  <p style="margin: 0;">
+    Komparator ma dwa wejścia:
+    <b>nieodwracające (+)</b> i <b>odwracające (−)</b>.
+    Układ porównuje napięcia:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>Jeśli <b>U+</b> &gt; <b>U−</b> → wyjście przechodzi w stan „wysoki”.</li>
+    <li>Jeśli <b>U+</b> &lt; <b>U−</b> → wyjście przechodzi w stan „niski”.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    W idealnym modelu przełączenie następuje natychmiast, ale w praktyce komparator ma
+    <b>opóźnienie propagacji</b> oraz ograniczenia pasma.
+  </p>
+
+  <h4 style="margin: 0;">2) Komparator vs wzmacniacz operacyjny (bardzo częste pytanie)</h4>
+  <p style="margin: 0;">
+    Komparator i wzmacniacz operacyjny (WO) wyglądają podobnie, ale są zoptymalizowane
+    do innej pracy:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>
+      <b>Komparator</b> jest projektowany do szybkiego przełączania i pracy w nasyceniu
+      (na wyjściu typowo 0/1).
+    </li>
+    <li>
+      <b>WO</b> jest projektowany do pracy liniowej ze sprzężeniem zwrotnym
+      (wzmacnianie, filtry, integratory).
+    </li>
+    <li>
+      WO użyty jako komparator często działa, ale może być wolny, może mieć problemy
+      z wyjściem z nasycenia i generować nieprzewidywalne opóźnienia.
+    </li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Dlaczego WO jako komparator to często zły pomysł?</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li>WO może mieć mały slew rate (wolne narastanie).</li>
+      <li>WO może długo wychodzić z nasycenia.</li>
+      <li>WO bywa niestabilny przy pracy bez sprzężenia zwrotnego.</li>
+      <li>Komparatory mają lepsze parametry przełączania i często wbudowaną histerezę.</li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">3) Napięcie odniesienia (próg porównania)</h4>
+  <p style="margin: 0;">
+    Bardzo często jedno z wejść komparatora jest ustawione na <b>napięcie odniesienia</b>
+    (np. z dzielnika, źródła referencyjnego, DAC). Wtedy komparator realizuje funkcję:
+    „czy sygnał przekroczył próg?”.
+  </p>
+
+  <p style="margin-top: 6px;">
+    Przykład: jeśli na wejściu (+) jest sygnał, a na wejściu (−) próg Uref,
+    to wyjście jest „1” gdy Uin &gt; Uref.
+  </p>
+
+  <h4 style="margin: 0;">4) Histereza – przerzutnik Schmitta (mega ważne na obronie)</h4>
+  <p style="margin: 0;">
+    Bez histerezy, gdy sygnał jest blisko progu i ma szum, wyjście komparatora może
+    szybko „drgać” (wiele przełączeń). Rozwiązaniem jest <b>histereza</b>,
+    czyli dwa progi przełączania:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>próg dla przejścia 0→1 (Uth+),</li>
+    <li>próg dla przejścia 1→0 (Uth−).</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    Komparator z histerezą nazywa się często <b>przerzutnikiem Schmitta</b>.
+    Histerezę realizuje się dodatnim sprzężeniem zwrotnym.
+  </p>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Dlaczego histereza jest tak ważna w praktyce?</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li>Usuwa drgania wyjścia przy zaszumionym sygnale.</li>
+      <li>Ułatwia detekcję przejścia przez próg.</li>
+      <li>Jest kluczowa w detekcji zera (zero-crossing) i w układach progowych.</li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">5) Typy wyjść komparatorów</h4>
+  <p style="margin: 0;">
+    Komparatory mają różne rodzaje wyjść, a to wpływa na sposób podłączenia:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>
+      <b>Open collector / open drain</b> – wyjście potrafi ściągnąć do masy, ale nie podaje „1”.
+      Wymaga rezystora podciągającego (pull-up).
+    </li>
+    <li>
+      <b>Push-pull</b> – wyjście aktywnie podaje 0 i 1 (bez pull-up).
+    </li>
+    <li>
+      <b>Wyjście TTL/CMOS kompatybilne</b> – dopasowane do logiki cyfrowej.
+    </li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Typowe pytanie:</b> „po co open collector?” – bo pozwala na łączenie wyjść (wired-OR),
+    łatwą zmianę poziomów napięć i współpracę z różnymi systemami.
+  </p>
+
+  <h4 style="margin: 0;">6) Parametry komparatora – co warto znać</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Offset wejściowy</b> – mała różnica napięć, przy której komparator przełącza (błąd progu).</li>
+    <li><b>Prądy polaryzacji wejść</b> – wpływają na dzielniki i rezystory dużej wartości.</li>
+    <li><b>Czas propagacji</b> – opóźnienie od przekroczenia progu do zmiany wyjścia.</li>
+    <li><b>Slew rate / szybkość przełączania</b> – jak szybko zmienia się wyjście.</li>
+    <li><b>Zakres napięć wejściowych</b> – czy może mierzyć napięcia blisko szyn zasilania (rail-to-rail).</li>
+    <li><b>Zasilanie</b> – pojedyncze (np. 3.3 V) lub symetryczne (±5 V).</li>
+  </ul>
+
+  <h4 style="margin: 0;">7) Typowe zastosowania komparatorów</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Detekcja progu</b> – np. „czy napięcie baterii spadło poniżej 3.0 V?”.
+    </li>
+    <li>
+      <b>Detekcja zera (zero-crossing)</b> – wykrywanie przejścia sinusoidy przez 0 V.
+    </li>
+    <li>
+      <b>Generator PWM</b> – porównanie sygnału odniesienia z przebiegiem piłokształtnym/trójkątnym.
+    </li>
+    <li>
+      <b>Konwersja analog-cyfrowa</b> – np. przetworniki flash ADC (wiele komparatorów równolegle).
+    </li>
+    <li>
+      <b>Układy zabezpieczeń</b> – undervoltage/overvoltage, overcurrent (z shuntem).
+    </li>
+    <li>
+      <b>Formowanie sygnału</b> – zamiana zaszumionego sygnału analogowego na czysty prostokąt.
+    </li>
+    <li>
+      <b>Detekcja obecności sygnału</b> – np. sygnał audio, czujniki analogowe.
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">8) Komparator w mikrokontrolerach</h4>
+  <p style="margin: 0;">
+    Wiele mikrokontrolerów ma wbudowany komparator analogowy.
+    Używa się go m.in. do:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>detekcji progów bez użycia ADC,</li>
+    <li>wybudzania z uśpienia po przekroczeniu progu,</li>
+    <li>pomiarów typu „ok/nie ok” (np. bateria dobra/zła).</li>
+  </ul>
+
+  <h4 style="margin: 0;">9) Najczęstsze błędy projektowe i pomiarowe</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Brak histerezy → drganie wyjścia przy szumie.</li>
+    <li>Zbyt duże rezystory w dzielniku → wpływ prądów polaryzacji wejść.</li>
+    <li>Brak pull-up przy wyjściu open collector/open drain.</li>
+    <li>Zbyt wolny komparator do szybkich sygnałów (zły czas propagacji).</li>
+    <li>Złe prowadzenie masy i zakłócenia (szczególnie przy progach blisko 0 V).</li>
+  </ul>
+
+  <h4 style="margin: 0;">10) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Co robi komparator analogowy i jakie ma wejścia?</li>
+    <li>Czym różni się komparator od wzmacniacza operacyjnego?</li>
+    <li>Dlaczego stosuje się histerezę i jak działa przerzutnik Schmitta?</li>
+    <li>Co to jest offset wejściowy i jaki ma wpływ na próg?</li>
+    <li>Co oznacza open collector/open drain i po co stosuje się takie wyjście?</li>
+    <li>Jakie parametry komparatora są kluczowe dla szybkich sygnałów?</li>
+    <li>Podaj kilka praktycznych zastosowań komparatorów.</li>
+    <li>Dlaczego komparator jest ważny w układach ADC i PWM?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeżeli zapytają o „problem praktyczny”, odpowiedz o
+    <i>szumie przy progu i konieczności histerezy</i>.
+    To jest najczęstszy realny powód, dla którego komparator w układzie „wariuje”.
+  </p>
+</article>
+
+
+        <article class="topic-card" id="topic-167">
+  <span class="pill">167</span>
+  <h3>Zjawiska w kanale radiokomunikacji ruchomej</h3>
+
+  <p>
+    <b>Kanał radiokomunikacji ruchomej</b> (mobile radio channel) jest środowiskiem transmisji,
+    w którym nadajnik i/lub odbiornik poruszają się, a sygnał dociera do odbiornika
+    wieloma drogami. Powoduje to zjawiska takie jak: <b>tłumienie</b>, <b>zaniki (fading)</b>,
+    <b>wielodrogowość</b>, <b>rozpraszanie</b>, <b>odbicia</b>, <b>efekt Dopplera</b>,
+    a w konsekwencji zmiany jakości łącza w czasie.
+    Na obronie często pytają o różnicę między <b>path loss</b>, <b>shadowing</b> i <b>fading</b>,
+    o wpływ prędkości ruchu, o pasmo/czas koherencji oraz o to, jak systemy (LTE/5G/Wi-Fi)
+    sobie z tym radzą.
+  </p>
+
+  <h4 style="margin: 0;">1) Podstawowe pojęcia – trzy warstwy „zaniku” sygnału</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Path loss</b> (tłumienie średnie) – spadek mocy wraz z odległością
+      (zależny od środowiska: miasto, wieś, wnętrza).
+    </li>
+    <li>
+      <b>Shadowing</b> (zanik wolnozmienny) – przesłanianie sygnału przez przeszkody
+      (budynki, wzgórza). Zwykle modelowany rozkładem log-normalnym.
+    </li>
+    <li>
+      <b>Small-scale fading</b> (zanik szybkozmienny) – szybkie wahania amplitudy i fazy
+      przez wielodrogowość i interferencję fal.
+    </li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>To jest super ważne na obronie:</b> prowadzący często chce usłyszeć, że rozumiesz
+    te trzy zjawiska jako oddzielne mechanizmy.
+  </p>
+
+  <h4 style="margin: 0;">2) Wielodrogowość (multipath) – skąd się bierze?</h4>
+  <p style="margin: 0;">
+    Sygnał radiowy w środowisku rzeczywistym dociera do odbiornika wieloma drogami:
+    poprzez <b>odbicia</b> (od budynków), <b>dyfrakcję</b> (ugięcie na krawędziach),
+    <b>rozproszenie</b> (na nierównościach, drzewach, samochodach).
+  </p>
+
+  <p style="margin-top: 6px;">
+    Te kopie sygnału docierają z różnymi opóźnieniami i fazami, przez co mogą się
+    <b>wzmacniać</b> lub <b>wygaszać</b> (interferencja).
+  </p>
+
+  <h4 style="margin: 0;">3) Zaniki sygnału (fading) – rodzaje</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Fading Rayleigh</b> – gdy brak dominującej składowej LOS (typowo w mieście).
+    </li>
+    <li>
+      <b>Fading Rician</b> – gdy jest składowa LOS (np. otwarta przestrzeń).
+    </li>
+    <li>
+      <b>Fast fading</b> – szybkie zmiany w czasie (ruch, Doppler).
+    </li>
+    <li>
+      <b>Slow fading</b> – wolne zmiany (shadowing, przesłanianie).
+    </li>
+    <li>
+      <b>Flat fading</b> – zanik jednakowy dla całego pasma sygnału.
+    </li>
+    <li>
+      <b>Frequency-selective fading</b> – różny zanik w zależności od częstotliwości
+      (powoduje zniekształcenia i ISI).
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">4) Rozproszenie opóźnień i ISI (Inter-Symbol Interference)</h4>
+  <p style="margin: 0;">
+    Wielodrogowość powoduje, że kopie sygnału docierają z różnymi opóźnieniami.
+    Jeśli różnice opóźnień są porównywalne z czasem symbolu, pojawia się
+    <b>ISI</b> – interferencja międzysymbolowa.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Delay spread</b> – miara rozrzutu opóźnień.</li>
+    <li><b>RMS delay spread</b> – typowa miara w systemach mobilnych.</li>
+    <li>ISI pogarsza BER i wymusza korekcję w systemie.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Praktyczna konsekwencja:</b> dlatego LTE/5G używa OFDM + cyclic prefix.
+  </p>
+
+  <h4 style="margin: 0;">5) Pasmo koherencji (coherence bandwidth)</h4>
+  <p style="margin: 0;">
+    <b>Pasmo koherencji</b> to przybliżony zakres częstotliwości, w którym kanał ma podobną odpowiedź.
+    Jeśli sygnał ma pasmo mniejsze niż pasmo koherencji → kanał jest „płaski” (flat fading).
+    Jeśli sygnał ma pasmo większe → kanał jest selektywny częstotliwościowo.
+  </p>
+
+  <p style="margin-top: 6px;">
+    Związek intuicyjny: im większy delay spread, tym mniejsze pasmo koherencji.
+  </p>
+
+  <h4 style="margin: 0;">6) Efekt Dopplera i rozproszenie Dopplera</h4>
+  <p style="margin: 0;">
+    Gdy nadajnik lub odbiornik się porusza, pojawia się <b>przesunięcie Dopplera</b>:
+    częstotliwość odebranego sygnału jest inna niż nadanego.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>Im większa prędkość, tym większe przesunięcie Dopplera.</li>
+    <li>W środowisku wielodrogowym pojawia się <b>rozproszenie Dopplera</b> (Doppler spread).</li>
+    <li>Powoduje to szybkie zmiany kanału w czasie.</li>
+  </ul>
+
+  <h4 style="margin: 0;">7) Czas koherencji (coherence time)</h4>
+  <p style="margin: 0;">
+    <b>Czas koherencji</b> to przybliżony czas, w którym kanał można uznać za „stały”.
+    Jest odwrotnie proporcjonalny do Doppler spread.
+  </p>
+
+  <p style="margin-top: 6px;">
+    <b>Intuicja:</b> im szybciej porusza się terminal, tym szybciej kanał się zmienia
+    i tym krótszy czas koherencji.
+  </p>
+
+  <h4 style="margin: 0;">8) Szumy i zakłócenia w kanale radiowym</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Szum termiczny</b> – tło fizyczne (AWGN) w odbiorniku.</li>
+    <li><b>Zakłócenia współkanałowe</b> – od innych użytkowników/komórek (szczególnie w sieciach komórkowych).</li>
+    <li><b>Zakłócenia sąsiedniokanałowe</b> – od sygnałów obok w paśmie.</li>
+    <li><b>Interferencja wielodrogowa</b> – w sensie ISI.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    W systemach mobilnych często mówi się nie tylko o SNR, ale o <b>SINR</b>
+    (Signal to Interference + Noise Ratio).
+  </p>
+
+  <h4 style="margin: 0;">9) Parametry jakości łącza w kanale ruchomym</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>RSSI</b> – wskaźnik poziomu sygnału (nie zawsze precyzyjny).</li>
+    <li><b>RSRP / RSRQ</b> – typowe w LTE (moc sygnału referencyjnego i jego jakość).</li>
+    <li><b>SNR / SINR</b> – kluczowe do doboru modulacji i kodowania.</li>
+    <li><b>BER</b> – bit error rate.</li>
+    <li><b>FER/BLER</b> – błędy ramek/bloków.</li>
+  </ul>
+
+  <h4 style="margin: 0;">10) Jak systemy radzą sobie z kanałem ruchomym?</h4>
+  <p style="margin: 0;">
+    Nowoczesne systemy radiowe stosują wiele mechanizmów kompensacji zjawisk kanałowych:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>OFDM</b> – odporność na selektywność częstotliwościową (kanał dzieli się na podnośne).</li>
+    <li><b>Cyclic prefix</b> – ograniczenie ISI.</li>
+    <li><b>Equalizacja</b> – kompensacja zniekształceń kanału.</li>
+    <li><b>Channel estimation</b> – estymacja kanału na podstawie pilotów.</li>
+    <li><b>Adaptacja modulacji i kodowania</b> (AMC) – dobór MCS do jakości kanału.</li>
+    <li><b>Diversity</b> – różnorodność (czasowa, częstotliwościowa, przestrzenna).</li>
+    <li><b>MIMO</b> – wiele anten, poprawa przepływności i odporności.</li>
+    <li><b>HARQ</b> – retransmisje z miękką informacją.</li>
+  </ul>
+
+  <h4 style="margin: 0;">11) Praktyczne scenariusze kanału ruchomego</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Miasto (urban)</b>: silna wielodrogowość, Rayleigh fading, dużo zakłóceń.</li>
+    <li><b>Wieś (rural)</b>: często LOS, mniejsza wielodrogowość, Rician fading.</li>
+    <li><b>Wnętrza budynków</b>: duże tłumienie ścian, mocny shadowing.</li>
+    <li><b>Autostrada</b>: duży Doppler, szybkie zmiany kanału.</li>
+  </ul>
+
+  <h4 style="margin: 0;">12) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Jaka jest różnica między path loss, shadowing i fading?</li>
+    <li>Skąd bierze się wielodrogowość i jakie ma skutki?</li>
+    <li>Co to jest ISI i kiedy występuje?</li>
+    <li>Czym różni się fading Rayleigh od Rician?</li>
+    <li>Co to jest pasmo koherencji i od czego zależy?</li>
+    <li>Co to jest efekt Dopplera i jak wpływa na kanał ruchomy?</li>
+    <li>Co to jest czas koherencji i jak zależy od prędkości?</li>
+    <li>Dlaczego OFDM jest popularne w LTE/5G?</li>
+    <li>Co oznacza SINR i dlaczego jest ważniejsze niż samo SNR?</li>
+    <li>Jak MIMO i diversity pomagają w kanale ruchomym?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeżeli prowadzący chce „konkretów”, powiedz:
+    <i>wielodrogowość → delay spread → ISI → OFDM + cyclic prefix</i>,
+    oraz <i>ruch → Doppler → krótki czas koherencji → potrzeba szybkiej estymacji kanału</i>.
+    To jest dokładnie logiczny łańcuch, którego szukają.
+  </p>
+</article>
+
+
+        <article class="topic-card" id="topic-168">
+  <span class="pill">168</span>
+  <h3>Komórkowe sieci dostępowe</h3>
+
+  <p>
+    <b>Komórkowe sieci dostępowe</b> (cellular access networks) to systemy radiowe,
+    w których obszar pokrycia dzieli się na <b>komórki</b> obsługiwane przez stacje bazowe.
+    Umożliwia to wielokrotne wykorzystanie częstotliwości, obsługę dużej liczby użytkowników
+    oraz mobilność (handover). Na obronie najczęściej pytają o: ideę komórki,
+    architekturę sieci (RAN + Core), handover, metody dostępu, pasma, MIMO,
+    różnice GSM/UMTS/LTE/5G oraz podstawy bezpieczeństwa.
+  </p>
+
+  <h4 style="margin: 0;">1) Idea sieci komórkowej – dlaczego „komórkowa”?</h4>
+  <p style="margin: 0;">
+    W sieci komórkowej cały obszar dzieli się na wiele komórek (cell),
+    a każda z nich ma własną stację bazową (lub sektor stacji).
+    Najważniejsza zaleta: <b>reuse częstotliwości</b> – te same zasoby radiowe
+    mogą być używane ponownie w innych komórkach, jeśli są wystarczająco oddalone.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Komórka</b> – obszar obsługiwany przez stację bazową.</li>
+    <li><b>Sektory</b> – jedna stacja bazowa często ma 3 sektory (3 anteny kierunkowe po 120°).</li>
+    <li><b>Reuse</b> – wielokrotne użycie tych samych kanałów częstotliwości w różnych komórkach.</li>
+  </ul>
+
+  <h4 style="margin: 0;">2) Podstawowe elementy sieci komórkowej</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>UE</b> (User Equipment) – telefon/modem (terminal użytkownika).</li>
+    <li><b>RAN</b> (Radio Access Network) – sieć dostępu radiowego (stacje bazowe).</li>
+    <li><b>Core Network</b> – sieć szkieletowa/operatora (uwierzytelnianie, routing, usługi).</li>
+    <li><b>Backhaul</b> – łącze transportowe między stacją bazową a core (światłowód/mikrofala).</li>
+    <li><b>SIM/USIM</b> – element uwierzytelniania i identyfikacji abonenta.</li>
+  </ul>
+
+  <h4 style="margin: 0;">3) Architektura w skrócie: GSM / UMTS / LTE / 5G</h4>
+  <p style="margin: 0;">
+    Komórkowe sieci dostępowe ewoluowały w generacjach (2G → 3G → 4G → 5G).
+    Każda generacja poprawiała: przepływność, opóźnienia, efektywność widmową,
+    obsługę mobilności i bezpieczeństwo.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>2G (GSM)</b> – głównie rozmowy + SMS, transmisja pakietowa później (GPRS/EDGE).</li>
+    <li><b>3G (UMTS)</b> – większa przepływność, usługi danych, WCDMA.</li>
+    <li><b>4G (LTE)</b> – sieć pakietowa IP, OFDM, wysoka przepływność, niskie opóźnienia.</li>
+    <li><b>5G (NR)</b> – jeszcze większa przepływność, ultra-niskie opóźnienia, slicing, masowe IoT.</li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Kluczowa różnica LTE/5G vs GSM/UMTS</summary>
+    <p style="margin: 8px 0 0;">
+      LTE i 5G są projektowane jako systemy <b>pakietowe IP</b> (VoLTE/VoNR),
+      podczas gdy GSM i UMTS miały mocno rozwiniętą część komutacji łączy (CS)
+      dla rozmów głosowych.
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">4) Warstwa radiowa – metody dostępu i modulacje</h4>
+  <p style="margin: 0;">
+    W sieciach komórkowych zasoby radiowe są współdzielone przez wielu użytkowników.
+    Stosuje się różne metody dostępu (w zależności od generacji):
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>FDMA</b> – podział pasma na kanały (GSM częściowo).</li>
+    <li><b>TDMA</b> – podział czasu na szczeliny (GSM).</li>
+    <li><b>CDMA</b> – rozpraszanie kodem (UMTS).</li>
+    <li><b>OFDMA</b> – podział na podnośne (LTE downlink, 5G).</li>
+    <li><b>SC-FDMA</b> – uplink LTE (mniejsze PAPR).</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    Modulacje w LTE/5G: QPSK, 16QAM, 64QAM, 256QAM (adaptacyjnie zależnie od SINR).
+  </p>
+
+  <h4 style="margin: 0;">5) Planowanie komórek: zasięg vs pojemność</h4>
+  <p style="margin: 0;">
+    W sieciach komórkowych istnieje kompromis:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Zasięg</b> – jak daleko działa stacja bazowa.</li>
+    <li><b>Pojemność</b> – ilu użytkowników może obsłużyć przy dobrej jakości.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    Im mniejsza komórka, tym większa pojemność (bo więcej reuse), ale rośnie liczba handoverów
+    i koszty infrastruktury.
+  </p>
+
+  <h4 style="margin: 0;">6) Handover (przekazywanie połączenia) – absolutny klasyk</h4>
+  <p style="margin: 0;">
+    <b>Handover</b> to proces przełączenia terminala z jednej komórki do drugiej podczas ruchu.
+    Jest kluczowy dla utrzymania połączenia i jakości usług.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Handover twardy (hard)</b> – „break before make” (typowo LTE/5G).</li>
+    <li><b>Handover miękki (soft)</b> – „make before break” (UMTS, CDMA).</li>
+    <li>Handover może być sterowany pomiarami UE (RSRP/RSRQ/SINR).</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Co jest ważne na obronie:</b> handover to nie tylko „przełączenie”, ale też
+    zarządzanie zasobami i sygnalizacja w sieci.
+  </p>
+
+  <h4 style="margin: 0;">7) Interferencja w sieciach komórkowych</h4>
+  <p style="margin: 0;">
+    Ponieważ zasoby są współdzielone, a komórki używają podobnych pasm,
+    kluczowym problemem jest <b>interferencja współkanałowa</b>.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>Interferencja ogranicza SINR i wymusza niższą modulację (mniejszą przepływność).</li>
+    <li>W LTE/5G stosuje się mechanizmy koordynacji i planowania zasobów.</li>
+  </ul>
+
+  <h4 style="margin: 0;">8) MIMO, beamforming i anteny w sieciach komórkowych</h4>
+  <p style="margin: 0;">
+    Nowoczesne sieci (LTE/5G) wykorzystują wieloantenowość:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>MIMO</b> – wiele anten nadawczych i odbiorczych (większa przepływność i odporność).</li>
+    <li><b>Diversity</b> – redukcja fadingu (np. przez różne anteny).</li>
+    <li><b>Beamforming</b> – kształtowanie wiązki w stronę użytkownika (szczególnie w 5G).</li>
+    <li><b>Massive MIMO</b> – duże macierze anten (5G).</li>
+  </ul>
+
+  <h4 style="margin: 0;">9) Pasma częstotliwości i ich znaczenie</h4>
+  <p style="margin: 0;">
+    Pasmo wpływa na zasięg i przepływność:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Niskie częstotliwości</b> (np. 700–900 MHz): lepszy zasięg, lepsza penetracja budynków.</li>
+    <li><b>Średnie</b> (np. 1800–2600 MHz): kompromis zasięg/przepływność.</li>
+    <li><b>Wysokie / mmWave</b> (np. 26–39 GHz): bardzo duża przepływność, mały zasięg, wrażliwe na przeszkody.</li>
+  </ul>
+
+  <h4 style="margin: 0;">10) QoS i usługi w sieciach komórkowych</h4>
+  <p style="margin: 0;">
+    Sieć musi obsłużyć różne typy usług:
+    głos, wideo, przeglądanie internetu, IoT.
+    Dlatego stosuje się mechanizmy QoS.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>LTE</b>: QoS poprzez QCI (QoS Class Identifier).</li>
+    <li><b>5G</b>: QoS flows, slicing (podział sieci na „plasterki” usług).</li>
+    <li>Parametry: przepływność, opóźnienie, jitter, niezawodność.</li>
+  </ul>
+
+  <h4 style="margin: 0;">11) Bezpieczeństwo w sieciach komórkowych (minimum na obronę)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Uwierzytelnianie</b> abonenta przez SIM/USIM (klucze, algorytmy operatora).</li>
+    <li><b>Szyfrowanie</b> w warstwie radiowej (ochrona transmisji).</li>
+    <li><b>Integralność</b> – ochrona przed modyfikacją sygnalizacji.</li>
+    <li>W 5G bezpieczeństwo jest wzmocnione względem 2G/3G.</li>
+  </ul>
+
+  <h4 style="margin: 0;">12) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Na czym polega idea sieci komórkowej i reuse częstotliwości?</li>
+    <li>Jakie są podstawowe elementy sieci: UE, RAN, Core, backhaul?</li>
+    <li>Jakie metody dostępu stosowano w GSM/UMTS/LTE?</li>
+    <li>Co to jest handover i jakie są jego typy?</li>
+    <li>Dlaczego w UMTS możliwy jest soft handover, a w LTE typowo hard?</li>
+    <li>Co to jest OFDM/OFDMA i dlaczego jest używane w LTE/5G?</li>
+    <li>Jak pasmo częstotliwości wpływa na zasięg i przepływność?</li>
+    <li>Co to jest MIMO i beamforming?</li>
+    <li>Jakie są główne źródła zakłóceń w sieci komórkowej?</li>
+    <li>Jakie mechanizmy QoS występują w LTE/5G?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeśli zapytają „co jest największym problemem w sieci komórkowej”,
+    odpowiedz: <i>interferencja + mobilność</i>. A potem dopowiedz:
+    <i>handover, planowanie komórek, MIMO i adaptacja modulacji</i>.
+    To jest najbardziej „inżynierska” odpowiedź.
+  </p>
+</article>
+
       </section>
 
       <section class="topics" aria-labelledby="additional-topics-169">
         <h2 id="additional-topics-169">Zagadnienia 169–175</h2>
 
-        <article class="topic-card">
-          <span class="pill">169</span>
-          <h3>Tworzenie stron HTML i CSS</h3>
-          <p>
-            HTML odpowiada za strukturę strony (nagłówki, akapity, listy,
-            formularze), a CSS za wygląd (kolory, typografia, układ). Dobre
-            praktyki obejmują semantyczne znaczniki, dostępność (np. opisy
-            alternatywne), responsywny układ siatki oraz użycie klas do
-            wielokrotnego stylowania. CSS oferuje układy Flexbox i Grid,
-            zmienne, media queries oraz system kaskady, który decyduje o
-            priorytecie reguł.
-          </p>
-        </article>
+        <article class="topic-card" id="topic-169">
+  <span class="pill">169</span>
+  <h3>Tworzenie stron internetowych z wykorzystaniem HTML i CSS</h3>
 
-        <article class="topic-card">
-          <span class="pill">170</span>
-          <h3>Język XML i definicje DTD/XML Schema</h3>
-          <p>
-            XML to format tekstowy do opisu danych o strukturze drzewiastej,
-            gdzie znaczniki definiują elementy i atrybuty. DTD i XML Schema
-            określają reguły poprawności dokumentu: dozwolone elementy,
-            kolejność, typy danych i ograniczenia. XML Schema jest bardziej
-            rozbudowane, wspiera typy proste i złożone oraz walidację
-            zgodności danych z definicją.
-          </p>
-        </article>
+  <p>
+    <b>HTML</b> (HyperText Markup Language) i <b>CSS</b> (Cascading Style Sheets) to podstawowe
+    technologie do budowania stron WWW. HTML odpowiada za <b>strukturę</b> i semantykę treści,
+    a CSS za <b>wygląd</b>, układ i responsywność. Na obronie często pytają o:
+    strukturę dokumentu HTML, semantykę, formularze, różnicę między block/inline,
+    model pudełkowy, selektory CSS, flexbox/grid, responsywność (RWD), jednostki,
+    a także o podstawy dostępności (a11y) i SEO.
+  </p>
 
-        <article class="topic-card">
-          <span class="pill">171</span>
-          <h3>Korutyny i dependency injection</h3>
-          <p>
-            Korutyny to mechanizm współbieżności, który pozwala zawieszać i
-            wznawiać funkcje bez blokowania całego wątku, co ułatwia obsługę
-            zadań asynchronicznych. Dependency injection polega na przekazywaniu
-            zależności (np. usług, repozytoriów) z zewnątrz, zamiast tworzenia
-            ich wewnątrz klasy. Zwiększa to testowalność, modularność i
-            możliwość wymiany implementacji.
-          </p>
-        </article>
+  <h4 style="margin: 0;">1) HTML – do czego służy i jak jest zbudowany dokument?</h4>
+  <p style="margin: 0;">
+    HTML opisuje strukturę strony za pomocą znaczników (tagów). Dokument HTML ma typowo:
+  </p>
 
-        <article class="topic-card">
-          <span class="pill">172</span>
-          <h3>Wzorce projektowe i architektoniczne</h3>
-          <p>
-            Przykładowe wzorce projektowe to Singleton, Factory, Observer,
-            Strategy czy Decorator. Pomagają rozwiązywać powtarzalne problemy
-            projektowe. Wzorce architektoniczne, takie jak MVC, MVVM,
-            klient-serwer, mikroserwisy czy warstwowa architektura, opisują
-            organizację komponentów na poziomie całego systemu i wpływają na
-            skalowalność oraz utrzymanie aplikacji.
-          </p>
-        </article>
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>&lt;!DOCTYPE html&gt;</b> – informacja o standardzie (HTML5).</li>
+    <li><b>&lt;html&gt;</b> – element główny.</li>
+    <li><b>&lt;head&gt;</b> – metadane, tytuł, CSS, kodowanie znaków.</li>
+    <li><b>&lt;body&gt;</b> – właściwa treść strony.</li>
+  </ul>
 
-        <article class="topic-card">
-          <span class="pill">173</span>
-          <h3>Najkrótsze ścieżki w grafach skierowanych</h3>
-          <p>
-            Algorytmy wyznaczania najkrótszych ścieżek obejmują Dijkstrę
-            (dla nieujemnych wag), Bellmana-Forda (obsługa wag ujemnych) oraz
-            Floyd-Warshalla (wszystkie pary wierzchołków). W grafach
-            skierowanych istotne jest rozróżnienie kierunku krawędzi i
-            odpowiednia reprezentacja (listy sąsiedztwa, macierze).
-            Zastosowania obejmują routing, logistykę i analizę sieci.
-          </p>
-        </article>
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Co powinno być w &lt;head&gt;? (często pytają)</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li>&lt;meta charset="utf-8"&gt; – kodowanie znaków.</li>
+      <li>&lt;meta name="viewport" ...&gt; – responsywność na telefonach.</li>
+      <li>&lt;title&gt; – tytuł strony.</li>
+      <li>Link do CSS: &lt;link rel="stylesheet" href="style.css"&gt;</li>
+      <li>Opcjonalnie: meta description (SEO), favicon.</li>
+    </ul>
+  </details>
 
-        <article class="topic-card">
-          <span class="pill">174</span>
-          <h3>Tablice i pętle w języku C++</h3>
-          <p>
-            Tablice przechowują elementy tego samego typu w ciągłym obszarze
-            pamięci, a indeksowanie rozpoczyna się od zera. Pętle (for, while,
-            do-while) służą do powtarzania instrukcji, np. iterowania po
-            tablicach. W nowoczesnym C++ często używa się kontenerów STL
-            (std::vector, std::array) oraz pętli range-based for dla większego
-            bezpieczeństwa i czytelności.
-          </p>
-        </article>
+  <h4 style="margin: 0;">2) Semantyka HTML – dlaczego jest ważna?</h4>
+  <p style="margin: 0;">
+    Semantyka oznacza używanie odpowiednich znaczników do treści, np.
+    <b>&lt;header&gt;</b>, <b>&lt;nav&gt;</b>, <b>&lt;main&gt;</b>, <b>&lt;section&gt;</b>,
+    <b>&lt;article&gt;</b>, <b>&lt;footer&gt;</b>. Dzięki temu:
+  </p>
 
-        <article class="topic-card">
-          <span class="pill">175</span>
-          <h3>Algebra Boole'a</h3>
-          <p>
-            Algebra Boole'a opisuje operacje logiczne (AND, OR, NOT) i prawa
-            upraszczania wyrażeń, takie jak prawa De Morgana, idempotentność
-            czy absorpcja. Jest podstawą projektowania układów cyfrowych i
-            minimalizacji funkcji logicznych, np. z użyciem map Karnaugha.
-          </p>
-        </article>
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>strona jest lepiej rozumiana przez przeglądarkę i roboty (SEO),</li>
+    <li>jest bardziej dostępna dla czytników ekranowych (a11y),</li>
+    <li>kod jest czytelniejszy i łatwiejszy w utrzymaniu.</li>
+  </ul>
+
+  <h4 style="margin: 0;">3) Najważniejsze elementy HTML, które musisz znać</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Nagłówki</b>: &lt;h1&gt; ... &lt;h6&gt; (ważna hierarchia!).</li>
+    <li><b>Akapit</b>: &lt;p&gt;</li>
+    <li><b>Listy</b>: &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</li>
+    <li><b>Linki</b>: &lt;a href="..."&gt;</li>
+    <li><b>Obrazki</b>: &lt;img src="..." alt="..."&gt;</li>
+    <li><b>Tabele</b>: &lt;table&gt;, &lt;tr&gt;, &lt;th&gt;, &lt;td&gt;</li>
+    <li><b>Kontenery</b>: &lt;div&gt; (niesemantyczny), &lt;span&gt; (inline)</li>
+  </ul>
+
+  <h4 style="margin: 0;">4) Formularze HTML (bardzo często na obronie)</h4>
+  <p style="margin: 0;">
+    Formularze służą do zbierania danych od użytkownika i wysyłania ich na serwer
+    (lub obsługi przez JavaScript). Kluczowe elementy:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>&lt;form&gt; – kontener formularza, ma <b>action</b> i <b>method</b> (GET/POST).</li>
+    <li>&lt;input&gt; – pola tekstowe, hasło, email, number, checkbox, radio, file itd.</li>
+    <li>&lt;textarea&gt; – większy tekst.</li>
+    <li>&lt;select&gt; – lista wyboru.</li>
+    <li>&lt;button&gt; – przycisk.</li>
+    <li>&lt;label&gt; – etykieta (ważna dla dostępności).</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Ważne:</b> poprawne powiązanie label z input (atrybut <b>for</b> i <b>id</b>).
+  </p>
+
+  <h4 style="margin: 0;">5) CSS – do czego służy i jak działa?</h4>
+  <p style="margin: 0;">
+    CSS odpowiada za stylowanie HTML: kolory, fonty, odstępy, układ, animacje,
+    responsywność. Jest „kaskadowy”, czyli ostateczny styl zależy od:
+    kolejności reguł, specyficzności selektorów i ważności (!important).
+  </p>
+
+  <h4 style="margin: 0;">6) Selektory CSS – minimum, które musisz umieć</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Element</b>: p { ... }</li>
+    <li><b>Klasa</b>: .card { ... }</li>
+    <li><b>ID</b>: #header { ... }</li>
+    <li><b>Zagnieżdżenie</b>: nav a { ... }</li>
+    <li><b>Pseudoklasy</b>: :hover, :focus, :active, :checked</li>
+    <li><b>Pseudoelementy</b>: ::before, ::after</li>
+    <li><b>Atrybuty</b>: input[type="email"] { ... }</li>
+  </ul>
+
+  <h4 style="margin: 0;">7) Model pudełkowy (box model) – klasyk</h4>
+  <p style="margin: 0;">
+    Każdy element HTML jest pudełkiem. Box model składa się z:
+    <b>content</b> → <b>padding</b> → <b>border</b> → <b>margin</b>.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>margin</b> – odstęp na zewnątrz elementu.</li>
+    <li><b>padding</b> – odstęp wewnątrz elementu.</li>
+    <li><b>border</b> – obramowanie.</li>
+    <li><b>box-sizing: border-box</b> – bardzo ważne w praktyce (ułatwia liczenie szerokości).</li>
+  </ul>
+
+  <h4 style="margin: 0;">8) Display: block / inline / inline-block</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>block</b> – zajmuje całą szerokość, łamie linię (np. div, p).</li>
+    <li><b>inline</b> – nie łamie linii, szerokość zależy od treści (np. span, a).</li>
+    <li><b>inline-block</b> – jak inline, ale można ustawiać width/height.</li>
+  </ul>
+
+  <h4 style="margin: 0;">9) Układ strony: Flexbox i Grid (bardzo często pytają)</h4>
+  <p style="margin: 0;">
+    Dwie najważniejsze techniki układu w nowoczesnym CSS:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>
+      <b>Flexbox</b> – układ w jednym kierunku (wiersz lub kolumna), idealny do menu, kart, list.
+    </li>
+    <li>
+      <b>Grid</b> – układ dwuwymiarowy (wiersze i kolumny), idealny do layoutów stron.
+    </li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Najważniejsze właściwości Flexbox (do zapamiętania)</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li>display: flex</li>
+      <li>flex-direction: row / column</li>
+      <li>justify-content (oś główna)</li>
+      <li>align-items (oś poprzeczna)</li>
+      <li>gap</li>
+      <li>flex: 1 (rozciąganie elementów)</li>
+    </ul>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Najważniejsze właściwości Grid (do zapamiętania)</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li>display: grid</li>
+      <li>grid-template-columns / rows</li>
+      <li>gap</li>
+      <li>fr (jednostka „ułamkowa”)</li>
+      <li>grid-column / grid-row</li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">10) Responsywność (RWD) – jak robi się stronę na telefon?</h4>
+  <p style="margin: 0;">
+    Responsywność oznacza, że strona poprawnie działa na różnych rozdzielczościach.
+    Najczęściej realizuje się to przez:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>media queries</b> – np. @media (max-width: 768px) { ... }</li>
+    <li><b>elastyczne jednostki</b> – %, rem, vw, vh</li>
+    <li><b>flex/grid</b> – które naturalnie dopasowują układ</li>
+    <li><b>obrazy responsywne</b> – max-width: 100%</li>
+  </ul>
+
+  <h4 style="margin: 0;">11) Jednostki w CSS – co warto znać</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>px</b> – piksele (stałe, proste).</li>
+    <li><b>%</b> – procent względem rodzica.</li>
+    <li><b>em</b> – zależne od font-size elementu.</li>
+    <li><b>rem</b> – zależne od font-size elementu root (html).</li>
+    <li><b>vw/vh</b> – procent szerokości/wysokości okna.</li>
+  </ul>
+
+  <h4 style="margin: 0;">12) Dostępność (a11y) – temat coraz częstszy na obronach</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Używanie semantycznych tagów (header/nav/main/footer).</li>
+    <li>Atrybut <b>alt</b> w obrazkach.</li>
+    <li>Poprawne <b>label</b> dla inputów.</li>
+    <li>Kontrast kolorów (czytelność).</li>
+    <li>Focus dla klawiatury (:focus).</li>
+  </ul>
+
+  <h4 style="margin: 0;">13) Podstawy SEO (minimum, które warto umieć)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Jeden sensowny &lt;h1&gt; na stronę + hierarchia nagłówków.</li>
+    <li>Meta title i meta description.</li>
+    <li>Semantyka HTML pomaga robotom.</li>
+    <li>Linki z opisowym tekstem (nie „kliknij tutaj”).</li>
+  </ul>
+
+  <h4 style="margin: 0;">14) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Jaka jest różnica między HTML a CSS?</li>
+    <li>Co to jest semantyczny HTML i dlaczego jest ważny?</li>
+    <li>Co zawiera &lt;head&gt; i po co jest meta viewport?</li>
+    <li>Jaka jest różnica między block i inline?</li>
+    <li>Wyjaśnij box model (margin/padding/border).</li>
+    <li>Jak działa kaskadowość CSS i specyficzność selektorów?</li>
+    <li>Do czego służy Flexbox, a do czego Grid?</li>
+    <li>Jak robi się responsywną stronę (RWD)?</li>
+    <li>Dlaczego alt w obrazkach jest ważny?</li>
+    <li>Podaj przykłady pseudoklas i pseudoelementów.</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeżeli chcesz zabrzmieć „praktycznie”, powiedz, że HTML to
+    <i>struktura i semantyka</i>, CSS to <i>wygląd i layout</i>, a nowoczesne układy robi się
+    głównie przez <i>Flexbox/Grid + media queries</i>. To jest najczęstszy zestaw, którego szukają.
+  </p>
+</article>
+
+
+        <article class="topic-card" id="topic-170">
+  <span class="pill">170</span>
+  <h3>Język XML, definiowanie zawartości dokumentu XML (DTD, XML Schema)</h3>
+
+  <p>
+    <b>XML (eXtensible Markup Language)</b> to język znaczników służący do opisu i wymiany danych
+    w postaci tekstowej. W przeciwieństwie do HTML, XML nie opisuje wyglądu strony,
+    tylko strukturę i znaczenie danych. XML jest wykorzystywany m.in. w konfiguracjach,
+    integracji systemów, wymianie danych (np. SOAP), plikach projektów, dokumentach,
+    a także w systemach teleinformatycznych.
+  </p>
+
+  <p>
+    Na obronie najczęściej pytają o:
+    <b>zasady składni XML</b>, różnicę między dokumentem <b>well-formed</b> i <b>valid</b>,
+    <b>atrybuty vs elementy</b>, <b>namespace</b>,
+    oraz o to, jak działa walidacja przez <b>DTD</b> i <b>XSD (XML Schema)</b>.
+  </p>
+
+  <h4 style="margin: 0;">1) Co to jest XML i do czego służy?</h4>
+  <p style="margin: 0;">
+    XML to format tekstowy, który przechowuje dane w postaci zagnieżdżonych znaczników.
+    Jest:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>czytelny dla człowieka</b> (w przeciwieństwie do binarnego),</li>
+    <li><b>łatwy do przetwarzania maszynowego</b>,</li>
+    <li><b>hierarchiczny</b> (drzewo elementów),</li>
+    <li><b>rozszerzalny</b> – użytkownik definiuje własne tagi.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    W praktyce XML jest często wypierany przez JSON w aplikacjach web,
+    ale nadal jest bardzo ważny w systemach przemysłowych, dokumentach,
+    integracji i konfiguracjach.
+  </p>
+
+  <h4 style="margin: 0;">2) Podstawowa struktura dokumentu XML</h4>
+  <p style="margin: 0;">
+    Dokument XML musi mieć <b>jeden element główny (root)</b>.
+    Przykład:
+  </p>
+
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;person&gt;
+  &lt;name&gt;Jan&lt;/name&gt;
+  &lt;surname&gt;Kowalski&lt;/surname&gt;
+  &lt;age&gt;22&lt;/age&gt;
+&lt;/person&gt;
+</pre>
+
+  <h4 style="margin: 0;">3) Najważniejsze zasady składni XML (well-formed)</h4>
+  <p style="margin: 0;">
+    Dokument XML jest <b>well-formed</b>, jeśli spełnia zasady poprawnej składni:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>znaczniki muszą być poprawnie zamknięte,</li>
+    <li>znaczniki muszą być poprawnie zagnieżdżone,</li>
+    <li>musi istnieć jeden root,</li>
+    <li>nazwy tagów są case-sensitive (np. &lt;Name&gt; ≠ &lt;name&gt;),</li>
+    <li>atrybuty muszą mieć wartości w cudzysłowie.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>To jest mega częste pytanie:</b><br/>
+    well-formed = poprawna składnia, a valid = poprawna składnia + zgodność ze schematem.
+  </p>
+
+  <h4 style="margin: 0;">4) Elementy i atrybuty – co wybrać?</h4>
+  <p style="margin: 0;">
+    W XML dane można zapisać jako:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>elementy</b>: &lt;age&gt;22&lt;/age&gt;</li>
+    <li><b>atrybuty</b>: &lt;person age="22"&gt;</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Zasada praktyczna:</b>
+    elementy są lepsze dla danych, które mogą być zagnieżdżone lub rozszerzane,
+    a atrybuty dla metadanych (np. id, type, version).
+  </p>
+
+  <h4 style="margin: 0;">5) Encje i znaki specjalne</h4>
+  <p style="margin: 0;">
+    XML ma znaki zarezerwowane, których nie można używać bezpośrednio w treści:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>&lt; → &amp;lt;</li>
+    <li>&gt; → &amp;gt;</li>
+    <li>&amp; → &amp;amp;</li>
+    <li>" → &amp;quot;</li>
+    <li>' → &amp;apos;</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    Na obronie mogą spytać: „co się stanie, jeśli wstawisz znak &lt; do tekstu?” – XML się wywali.
+  </p>
+
+  <h4 style="margin: 0;">6) Namespace (przestrzenie nazw) – po co są?</h4>
+  <p style="margin: 0;">
+    Namespace rozwiązuje problem konfliktu nazw tagów, gdy łączysz dane z różnych źródeł.
+    Przykład: dwa różne systemy mają tag &lt;id&gt; ale o innym znaczeniu.
+  </p>
+
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+&lt;root xmlns:emp="http://example.com/employee"
+      xmlns:stu="http://example.com/student"&gt;
+
+  &lt;emp:id&gt;100&lt;/emp:id&gt;
+  &lt;stu:id&gt;S-55&lt;/stu:id&gt;
+
+&lt;/root&gt;
+</pre>
+
+  <p style="margin-top: 6px;">
+    Namespace jest identyfikowany URI (to nie musi być realny adres strony).
+  </p>
+
+  <h4 style="margin: 0;">7) DTD – Document Type Definition</h4>
+  <p style="margin: 0;">
+    <b>DTD</b> to najstarszy sposób definiowania struktury dokumentu XML.
+    Określa:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>jakie elementy mogą wystąpić,</li>
+    <li>w jakiej kolejności,</li>
+    <li>czy element jest opcjonalny czy wymagany,</li>
+    <li>jakie atrybuty są dozwolone.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    DTD może być:
+    <b>wewnętrzne</b> (w tym samym pliku) lub <b>zewnętrzne</b> (osobny plik .dtd).
+  </p>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Przykład DTD (prosty)</summary>
+    <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+&lt;!DOCTYPE person [
+  &lt;!ELEMENT person (name, surname, age)&gt;
+  &lt;!ELEMENT name (#PCDATA)&gt;
+  &lt;!ELEMENT surname (#PCDATA)&gt;
+  &lt;!ELEMENT age (#PCDATA)&gt;
+]&gt;
+    </pre>
+  </details>
+
+  <h4 style="margin: 0;">8) Wady DTD (to często jest pytanie porównawcze)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>DTD nie jest w XML (ma własną składnię).</li>
+    <li>Brak typów danych (np. int, date) – wszystko jest praktycznie tekstem.</li>
+    <li>Słaba walidacja wartości (np. zakres 0–120 dla wieku).</li>
+    <li>Słabsza obsługa namespace.</li>
+  </ul>
+
+  <h4 style="margin: 0;">9) XML Schema (XSD) – nowocześniejsza walidacja</h4>
+  <p style="margin: 0;">
+    <b>XSD (XML Schema Definition)</b> to nowocześniejszy i dużo bardziej rozbudowany
+    sposób opisu struktury XML. Największe zalety:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>XSD samo jest napisane w XML (łatwiejsze narzędziowo),</li>
+    <li>posiada typy danych (int, string, boolean, date, itd.),</li>
+    <li>pozwala definiować ograniczenia (min/max, pattern regex),</li>
+    <li>dobrze wspiera namespace,</li>
+    <li>umożliwia budowę złożonych typów (complexType).</li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Przykład XSD (skrótowy)</summary>
+    <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="person"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="name" type="xs:string"/&gt;
+        &lt;xs:element name="surname" type="xs:string"/&gt;
+        &lt;xs:element name="age" type="xs:int"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;
+    </pre>
+  </details>
+
+  <h4 style="margin: 0;">10) Typy danych i ograniczenia w XSD</h4>
+  <p style="margin: 0;">
+    XSD pozwala nie tylko powiedzieć „tu jest liczba”, ale też wymusić reguły:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>minInclusive / maxInclusive</b> – zakres wartości,</li>
+    <li><b>pattern</b> – walidacja regex (np. numer telefonu),</li>
+    <li><b>enumeration</b> – lista dozwolonych wartości,</li>
+    <li><b>minOccurs / maxOccurs</b> – ile razy element może wystąpić.</li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Przykład ograniczenia wieku</summary>
+    <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+&lt;xs:element name="age"&gt;
+  &lt;xs:simpleType&gt;
+    &lt;xs:restriction base="xs:int"&gt;
+      &lt;xs:minInclusive value="0"/&gt;
+      &lt;xs:maxInclusive value="120"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+    </pre>
+  </details>
+
+  <h4 style="margin: 0;">11) Well-formed vs Valid (to pytają non-stop)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Well-formed</b> – dokument ma poprawną składnię XML.</li>
+    <li><b>Valid</b> – dokument jest well-formed + spełnia reguły DTD/XSD.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    Przykład: XML może być poprawny składniowo, ale niepoprawny względem schematu
+    (np. brakuje wymaganego pola &lt;age&gt;).
+  </p>
+
+  <h4 style="margin: 0;">12) Walidacja XML – jak wygląda w praktyce?</h4>
+  <p style="margin: 0;">
+    Walidacja polega na sprawdzeniu dokumentu XML przez parser:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>czy jest well-formed,</li>
+    <li>czy jest zgodny z DTD/XSD (jeśli podane),</li>
+    <li>czy typy danych i ograniczenia są spełnione.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    W aplikacjach walidacja może być wykonywana np. po stronie serwera
+    przy przyjmowaniu danych.
+  </p>
+
+  <h4 style="margin: 0;">13) XPath i XSLT (często jako pytanie „bonusowe”)</h4>
+  <p style="margin: 0;">
+    XML często przetwarza się narzędziami:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>XPath</b> – język do wybierania elementów w drzewie XML.</li>
+    <li><b>XSLT</b> – transformacja XML do innego formatu (np. HTML).</li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 600;">Przykłady XPath</summary>
+    <ul style="margin: 8px 0 0; padding-left: 18px;">
+      <li><code>/person/name</code> – wybierz element name.</li>
+      <li><code>//age</code> – wybierz wszystkie elementy age w dokumencie.</li>
+      <li><code>//person[age &gt; 18]</code> – osoby pełnoletnie.</li>
+    </ul>
+  </details>
+
+  <h4 style="margin: 0;">14) XML vs JSON (pytanie porównawcze na obronie)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>XML</b>: cięższy, bardziej rozbudowany, lepszy dla dokumentów i walidacji (XSD).</li>
+    <li><b>JSON</b>: lżejszy, popularny w REST API, prostszy w użyciu.</li>
+    <li><b>XML</b> ma namespace, a JSON standardowo nie.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Wniosek praktyczny:</b> JSON dominuje w web/REST, ale XML nadal jest ważny
+    w integracji (SOAP), konfiguracjach i dokumentach.
+  </p>
+
+  <h4 style="margin: 0;">15) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Co to jest XML i czym różni się od HTML?</li>
+    <li>Co oznacza, że XML jest well-formed?</li>
+    <li>Co oznacza, że XML jest valid?</li>
+    <li>Po co stosuje się DTD?</li>
+    <li>Jakie są wady DTD?</li>
+    <li>Po co stosuje się XSD i czym jest lepsze od DTD?</li>
+    <li>Jakie typy danych można definiować w XSD?</li>
+    <li>Co to jest namespace i dlaczego jest potrzebny?</li>
+    <li>Jakie znaki trzeba kodować w XML (np. &lt; i &amp;)?</li>
+    <li>Co to jest XPath i do czego służy?</li>
+    <li>Porównaj XML i JSON.</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeśli chcesz zabrzmieć „inżyniersko”, powiedz:
+    <i>DTD to starszy i prostszy mechanizm opisu struktury, a XSD to pełna walidacja z typami danych,
+    ograniczeniami i lepszą integracją z narzędziami</i>.
+    To jest dokładnie różnica, której szukają.
+  </p>
+</article>
+
+
+
+        <article class="topic-card" id="topic-171">
+  <span class="pill">171</span>
+  <h3>Koncepcja korutyn oraz mechanizmu Dependency Injection (DI)</h3>
+
+  <p>
+    <b>Korutyny</b> to mechanizm programistyczny umożliwiający wykonywanie zadań
+    współbieżnych/asynchronicznych w sposób lekki (bez tworzenia wielu wątków),
+    z możliwością <b>wstrzymywania</b> i <b>wznawiania</b> wykonywania funkcji.
+    <b>Dependency Injection (DI)</b> to sposób zarządzania zależnościami w aplikacji,
+    polegający na dostarczaniu (wstrzykiwaniu) obiektów, zamiast ich tworzenia „w środku” klasy.
+    Na obronie często pytają o: różnicę między wątkiem a korutyną, po co jest suspend/await,
+    co to jest dispatcher/event loop, oraz dlaczego DI poprawia testowalność i utrzymanie kodu.
+  </p>
+
+  <h4 style="margin: 0;">1) Korutyny – o co chodzi?</h4>
+  <p style="margin: 0;">
+    <b>Korutyna</b> to „funkcja, którą można zatrzymać i później wznowić”.
+    Dzięki temu można pisać kod asynchroniczny w stylu „sekwencyjnym”
+    (bez wielu callbacków), a środowisko uruchomieniowe (runtime) zarządza
+    wznawianiem po zakończeniu operacji (np. I/O).
+  </p>
+
+  <h4 style="margin: 0;">2) Korutyny a wątki – różnice (mega częste pytanie)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Wątek</b> jest jednostką planowania systemu operacyjnego (cięższy, droższy w tworzeniu i przełączaniu).
+    </li>
+    <li>
+      <b>Korutyna</b> jest lekka i planowana zwykle w przestrzeni użytkownika (framework/runtime),
+      może być ich bardzo dużo.
+    </li>
+    <li>
+      Korutyny nie oznaczają automatycznie „równoległości” – to raczej <b>współbieżność</b>.
+      Równoległość jest możliwa, jeśli korutyny są wykonywane na wielu wątkach.
+    </li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">Współbieżność vs równoległość (pytanie pułapka)</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Współbieżność</b> – zadania robią postęp „na zmianę” (mogą dzielić jeden wątek).<br/>
+      <b>Równoległość</b> – zadania faktycznie wykonują się jednocześnie (wiele rdzeni/wątków).<br/>
+      Korutyny ułatwiają współbieżność, a równoległość zależy od tego, na ilu wątkach są uruchamiane.
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">3) Co znaczy „suspend/await” i dlaczego to działa?</h4>
+  <p style="margin: 0;">
+    W językach z korutynami (np. Kotlin, Python, C# async/await) funkcja może
+    <b>zawiesić</b> wykonanie przy operacji, która czeka (np. sieć, plik, baza),
+    oddając kontrolę do planisty (scheduler). Gdy wynik jest gotowy, korutyna jest wznawiana.
+  </p>
+
+  <p style="margin-top: 6px;">
+    To pozwala na wydajną obsługę wielu operacji I/O bez blokowania wątku.
+  </p>
+
+  <h4 style="margin: 0;">4) Planowanie korutyn: event loop / dispatcher / scheduler</h4>
+  <p style="margin: 0;">
+    Korutyny zwykle działają wraz z mechanizmem planowania:
+  </p>
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Event loop</b> – pętla zdarzeń, która wznawia korutyny po zdarzeniach (np. wynik I/O).</li>
+    <li><b>Dispatcher</b> (np. w Kotlin) – określa, na jakim wątku/puli wątków działa korutyna.</li>
+    <li><b>Scheduler</b> – decyduje, kiedy dana korutyna dostaje czas procesora.</li>
+  </ul>
+
+  <h4 style="margin: 0;">5) Typowe zastosowania korutyn</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Równoległe pobieranie danych z wielu API (bez blokowania UI).</li>
+    <li>Obsługa wielu połączeń sieciowych (serwery, sockety).</li>
+    <li>Przetwarzanie strumieni danych (pipelines).</li>
+    <li>Animacje i logika gier (np. Unity ma własny mechanizm coroutine).</li>
+  </ul>
+
+  <h4 style="margin: 0;">6) Pułapki przy korutynach (to robi wrażenie na obronie)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Blocking vs suspending</b> – blokowanie (sleep, sync I/O) zatrzymuje wątek, a nie tylko korutynę.</li>
+    <li><b>Race conditions</b> – współbieżność nadal wymaga synchronizacji danych współdzielonych.</li>
+    <li><b>Cancelation</b> – poprawne anulowanie i sprzątanie zasobów (finally, timeouty).</li>
+    <li><b>Structured concurrency</b> – ważne, żeby korutyny miały „rodzica” i nie wyciekały (leaks).</li>
+  </ul>
+
+  <h4 style="margin: 0;">7) Dependency Injection (DI) – definicja</h4>
+  <p style="margin: 0;">
+    <b>Dependency Injection</b> to technika, w której obiekt nie tworzy swoich zależności sam,
+    tylko dostaje je z zewnątrz. Zamiast:
+    „klasa A tworzy w środku new B()”,
+    mamy:
+    „klasa A dostaje B w konstruktorze/metodzie/polu”.
+  </p>
+
+  <h4 style="margin: 0;">8) Po co DI? (najważniejsza odpowiedź na obronie)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Testowalność</b> – łatwo podmienić zależność na mock/fake.</li>
+    <li><b>Luźne powiązanie</b> – klasy nie są „przyklejone” do konkretnych implementacji.</li>
+    <li><b>Utrzymanie i rozwój</b> – łatwiej wymieniać komponenty (np. baza, API, logger).</li>
+    <li><b>Single Responsibility</b> – klasa robi swoje, a nie zajmuje się tworzeniem całej infrastruktury.</li>
+  </ul>
+
+  <h4 style="margin: 0;">9) Rodzaje wstrzykiwania zależności</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Constructor Injection</b> – zależności w konstruktorze (najlepsza praktyka).</li>
+    <li><b>Setter/Property Injection</b> – ustawianie po stworzeniu obiektu.</li>
+    <li><b>Method Injection</b> – przekazanie zależności jako parametr metody.</li>
+  </ul>
+
+  <h4 style="margin: 0;">10) IoC i kontener DI – co to jest?</h4>
+  <p style="margin: 0;">
+    DI jest częścią szerszej idei <b>IoC (Inversion of Control)</b>:
+    to nie klasa decyduje „skąd wziąć zależności”, tylko robi to framework/kontener.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Kontener DI</b> tworzy obiekty i ich zależności (graph obiektów).</li>
+    <li>Zarządza <b>lifetime</b>: singleton / scoped / transient.</li>
+  </ul>
+
+  <h4 style="margin: 0;">11) Lifetime zależności (częste pytanie w stylu „praktyka”)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Singleton</b> – jedna instancja na całą aplikację.</li>
+    <li><b>Scoped</b> – jedna instancja na zakres (np. request w web, ekran w mobilce).</li>
+    <li><b>Transient</b> – nowa instancja przy każdym wstrzyknięciu.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Pułapka:</b> wstrzyknięcie obiektu „scoped” do singletona zwykle jest błędem (lifetime mismatch).
+  </p>
+
+  <h4 style="margin: 0;">12) DI vs Service Locator (częsty temat porównania)</h4>
+  <p style="margin: 0;">
+    <b>Service Locator</b> to podejście, w którym klasa sama pobiera zależności z globalnego „rejestru”.
+    Jest to wygodne, ale ukrywa zależności i utrudnia testy.
+    DI jest bardziej jawne (zależności w konstruktorze) i dlatego preferowane.
+  </p>
+
+  <h4 style="margin: 0;">13) Typowe zastosowania DI</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Wstrzykiwanie repozytoriów, serwisów, klientów HTTP.</li>
+    <li>Wymiana implementacji (np. baza testowa vs produkcyjna).</li>
+    <li>Konfiguracja logowania, cache, strategii autoryzacji.</li>
+  </ul>
+
+  <h4 style="margin: 0;">14) Typowe błędy w DI</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Za duży konstruktor (klasa ma za dużo zależności → łamie SRP).</li>
+    <li>Ukryte zależności przez Service Locator.</li>
+    <li>Złe lifetime (np. scoped w singletonie).</li>
+    <li>„DI wszędzie” bez sensu – overengineering w małych projektach.</li>
+  </ul>
+
+  <h4 style="margin: 0;">15) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Co to jest korutyna i czym różni się od wątku?</li>
+    <li>Co oznacza „suspend/await” i dlaczego nie blokuje wątku?</li>
+    <li>Współbieżność vs równoległość – wyjaśnij różnicę.</li>
+    <li>Jakie są typowe zastosowania korutyn?</li>
+    <li>Jakie pułapki są związane z korutynami (blocking, race conditions, cancelation)?</li>
+    <li>Co to jest Dependency Injection i po co się to stosuje?</li>
+    <li>Jak DI poprawia testowalność?</li>
+    <li>Jakie są rodzaje wstrzykiwania (constructor/setter/method)?</li>
+    <li>Co to jest IoC i kontener DI?</li>
+    <li>Jakie są lifetimes (singleton/scoped/transient) i jakie błędy z tego wynikają?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> w tym temacie najlepiej brzmi odpowiedź:
+    <i>korutyny pozwalają pisać kod asynchroniczny bez blokowania wątków, a DI redukuje sprzężenia
+    i zwiększa testowalność poprzez jawne dostarczanie zależności</i>.
+  </p>
+</article>
+
+
+
+        <article class="topic-card" id="topic-172">
+  <span class="pill">172</span>
+  <h3>Przykładowe wzorce projektowe i wzorce architektoniczne</h3>
+
+  <p>
+    <b>Wzorce projektowe (design patterns)</b> to sprawdzone, wielokrotnie powtarzające się
+    sposoby rozwiązywania typowych problemów na poziomie <b>projektu kodu</b>
+    (klas, obiektów, zależności). Z kolei <b>wzorce architektoniczne</b> dotyczą
+    organizacji całego systemu: <b>warstw, modułów, usług, komunikacji</b>, skalowania,
+    niezawodności i utrzymania.
+  </p>
+
+  <p>
+    Na obronie najczęściej pytają:
+    <b>jaka jest różnica</b> między wzorcem projektowym a architektonicznym,
+    podanie kilku przykładów, plusy/minusy, oraz kiedy dany wzorzec jest dobry,
+    a kiedy staje się „overengineering”.
+  </p>
+
+  <h4 style="margin: 0;">1) Różnica: wzorzec projektowy vs architektoniczny</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Wzorce projektowe</b> – poziom kodu: klasy/obiekty, relacje, elastyczność zmian,
+      reużywalność, testowalność.
+    </li>
+    <li>
+      <b>Wzorce architektoniczne</b> – poziom systemu: podział na moduły/usługi,
+      sposób komunikacji, granice odpowiedzialności, wdrażanie i skalowanie.
+    </li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Prosta analogia:</b> architektura to plan budynku (pokoje, instalacje),
+    a wzorce projektowe to sposoby wykonania konkretnych elementów w środku (np. drzwi, zawiasy).
+  </p>
+
+  <h4 style="margin: 0;">2) Wzorce projektowe – najczęściej omawiane grupy</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Kreacyjne</b> – jak tworzyć obiekty (np. Factory, Builder, Singleton).</li>
+    <li><b>Strukturalne</b> – jak składać obiekty w większe struktury (np. Adapter, Decorator, Facade).</li>
+    <li><b>Behawioralne</b> – jak obiekty współpracują i przekazują odpowiedzialność (np. Observer, Strategy, Command).</li>
+  </ul>
+
+  <h4 style="margin: 0;">3) Przykładowe wzorce projektowe (design patterns)</h4>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">3.1 Singleton</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Cel:</b> zapewnić jedną instancję klasy i globalny punkt dostępu.
+      <br/><b>Przykłady:</b> konfiguracja aplikacji, logger (choć często lepiej użyć DI).
+      <br/><b>Plusy:</b> prostota, jedna instancja.
+      <br/><b>Minusy:</b> globalny stan, trudniejsze testowanie, ukryte zależności.
+      <br/><b>Na obronie:</b> powiedz, że dziś często zastępuje się Singleton przez <b>Dependency Injection</b>.
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">3.2 Factory Method / Abstract Factory</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Cel:</b> oddzielić tworzenie obiektów od użycia.
+      <br/><b>Factory Method:</b> metoda wytwórcza tworząca obiekt zależnie od kontekstu.
+      <br/><b>Abstract Factory:</b> rodzina powiązanych obiektów (np. UI: Windows vs Mac).
+      <br/><b>Plusy:</b> łatwiejsza rozbudowa, mniej if-ów w kodzie, testowalność.
+      <br/><b>Minusy:</b> więcej klas/abstrakcji.
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">3.3 Builder</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Cel:</b> budować złożony obiekt krok po kroku (czytelnie i bez gigantycznych konstruktorów).
+      <br/><b>Przykład:</b> tworzenie obiektu z wieloma opcjonalnymi polami (np. konfiguracja, zapytanie HTTP).
+      <br/><b>Plusy:</b> czytelność, niemutowalność, kontrola tworzenia.
+      <br/><b>Minusy:</b> dodatkowy kod.
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">3.4 Adapter</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Cel:</b> dopasować niekompatybilne interfejsy (np. nowa biblioteka do starego kodu).
+      <br/><b>Przykład:</b> integracja zewnętrznego API z wewnętrznym interfejsem.
+      <br/><b>Plusy:</b> brak zmian w istniejącym kodzie, luźne powiązanie.
+      <br/><b>Minusy:</b> kolejna warstwa pośrednia.
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">3.5 Decorator</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Cel:</b> dynamicznie dodawać funkcje do obiektu bez dziedziczenia.
+      <br/><b>Przykład:</b> logowanie, cache, kompresja, szyfrowanie jako „owijki”.
+      <br/><b>Plusy:</b> elastyczność, mniejsze ryzyko „eksplozji klas” w dziedziczeniu.
+      <br/><b>Minusy:</b> trudniejsze debugowanie (wiele warstw).
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">3.6 Facade</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Cel:</b> uprościć dostęp do złożonego subsystemu jednym interfejsem.
+      <br/><b>Przykład:</b> jedna klasa do obsługi „start aplikacji”, która w środku uruchamia wiele modułów.
+      <br/><b>Plusy:</b> prostsze API, mniejsza zależność od szczegółów.
+      <br/><b>Minusy:</b> ryzyko zrobienia z fasady „boga” jeśli będzie rosła bez kontroli.
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">3.7 Observer (Publish–Subscribe)</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Cel:</b> powiadamiać wiele obiektów o zmianie stanu (zdarzenia).
+      <br/><b>Przykład:</b> UI reagujące na zmianę danych, event bus, notyfikacje.
+      <br/><b>Plusy:</b> luźne powiązanie, naturalny model zdarzeniowy.
+      <br/><b>Minusy:</b> ryzyko „ukrytych” zależności i trudniejszego śledzenia przepływu.
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">3.8 Strategy</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Cel:</b> łatwo wymieniać algorytmy/zasady działania bez if-else.
+      <br/><b>Przykład:</b> różne sposoby liczenia rabatu, różne metody uwierzytelniania.
+      <br/><b>Plusy:</b> rozszerzalność (OCP), testowalność.
+      <br/><b>Minusy:</b> więcej klas/interfejsów.
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">3.9 Command</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Cel:</b> zamknąć akcję jako obiekt (można kolejkować, cofać, logować).
+      <br/><b>Przykład:</b> undo/redo w edytorze, kolejka zadań, makra.
+      <br/><b>Plusy:</b> łatwe rozszerzanie, kontrola wykonania.
+      <br/><b>Minusy:</b> narzut klas.
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">4) Wzorce architektoniczne (architectural patterns)</h4>
+  <p style="margin: 0;">
+    Wzorce architektoniczne dotyczą tego, jak podzielić system na elementy, jakie są granice
+    odpowiedzialności i jak elementy się komunikują.
+  </p>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">4.1 Architektura warstwowa (Layered)</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Opis:</b> system dzieli się na warstwy, np. UI → logika biznesowa → dostęp do danych.
+      <br/><b>Plusy:</b> prostota, czytelność, łatwiejsze testowanie warstw.
+      <br/><b>Minusy:</b> ryzyko „przecieków” (warstwy zaczynają się mieszać), narzut komunikacji.
+      <br/><b>Typowo:</b> aplikacje CRUD, systemy firmowe.
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">4.2 MVC / MVP / MVVM</summary>
+    <p style="margin: 8px 0 0;">
+      <b>MVC:</b> Model (dane) – View (UI) – Controller (logika sterowania).
+      <br/><b>MVP:</b> Presenter pośredniczy między View i Modelem (często w testowalnych UI).
+      <br/><b>MVVM:</b> ViewModel udostępnia stan i komendy dla View (popularne w aplikacjach mobilnych i desktop).
+      <br/><b>Plusy:</b> separacja odpowiedzialności, łatwiejsze testy.
+      <br/><b>Minusy:</b> ryzyko „tłustych” kontrolerów/viewmodeli.
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">4.3 Client–Server</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Opis:</b> klient wysyła żądania, serwer odpowiada (HTTP/REST, gRPC).
+      <br/><b>Plusy:</b> centralne zarządzanie, łatwe aktualizacje po stronie serwera.
+      <br/><b>Minusy:</b> zależność od sieci, opóźnienia, punkt centralny (może wymagać HA).
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">4.4 Mikroserwisy (Microservices)</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Opis:</b> system jako zestaw niezależnych usług wdrażanych osobno, komunikujących się po API.
+      <br/><b>Plusy:</b> niezależne wdrażanie, skalowanie wybranych usług, podział zespołów.
+      <br/><b>Minusy:</b> złożoność operacyjna (DevOps), sieć, observability, spójność danych.
+      <br/><b>Kiedy ma sens:</b> duże systemy, wiele zespołów, potrzeba niezależnego skalowania.
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">4.5 Monolit modularny</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Opis:</b> jedna aplikacja (monolit), ale wewnętrznie podzielona na moduły z jasnymi granicami.
+      <br/><b>Plusy:</b> prostsze wdrożenia niż mikroserwisy, a jednocześnie dobra struktura.
+      <br/><b>Minusy:</b> skalowanie całej aplikacji, ryzyko naruszenia granic modułów.
+      <br/><b>Tip:</b> często najlepszy wybór „na start” zamiast mikroserwisów.
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">4.6 Event-Driven Architecture (EDA)</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Opis:</b> komponenty komunikują się zdarzeniami (publish/subscribe), często przez broker (np. kolejki).
+      <br/><b>Plusy:</b> luźne powiązanie, skalowanie, naturalne dla procesów asynchronicznych.
+      <br/><b>Minusy:</b> trudniejsza diagnostyka, spójność, kolejność zdarzeń.
+      <br/><b>Zastosowania:</b> integracje, IoT, przetwarzanie strumieniowe.
+    </p>
+  </details>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">4.7 Hexagonal / Clean Architecture</summary>
+    <p style="margin: 8px 0 0;">
+      <b>Opis:</b> domena (logika biznesowa) jest w centrum, a integracje (DB, UI, API) są na obrzeżach jako adaptery.
+      <br/><b>Plusy:</b> świetna testowalność, wymienialność technologii, czysta domena.
+      <br/><b>Minusy:</b> więcej „ceremonii” (interfejsy, porty), próg wejścia.
+      <br/><b>Kiedy warto:</b> gdy domena jest skomplikowana i ma żyć długo.
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">5) Antywzorce i typowe pułapki (też lubią pytać)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>God Object</b> – jedna klasa robi wszystko.</li>
+    <li><b>Spaghetti code</b> – brak struktury, trudne zależności.</li>
+    <li><b>Golden hammer</b> – używanie jednego wzorca do wszystkiego.</li>
+    <li><b>Overengineering</b> – zbyt dużo abstrakcji jak na skalę projektu.</li>
+  </ul>
+
+  <h4 style="margin: 0;">6) Jak dobierać wzorzec? (odpowiedź „inżynierska”)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Jaki problem rozwiązuję? (zmienność algorytmu? integracja? skalowanie?)</li>
+    <li>Czy wzorzec upraszcza zmianę w przyszłości, czy tylko dodaje złożoność?</li>
+    <li>Jak wpłynie na testowalność, czytelność i utrzymanie?</li>
+    <li>Czy skala projektu uzasadnia architekturę (np. mikroserwisy)?</li>
+  </ul>
+
+  <h4 style="margin: 0;">7) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Jaka jest różnica między wzorcem projektowym a architektonicznym?</li>
+    <li>Podaj po 3 przykłady wzorców projektowych i opisz ich zastosowanie.</li>
+    <li>Podaj przykłady wzorców architektonicznych (np. MVC, warstwowa, mikroserwisy).</li>
+    <li>Kiedy mikroserwisy mają sens, a kiedy są błędem?</li>
+    <li>Co to jest MVVM/MVC i po co się to stosuje?</li>
+    <li>Dlaczego Singleton jest kontrowersyjny?</li>
+    <li>Jak Strategy i Observer pomagają w rozbudowie systemu?</li>
+    <li>Jakie są typowe antywzorce i czemu są złe?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeśli chcesz zabrzmieć dojrzale, powiedz:
+    <i>wzorce to narzędzia – dobiera się je do problemu, a nie „bo ładnie wygląda”</i>.
+    I dorzuć, że mikroserwisy to głównie korzyści organizacyjne i skalowanie, ale kosztują złożoność.
+  </p>
+</article>
+
+
+        <article class="topic-card" id="topic-173">
+  <span class="pill">173</span>
+  <h3>Algorytmy wyznaczania najkrótszych ścieżek w grafach skierowanych</h3>
+
+  <p>
+    <b>Problem najkrótszej ścieżki</b> polega na znalezieniu trasy o minimalnym koszcie
+    pomiędzy wierzchołkami w grafie. W grafach <b>skierowanych</b> krawędzie mają kierunek,
+    więc przejście z A do B nie oznacza automatycznie, że można przejść z B do A.
+    Koszt krawędzi może oznaczać np. odległość, czas, opóźnienie, cenę lub wagę.
+  </p>
+
+  <p>
+    Na obronie najczęściej pytają o:
+    różnice między <b>Dijkstrą</b> i <b>Bellman-Fordem</b>,
+    co się dzieje przy <b>ujemnych wagach</b>,
+    czym jest <b>ujemny cykl</b>,
+    oraz kiedy używa się <b>Floyd-Warshall</b> lub algorytmów dla <b>DAG</b>.
+  </p>
+
+  <h4 style="margin: 0;">1) Podstawowe definicje (musisz znać)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Graf skierowany</b> – krawędzie mają kierunek (u → v).</li>
+    <li><b>Waga krawędzi</b> – koszt przejścia (może być dodatni, zerowy lub ujemny).</li>
+    <li><b>Ścieżka</b> – ciąg wierzchołków połączonych krawędziami zgodnie z kierunkiem.</li>
+    <li><b>Dystans</b> – suma wag krawędzi na ścieżce.</li>
+    <li><b>Najkrótsza ścieżka</b> – ścieżka o minimalnym dystansie.</li>
+  </ul>
+
+  <h4 style="margin: 0;">2) Rodzaje problemów najkrótszej ścieżki</h4>
+  <p style="margin: 0;">
+    W zależności od tego, czego szukamy, wyróżnia się:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Single-source shortest path (SSSP)</b> – z jednego źródła do wszystkich.</li>
+    <li><b>Single-pair shortest path</b> – z A do B.</li>
+    <li><b>All-pairs shortest paths (APSP)</b> – między każdą parą wierzchołków.</li>
+  </ul>
+
+  <h4 style="margin: 0;">3) Algorytm Dijkstry (najczęściej na obronie)</h4>
+  <p style="margin: 0;">
+    <b>Dijkstra</b> wyznacza najkrótsze ścieżki z jednego źródła do wszystkich wierzchołków,
+    ale działa poprawnie tylko wtedy, gdy wszystkie wagi krawędzi są <b>nieujemne</b>.
+  </p>
+
+  <p style="margin-top: 6px;">
+    Idea:
+    zawsze wybieramy nieodwiedzony wierzchołek o najmniejszym znanym dystansie
+    i „relaksujemy” jego krawędzie wychodzące.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Relaksacja</b>: jeśli d[u] + w(u,v) &lt; d[v], to aktualizujemy d[v].</li>
+    <li>Używa kolejki priorytetowej (min-heap).</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Złożoność:</b>
+    <ul style="margin: 6px 0 0; padding-left: 18px;">
+      <li>z kopcem: O((V + E) log V)</li>
+      <li>bez kopca: O(V²)</li>
+    </ul>
+  </p>
+
+  <p style="margin-top: 6px;">
+    <b>Pułapka na obronie:</b>
+    Dijkstra może dawać błędne wyniki przy ujemnych wagach, nawet jeśli nie ma ujemnego cyklu.
+  </p>
+
+  <h4 style="margin: 0;">4) Algorytm Bellmana-Forda</h4>
+  <p style="margin: 0;">
+    <b>Bellman-Ford</b> również rozwiązuje problem SSSP, ale obsługuje <b>ujemne wagi</b>.
+    Potrafi także wykrywać <b>ujemne cykle</b>.
+  </p>
+
+  <p style="margin-top: 6px;">
+    Idea:
+    wykonujemy relaksację wszystkich krawędzi V−1 razy
+    (bo najdłuższa prosta ścieżka ma maksymalnie V−1 krawędzi).
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>Po V−1 iteracjach dystanse powinny być minimalne.</li>
+    <li>Jeśli w iteracji V da się jeszcze poprawić dystans → istnieje ujemny cykl.</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Złożoność:</b> O(V · E) – wolniejszy od Dijkstry, ale bardziej uniwersalny.
+  </p>
+
+  <h4 style="margin: 0;">5) Ujemne cykle – co to jest i dlaczego to problem?</h4>
+  <p style="margin: 0;">
+    <b>Ujemny cykl</b> to cykl w grafie, którego suma wag jest ujemna.
+    Jeśli można do niego dojść ze źródła, to nie istnieje „najkrótsza ścieżka”
+    (bo można krążyć w cyklu i zmniejszać koszt w nieskończoność).
+  </p>
+
+  <p style="margin-top: 6px;">
+    Dlatego Bellman-Ford jest często wykorzystywany do sprawdzania poprawności grafu,
+    a nie tylko do liczenia ścieżek.
+  </p>
+
+  <h4 style="margin: 0;">6) Algorytm Floyd–Warshall (APSP)</h4>
+  <p style="margin: 0;">
+    <b>Floyd-Warshall</b> wyznacza najkrótsze ścieżki między każdą parą wierzchołków (APSP).
+    Jest prosty koncepcyjnie, ale ma złożoność O(V³), więc działa dobrze głównie
+    dla mniejszych grafów.
+  </p>
+
+  <p style="margin-top: 6px;">
+    Idea dynamiczna:
+    sprawdzamy, czy ścieżka i → j jest krótsza, jeśli pozwolimy przejść przez wierzchołek k.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>Obsługuje ujemne wagi, ale nie może mieć ujemnych cykli.</li>
+    <li>Wykrywanie ujemnego cyklu: jeśli d[i][i] &lt; 0 po obliczeniach.</li>
+  </ul>
+
+  <h4 style="margin: 0;">7) Najkrótsza ścieżka w DAG (graf acykliczny skierowany)</h4>
+  <p style="margin: 0;">
+    Jeśli graf jest <b>DAG</b> (Directed Acyclic Graph), to najkrótsze ścieżki można liczyć
+    bardzo szybko, nawet z ujemnymi wagami, bo nie ma cykli.
+  </p>
+
+  <p style="margin-top: 6px;">
+    Idea:
+    wykonujemy <b>sortowanie topologiczne</b>, a potem relaksujemy krawędzie w tej kolejności.
+  </p>
+
+  <p style="margin-top: 6px;">
+    <b>Złożoność:</b> O(V + E) – bardzo szybkie.
+  </p>
+
+  <h4 style="margin: 0;">8) Algorytm A* (bonus, ale dobrze brzmi)</h4>
+  <p style="margin: 0;">
+    <b>A*</b> jest rozszerzeniem Dijkstry, które używa heurystyki h(n)
+    (np. odległości do celu), żeby szybciej znaleźć trasę do konkretnego wierzchołka.
+    Jest popularny w:
+    grach, mapach, nawigacji.
+  </p>
+
+  <p style="margin-top: 6px;">
+    Jeśli heurystyka jest <b>dopuszczalna</b> (nigdy nie przeszacowuje),
+    A* gwarantuje optymalność.
+  </p>
+
+  <h4 style="margin: 0;">9) Porównanie algorytmów (co wybrać?)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>
+      <b>Dijkstra</b> – najlepszy dla wag nieujemnych, szybki w praktyce.
+    </li>
+    <li>
+      <b>Bellman-Ford</b> – gdy mogą być ujemne wagi lub chcemy wykryć ujemne cykle.
+    </li>
+    <li>
+      <b>Floyd-Warshall</b> – gdy potrzebujemy odległości między wszystkimi parami wierzchołków
+      i graf jest mały/średni.
+    </li>
+    <li>
+      <b>DAG shortest path</b> – gdy graf jest acykliczny (najszybsze).
+    </li>
+    <li>
+      <b>A*</b> – gdy szukamy jednej ścieżki do celu i mamy dobrą heurystykę.
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">10) Zastosowania w teleinformatyce i sieciach</h4>
+  <p style="margin: 0;">
+    Najkrótsze ścieżki mają ogromne znaczenie w sieciach:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Routing</b> – wyznaczanie tras w sieci (np. OSPF bazuje na SPF/Dijkstra).</li>
+    <li><b>Planowanie tras</b> – minimalizacja opóźnienia, kosztu, obciążenia.</li>
+    <li><b>Sieci transportowe</b> – optymalizacja ścieżek w warstwie logicznej.</li>
+    <li><b>Analiza grafów</b> – social network, analiza zależności, cyberbezpieczeństwo.</li>
+  </ul>
+
+  <h4 style="margin: 0;">11) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Co to jest graf skierowany i czym różni się od nieskierowanego?</li>
+    <li>Co oznacza waga krawędzi?</li>
+    <li>Na czym polega relaksacja krawędzi?</li>
+    <li>Kiedy Dijkstra działa poprawnie, a kiedy nie?</li>
+    <li>Dlaczego Dijkstra nie obsługuje ujemnych wag?</li>
+    <li>Jak działa Bellman-Ford i co oznacza V−1 iteracji?</li>
+    <li>Jak wykryć ujemny cykl?</li>
+    <li>Kiedy warto użyć Floyd-Warshall?</li>
+    <li>Jak liczyć shortest path w DAG?</li>
+    <li>Jakie jest zastosowanie najkrótszych ścieżek w routingu (np. OSPF)?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> najlepsze zdanie, które „zamyka temat”:
+    <i>Dijkstra jest szybki, ale wymaga nieujemnych wag; Bellman-Ford jest wolniejszy,
+    ale obsługuje ujemne wagi i wykrywa ujemne cykle; Floyd-Warshall liczy wszystkie pary,
+    ale ma O(V³)</i>.
+    To jest dokładnie to, co komisja chce usłyszeć.
+  </p>
+</article>
+
+
+        <article class="topic-card" id="topic-174">
+  <span class="pill">174</span>
+  <h3>Tablice i pętle w języku C++</h3>
+
+  <p>
+    <b>Tablice i pętle</b> to podstawowe elementy programowania w C++.
+    Tablice służą do przechowywania wielu wartości tego samego typu,
+    a pętle do wielokrotnego wykonywania instrukcji (np. iteracji po tablicy).
+    Na obronie często pytają o:
+    różnice między tablicą statyczną i dynamiczną,
+    <b>std::vector</b> vs surowe tablice,
+    iterację, wskaźniki,
+    oraz typowe błędy: wyjście poza zakres, niezainicjalizowana pamięć, wycieki.
+  </p>
+
+  <h4 style="margin: 0;">1) Tablica w C++ – definicja</h4>
+  <p style="margin: 0;">
+    <b>Tablica</b> to struktura danych przechowująca elementy tego samego typu
+    w pamięci w sposób ciągły (kolejne elementy obok siebie).
+    Dostęp do elementu odbywa się przez indeks:
+    <b>a[i]</b>.
+  </p>
+
+  <h4 style="margin: 0;">2) Tablice statyczne (klasyczne)</h4>
+  <p style="margin: 0;">
+    Najprostsza tablica to tablica o stałym rozmiarze:
+  </p>
+
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+int a[5] = {1, 2, 3, 4, 5};
+  </pre>
+
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Rozmiar jest znany w czasie kompilacji (dla zwykłej tablicy).</li>
+    <li>Tablica jest przechowywana zwykle na stosie (stack), jeśli jest lokalna.</li>
+    <li>Nie da się zmienić rozmiaru po utworzeniu.</li>
+  </ul>
+
+  <h4 style="margin: 0;">3) Tablice dynamiczne (new/delete) – ale uwaga!</h4>
+  <p style="margin: 0;">
+    Tablica dynamiczna ma rozmiar ustalany w czasie działania programu:
+  </p>
+
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+int n = 10;
+int* arr = new int[n];
+
+// ... użycie ...
+
+delete[] arr;
+  </pre>
+
+  <p style="margin-top: 6px;">
+    <b>Najważniejsze:</b> w C++ nowoczesnym nie powinno się używać new/delete do tablic,
+    bo łatwo o wyciek pamięci. Zamiast tego używa się <b>std::vector</b>.
+  </p>
+
+  <h4 style="margin: 0;">4) std::array – bezpieczna tablica stałego rozmiaru</h4>
+  <p style="margin: 0;">
+    <b>std::array</b> to „opakowanie” na tablicę o stałym rozmiarze:
+  </p>
+
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+#include &lt;array&gt;
+
+std::array&lt;int, 5&gt; a = {1,2,3,4,5};
+  </pre>
+
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Rozmiar jest znany w czasie kompilacji.</li>
+    <li>Ma metody: <b>size()</b>, <b>at()</b>, iteratory.</li>
+    <li><b>at()</b> sprawdza zakres i rzuca wyjątek.</li>
+  </ul>
+
+  <h4 style="margin: 0;">5) std::vector – dynamiczna tablica (najczęściej w praktyce)</h4>
+  <p style="margin: 0;">
+    <b>std::vector</b> to dynamiczna tablica, która automatycznie zarządza pamięcią.
+    To najczęściej używana struktura tablicowa w C++.
+  </p>
+
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+#include &lt;vector&gt;
+
+std::vector&lt;int&gt; v = {1,2,3};
+v.push_back(4);
+  </pre>
+
+  <ul style="margin: 0; padding-left: 18px;">
+    <li>Może zmieniać rozmiar.</li>
+    <li>Ma metody: size(), push_back(), pop_back(), clear().</li>
+    <li>Pamięć jest w stercie, ale zarządzana automatycznie.</li>
+  </ul>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">capacity() i reallocation (częste pytanie)</summary>
+    <p style="margin: 8px 0 0;">
+      Vector ma pojęcie <b>size()</b> (ile elementów) i <b>capacity()</b> (ile ma zaalokowanej pamięci).
+      Gdy capacity jest za małe, następuje <b>reallocation</b> (realokacja) i skopiowanie danych.
+      To wpływa na wydajność i unieważnia wskaźniki/iteratory.
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">6) Tablica a wskaźnik – kluczowa różnica</h4>
+  <p style="margin: 0;">
+    W C++ tablica w wielu sytuacjach „zamienia się” na wskaźnik do pierwszego elementu.
+    Przykład:
+  </p>
+
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+int a[3] = {10, 20, 30};
+int* p = a;     // p wskazuje na a[0]
+  </pre>
+
+  <p style="margin-top: 6px;">
+    Indeksowanie jest w rzeczywistości arytmetyką wskaźników:
+    <b>a[i] == *(a + i)</b>.
+  </p>
+
+  <h4 style="margin: 0;">7) Najczęstsze błędy z tablicami</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Out of bounds</b> – wyjście poza zakres (najgroźniejszy błąd).</li>
+    <li><b>Nieinicjalizowana pamięć</b> – losowe wartości.</li>
+    <li><b>Memory leak</b> – brak delete[] dla new[].</li>
+    <li><b>Double free</b> – podwójne delete[].</li>
+    <li><b>Dangling pointer</b> – wskaźnik do zwolnionej pamięci.</li>
+  </ul>
+
+  <h4 style="margin: 0;">8) Pętle w C++ – podstawowe rodzaje</h4>
+  <p style="margin: 0;">
+    W C++ są trzy klasyczne pętle:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>for</b> – gdy znamy liczbę iteracji.</li>
+    <li><b>while</b> – gdy warunek sprawdzamy przed iteracją.</li>
+    <li><b>do...while</b> – gdy chcemy wykonać blok przynajmniej raz.</li>
+  </ul>
+
+  <h4 style="margin: 0;">9) Pętla for</h4>
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+for (int i = 0; i &lt; 5; i++) {
+  // ...
+}
+  </pre>
+
+  <p style="margin-top: 6px;">
+    Najczęściej używana do iteracji po tablicy:
+  </p>
+
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+for (int i = 0; i &lt; n; i++) {
+  std::cout &lt;&lt; a[i] &lt;&lt; "\n";
+}
+  </pre>
+
+  <h4 style="margin: 0;">10) Pętla while</h4>
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+int i = 0;
+while (i &lt; n) {
+  std::cout &lt;&lt; a[i] &lt;&lt; "\n";
+  i++;
+}
+  </pre>
+
+  <h4 style="margin: 0;">11) Pętla do...while</h4>
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+int x;
+do {
+  std::cin &gt;&gt; x;
+} while (x &lt; 0);
+  </pre>
+
+  <p style="margin-top: 6px;">
+    Ta pętla zawsze wykona się co najmniej raz.
+  </p>
+
+  <h4 style="margin: 0;">12) Range-based for (C++11) – nowoczesna iteracja</h4>
+  <p style="margin: 0;">
+    Nowoczesny sposób iteracji po tablicach i kolekcjach:
+  </p>
+
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+std::vector&lt;int&gt; v = {1,2,3};
+
+for (int x : v) {
+  std::cout &lt;&lt; x &lt;&lt; "\n";
+}
+  </pre>
+
+  <p style="margin-top: 6px;">
+    Jeśli chcesz modyfikować elementy, używa się referencji:
+  </p>
+
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+for (int&amp; x : v) {
+  x *= 2;
+}
+  </pre>
+
+  <h4 style="margin: 0;">13) Break i continue</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>break</b> – przerywa pętlę.</li>
+    <li><b>continue</b> – przechodzi do następnej iteracji.</li>
+  </ul>
+
+  <h4 style="margin: 0;">14) Złożoność iteracji po tablicy</h4>
+  <p style="margin: 0;">
+    Iteracja po tablicy jest zwykle <b>O(n)</b>.
+    Dostęp do elementu po indeksie jest <b>O(1)</b>.
+  </p>
+
+  <h4 style="margin: 0;">15) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Co to jest tablica i jak jest przechowywana w pamięci?</li>
+    <li>Jaka jest różnica między tablicą statyczną i dynamiczną?</li>
+    <li>Dlaczego w C++ lepiej używać std::vector niż new[]?</li>
+    <li>Co to jest reallocation w vectorze?</li>
+    <li>Jaka jest różnica między size() i capacity()?</li>
+    <li>Jak działa indeksowanie tablicy od strony wskaźników?</li>
+    <li>Jakie są typowe błędy z tablicami (out of bounds, memory leak)?</li>
+    <li>Jakie są rodzaje pętli w C++?</li>
+    <li>Czym różni się while od do...while?</li>
+    <li>Jak działa range-based for i kiedy używać referencji?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> najlepsza „dojrzała” odpowiedź w tym temacie:
+    <i>W nowoczesnym C++ unikamy surowych tablic dynamicznych i używamy std::vector,
+    bo zarządza pamięcią i minimalizuje ryzyko wycieków oraz błędów</i>.
+  </p>
+</article>
+
+
+        <article class="topic-card" id="topic-175">
+  <span class="pill">175</span>
+  <h3>Algebra Boole’a</h3>
+
+  <p>
+    <b>Algebra Boole’a</b> (logika boolowska) to dział matematyki opisujący operacje na zmiennych,
+    które mogą przyjmować tylko dwie wartości: <b>0</b> i <b>1</b>
+    (fałsz/prawda, niski/wysoki poziom logiczny).
+    Jest podstawą działania układów cyfrowych (bramek logicznych, procesorów, FPGA),
+    a także wielu zagadnień informatycznych (warunki w programowaniu, logika w bazach danych,
+    wyszukiwanie, kryptografia).
+  </p>
+
+  <p>
+    Na obronie najczęściej pytają o:
+    <b>podstawowe operacje</b>, <b>tabele prawdy</b>, <b>prawa algebry Boole’a</b>,
+    <b>prawa De Morgana</b>, oraz o <b>upraszczanie funkcji logicznych</b>
+    (np. metoda Karnaugha).
+  </p>
+
+  <h4 style="margin: 0;">1) Zmienne i wartości logiczne</h4>
+  <p style="margin: 0;">
+    Zmienna boolowska może przyjmować:
+  </p>
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>0</b> – fałsz (FALSE)</li>
+    <li><b>1</b> – prawda (TRUE)</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    Zmienne zwykle oznacza się: A, B, C, X, Y…
+  </p>
+
+  <h4 style="margin: 0;">2) Podstawowe operacje logiczne</h4>
+  <p style="margin: 0;">
+    Algebra Boole’a opiera się na trzech podstawowych operatorach:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>NOT</b> (negacja) – ¬A lub A̅</li>
+    <li><b>AND</b> (koniunkcja) – A ∧ B lub A·B</li>
+    <li><b>OR</b> (alternatywa) – A ∨ B lub A + B</li>
+  </ul>
+
+  <h4 style="margin: 0;">3) Tabele prawdy (must-have)</h4>
+
+  <p style="margin: 0;"><b>NOT</b></p>
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+A | ¬A
+0 | 1
+1 | 0
+  </pre>
+
+  <p style="margin: 0;"><b>AND</b></p>
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+A B | A∧B
+0 0 | 0
+0 1 | 0
+1 0 | 0
+1 1 | 1
+  </pre>
+
+  <p style="margin: 0;"><b>OR</b></p>
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+A B | A∨B
+0 0 | 0
+0 1 | 1
+1 0 | 1
+1 1 | 1
+  </pre>
+
+  <h4 style="margin: 0;">4) Operacje pochodne (często pytają)</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>XOR</b> (alternatywa wykluczająca) – 1 gdy różne: A ⊕ B</li>
+    <li><b>NAND</b> – negacja AND: ¬(A∧B)</li>
+    <li><b>NOR</b> – negacja OR: ¬(A∨B)</li>
+    <li><b>XNOR</b> – negacja XOR: ¬(A⊕B)</li>
+  </ul>
+
+  <p style="margin-top: 6px;">
+    <b>Ważne:</b> NAND i NOR są bramkami uniwersalnymi – da się z nich zbudować dowolną funkcję logiczną.
+  </p>
+
+  <h4 style="margin: 0;">5) Prawa algebry Boole’a (zestaw najważniejszy)</h4>
+  <p style="margin: 0;">
+    Prawa służą do przekształcania i upraszczania wyrażeń logicznych.
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li><b>Przemienność:</b> A+B = B+A, A·B = B·A</li>
+    <li><b>Łączność:</b> (A+B)+C = A+(B+C), (A·B)·C = A·(B·C)</li>
+    <li><b>Rozdzielność:</b> A·(B+C) = A·B + A·C</li>
+    <li><b>Tożsamość:</b> A+0 = A, A·1 = A</li>
+    <li><b>Dominacja:</b> A+1 = 1, A·0 = 0</li>
+    <li><b>Idempotencja:</b> A+A = A, A·A = A</li>
+    <li><b>Negacja:</b> A+¬A = 1, A·¬A = 0</li>
+    <li><b>Podwójna negacja:</b> ¬(¬A) = A</li>
+  </ul>
+
+  <h4 style="margin: 0;">6) Prawa De Morgana (pytanie klasyk)</h4>
+  <p style="margin: 0;">
+    Prawa De Morgana pozwalają przenosić negację przez nawias:
+  </p>
+
+  <pre style="margin: 8px 0; padding: 10px; background: #0f172a; color: #e2e8f0; border-radius: 10px; overflow:auto;">
+¬(A ∧ B) = ¬A ∨ ¬B
+¬(A ∨ B) = ¬A ∧ ¬B
+  </pre>
+
+  <p style="margin-top: 6px;">
+    W praktyce to oznacza:
+    „negacja zmienia AND na OR i OR na AND, oraz neguje wszystkie składniki”.
+  </p>
+
+  <h4 style="margin: 0;">7) Uproszczenia wyrażeń logicznych – po co?</h4>
+  <p style="margin: 0;">
+    Uproszczenie funkcji logicznej jest kluczowe w elektronice cyfrowej:
+  </p Fletcher:
+
+- mniej bramek → tańszy układ
+- mniejsze opóźnienie → szybszy układ
+- mniej energii → niższy pobór mocy
+- mniej elementów → mniejsze ryzyko błędów
+
+  <p style="margin-top: 6px;">
+    Uproszczenia wykonuje się:
+    <b>algebraicznie</b> (prawa Boole’a) lub
+    <b>graficznie</b> (mapy Karnaugha).
+  </p>
+
+  <h4 style="margin: 0;">8) Postacie funkcji logicznych: SOP i POS</h4>
+  <p style="margin: 0;">
+    Funkcje boolowskie często zapisuje się w dwóch standardowych postaciach:
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>
+      <b>SOP (Sum of Products)</b> – suma iloczynów (OR z AND-ów).
+      <br/>Np. F = A·B + ¬A·C
+    </li>
+    <li>
+      <b>POS (Product of Sums)</b> – iloczyn sum (AND z OR-ów).
+      <br/>Np. F = (A + B) · (¬A + C)
+    </li>
+  </ul>
+
+  <h4 style="margin: 0;">9) Mintermy i maxtermy (często pytają przy mapach Karnaugha)</h4>
+  <p style="margin: 0;">
+    <b>Minterm</b> to iloczyn wszystkich zmiennych (wprost lub zanegowanych),
+    odpowiadający dokładnie jednemu wierszowi tabeli prawdy, gdzie funkcja = 1.
+  </p>
+
+  <p style="margin-top: 6px;">
+    <b>Maxterm</b> to suma wszystkich zmiennych (wprost lub zanegowanych),
+    odpowiadająca wierszowi tabeli prawdy, gdzie funkcja = 0.
+  </p>
+
+  <h4 style="margin: 0;">10) Mapy Karnaugha (K-map) – idea</h4>
+  <p style="margin: 0;">
+    <b>Mapa Karnaugha</b> to metoda graficznego upraszczania funkcji boolowskich
+    (zwykle 2–4 zmienne, czasem 5–6).
+    Pola mapy układa się tak, aby sąsiednie pola różniły się jednym bitem
+    (kod Graya).
+  </p>
+
+  <p style="margin-top: 6px;">
+    Zasada:
+    grupuje się jedynki (dla SOP) lub zera (dla POS) w grupy o rozmiarze 2^k:
+    1, 2, 4, 8, ...
+  </p>
+
+  <ul style="margin: 6px 0 0; padding-left: 18px;">
+    <li>Im większa grupa, tym prostszy wynik.</li>
+    <li>Mapa „zawija się” na krawędziach (sąsiedztwo torusowe).</li>
+  </ul>
+
+  <h4 style="margin: 0;">11) Bramki uniwersalne NAND i NOR</h4>
+  <p style="margin: 0;">
+    <b>NAND</b> i <b>NOR</b> nazywa się bramkami uniwersalnymi,
+    ponieważ można z nich zbudować wszystkie pozostałe operacje logiczne.
+  </p>
+
+  <details style="margin-top: 6px;">
+    <summary style="cursor: pointer; font-weight: 700;">Przykład: NOT z NAND</summary>
+    <p style="margin: 8px 0 0;">
+      Jeśli podasz ten sam sygnał na oba wejścia NAND:
+      <br/>
+      NAND(A, A) = ¬(A·A) = ¬A
+    </p>
+  </details>
+
+  <h4 style="margin: 0;">12) Zastosowania algebry Boole’a</h4>
+  <ul style="margin: 0; padding-left: 18px;">
+    <li><b>Układy cyfrowe</b>: projektowanie logiki bramek, układy kombinacyjne i sekwencyjne.</li>
+    <li><b>FPGA</b>: synteza funkcji logicznych do LUT-ów.</li>
+    <li><b>Programowanie</b>: warunki if, operatory logiczne, maski bitowe.</li>
+    <li><b>Bazy danych</b>: warunki w SQL (AND/OR/NOT).</li>
+    <li><b>Cyberbezpieczeństwo</b>: reguły filtrów, warunki w IDS/IPS, logika dostępu.</li>
+  </ul>
+
+  <h4 style="margin: 0;">13) Najczęstsze pytania kontrolne na obronę</h4>
+  <ol style="margin: 0; padding-left: 18px;">
+    <li>Jakie są podstawowe operacje w algebrze Boole’a?</li>
+    <li>Podaj tabelę prawdy dla AND, OR, NOT oraz XOR.</li>
+    <li>Wymień najważniejsze prawa algebry Boole’a.</li>
+    <li>Wyjaśnij prawa De Morgana.</li>
+    <li>Co to jest SOP i POS?</li>
+    <li>Co to jest minterm i maxterm?</li>
+    <li>Po co upraszcza się funkcje logiczne?</li>
+    <li>Jak działa mapa Karnaugha?</li>
+    <li>Dlaczego NAND i NOR są uniwersalne?</li>
+    <li>Jak algebra Boole’a jest wykorzystywana w elektronice i informatyce?</li>
+  </ol>
+
+  <p style="margin-top: 6px;">
+    <b>Tip na obronę:</b> jeśli chcesz zabrzmieć „elektronicznie”, powiedz:
+    <i>upraszczanie funkcji boolowskich zmniejsza liczbę bramek, opóźnienie propagacji i pobór mocy</i>,
+    a potem dorzuć <i>De Morgana i Karnaugha</i>. To jest zestaw, który komisja uwielbia.
+  </p>
+</article>
+
       </section>
     </main>
   </body>
