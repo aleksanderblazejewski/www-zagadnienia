@@ -53,13 +53,23 @@
         padding: 32px 20px 64px;
       }
 
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+      }
+
       .toc {
         background: var(--card);
         border: 1px solid var(--border);
         border-radius: 16px;
         padding: 20px;
         box-shadow: 0 10px 24px rgba(30, 50, 110, 0.06);
-        margin-bottom: 24px;
+        position: sticky;
+        top: 24px;
+        max-height: calc(100vh - 48px);
+        overflow: auto;
       }
 
       .toc h2 {
@@ -70,8 +80,6 @@
       .toc ol {
         margin: 0;
         padding-left: 20px;
-        columns: 2;
-        column-gap: 24px;
       }
 
       .toc a {
@@ -83,10 +91,26 @@
         text-decoration: underline;
       }
 
+      .toc li {
+        break-inside: avoid;
+        margin-bottom: 4px;
+      }
+
       .topics {
         display: grid;
         grid-template-columns: 1fr;
         gap: 20px;
+      }
+
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .toc {
+          position: static;
+          max-height: none;
+        }
       }
 
       .topic-card {
@@ -153,60 +177,61 @@
       </p>
     </header>
     <main>
-      <nav class="toc" aria-label="Spis treści">
-        <h2>Spis treści</h2>
-        <ol>
-          <li><a href="#topic-1">1. Elementy sieci EPON i GPON</a></li>
-          <li><a href="#topic-2">2. Budowa ruterów i przełączników</a></li>
-          <li><a href="#topic-3">3. Zasilanie urządzeń 802.3af/802.3at</a></li>
-          <li><a href="#topic-4">4. Urządzenia przewodowych sieci dostępowych</a></li>
-          <li><a href="#topic-5">5. Implementacja urządzeń sieciowych (procesory/FPGA)</a></li>
-          <li><a href="#topic-6">6. Modele warstwowe systemów komunikujących się</a></li>
-          <li><a href="#topic-7">7. Sygnalizacja w sieciach telekomunikacyjnych</a></li>
-          <li><a href="#topic-8">8. Integracja usług w sieciach telekomunikacyjnych</a></li>
-          <li><a href="#topic-9">9. Metody protekcji i odtwarzania</a></li>
-          <li><a href="#topic-10">10. Numeracja i adresacja w sieciach telekomunikacyjnych</a></li>
-          <li><a href="#topic-11">11. Obsługa połączenia w sieci telefonii komórkowej</a></li>
-          <li><a href="#topic-12">12. Adresy MAC i IP</a></li>
-          <li><a href="#topic-13">13. Protokoły routingu</a></li>
-          <li><a href="#topic-14">14. Funkcje routerów i przełączników ethernetowych</a></li>
-          <li><a href="#topic-15">15. Charakterystyka systemu operacyjnego</a></li>
-          <li><a href="#topic-16">16. Procesy i wątki</a></li>
-          <li><a href="#topic-17">17. Zarządzanie pamięcią</a></li>
-          <li><a href="#topic-18">18. Routing w sieciach IP</a></li>
-          <li><a href="#topic-19">19. Adresacja IPv4 i IPv6</a></li>
-          <li><a href="#topic-20">20. Protokoły i przesyłanie danych w sieci</a></li>
-          <li><a href="#topic-21">21. Przełączanie w sieciach LAN</a></li>
-          <li><a href="#topic-22">22. Metody zapewnienia niezawodności sieci przełączalnych</a></li>
-          <li><a href="#topic-23">23. Wirtualne sieci lokalne (VLAN)</a></li>
-          <li><a href="#topic-24">24. Listy sterowania dostępem (ACL)</a></li>
-          <li><a href="#topic-25">25. Mechanizmy obecne w adresacji IP</a></li>
-          <li><a href="#topic-26">26. Warstwa łącza danych</a></li>
-          <li><a href="#topic-27">27. Warstwa sieci</a></li>
-          <li><a href="#topic-28">28. Funkcjonalność systemów operacyjnych</a></li>
-          <li><a href="#topic-29">29. Usługi i sposób ich realizacji w Data Center</a></li>
-          <li><a href="#topic-30">30. Programowalność sieci komputerowych</a></li>
-          <li><a href="#additional-topics">Zagadnienia 159–163</a></li>
-          <li><a href="#topic-159">159. Podstawowe układy cyfrowe</a></li>
-          <li><a href="#topic-160">160. Podstawowe prawa teorii obwodów</a></li>
-          <li><a href="#topic-161">161. Pomiary napięcia, prądu i rezystancji</a></li>
-          <li><a href="#topic-162">162. Pomiary bezpośrednie i pośrednie</a></li>
-          <li><a href="#topic-163">163. Dzielniki napięcia i prądu</a></li>
-          <li><a href="#topic-164">164. Przyrządy pomiarowe</a></li>
-          <li><a href="#topic-165">165. Pomiary charakterystyk elementów elektronicznych</a></li>
-          <li><a href="#topic-166">166. Komparator analogowy i jego zastosowania</a></li>
-          <li><a href="#topic-167">167. Zjawiska w kanale radiokomunikacji ruchomej</a></li>
-          <li><a href="#topic-168">168. Komórkowe sieci dostępowe</a></li>
-          <li><a href="#topic-169">169. Tworzenie stron internetowych z wykorzystaniem HTML i CSS</a></li>
-          <li><a href="#topic-170">170. Język XML, definiowanie zawartości dokumentu XML (DTD, XML Schema)</a></li>
-          <li><a href="#topic-171">171. Koncepcja korutyn oraz mechanizmu Dependency Injection (DI)</a></li>
-          <li><a href="#topic-172">172. Przykładowe wzorce projektowe i wzorce architektoniczne</a></li>
-          <li><a href="#topic-173">173. Algorytmy wyznaczania najkrótszych ścieżek w grafach skierowanych</a></li>
-          <li><a href="#topic-174">174. Tablice i pętle w języku C++</a></li>
-          <li><a href="#topic-175">175. Algebra Boole’a</a></li>
-        </ol>
-      </nav>
-      <section class="topics">
+      <div class="layout">
+        <nav class="toc" aria-label="Spis treści">
+          <h2>Spis treści</h2>
+          <ol>
+            <li><a href="#topic-1">1. Elementy sieci EPON i GPON</a></li>
+            <li><a href="#topic-2">2. Budowa ruterów i przełączników</a></li>
+            <li><a href="#topic-3">3. Zasilanie urządzeń 802.3af/802.3at</a></li>
+            <li><a href="#topic-4">4. Urządzenia przewodowych sieci dostępowych</a></li>
+            <li><a href="#topic-5">5. Implementacja urządzeń sieciowych (procesory/FPGA)</a></li>
+            <li><a href="#topic-6">6. Modele warstwowe systemów komunikujących się</a></li>
+            <li><a href="#topic-7">7. Sygnalizacja w sieciach telekomunikacyjnych</a></li>
+            <li><a href="#topic-8">8. Integracja usług w sieciach telekomunikacyjnych</a></li>
+            <li><a href="#topic-9">9. Metody protekcji i odtwarzania</a></li>
+            <li><a href="#topic-10">10. Numeracja i adresacja w sieciach telekomunikacyjnych</a></li>
+            <li><a href="#topic-11">11. Obsługa połączenia w sieci telefonii komórkowej</a></li>
+            <li><a href="#topic-12">12. Adresy MAC i IP</a></li>
+            <li><a href="#topic-13">13. Protokoły routingu</a></li>
+            <li><a href="#topic-14">14. Funkcje routerów i przełączników ethernetowych</a></li>
+            <li><a href="#topic-15">15. Charakterystyka systemu operacyjnego</a></li>
+            <li><a href="#topic-16">16. Procesy i wątki</a></li>
+            <li><a href="#topic-17">17. Zarządzanie pamięcią</a></li>
+            <li><a href="#topic-18">18. Routing w sieciach IP</a></li>
+            <li><a href="#topic-19">19. Adresacja IPv4 i IPv6</a></li>
+            <li><a href="#topic-20">20. Protokoły i przesyłanie danych w sieci</a></li>
+            <li><a href="#topic-21">21. Przełączanie w sieciach LAN</a></li>
+            <li><a href="#topic-22">22. Metody zapewnienia niezawodności sieci przełączalnych</a></li>
+            <li><a href="#topic-23">23. Wirtualne sieci lokalne (VLAN)</a></li>
+            <li><a href="#topic-24">24. Listy sterowania dostępem (ACL)</a></li>
+            <li><a href="#topic-25">25. Mechanizmy obecne w adresacji IP</a></li>
+            <li><a href="#topic-26">26. Warstwa łącza danych</a></li>
+            <li><a href="#topic-27">27. Warstwa sieci</a></li>
+            <li><a href="#topic-28">28. Funkcjonalność systemów operacyjnych</a></li>
+            <li><a href="#topic-29">29. Usługi i sposób ich realizacji w Data Center</a></li>
+            <li><a href="#topic-30">30. Programowalność sieci komputerowych</a></li>
+            <li><a href="#additional-topics">Zagadnienia 159–163</a></li>
+            <li><a href="#topic-159">159. Podstawowe układy cyfrowe</a></li>
+            <li><a href="#topic-160">160. Podstawowe prawa teorii obwodów</a></li>
+            <li><a href="#topic-161">161. Pomiary napięcia, prądu i rezystancji</a></li>
+            <li><a href="#topic-162">162. Pomiary bezpośrednie i pośrednie</a></li>
+            <li><a href="#topic-163">163. Dzielniki napięcia i prądu</a></li>
+            <li><a href="#topic-164">164. Przyrządy pomiarowe</a></li>
+            <li><a href="#topic-165">165. Pomiary charakterystyk elementów elektronicznych</a></li>
+            <li><a href="#topic-166">166. Komparator analogowy i jego zastosowania</a></li>
+            <li><a href="#topic-167">167. Zjawiska w kanale radiokomunikacji ruchomej</a></li>
+            <li><a href="#topic-168">168. Komórkowe sieci dostępowe</a></li>
+            <li><a href="#topic-169">169. Tworzenie stron internetowych z wykorzystaniem HTML i CSS</a></li>
+            <li><a href="#topic-170">170. Język XML, definiowanie zawartości dokumentu XML (DTD, XML Schema)</a></li>
+            <li><a href="#topic-171">171. Koncepcja korutyn oraz mechanizmu Dependency Injection (DI)</a></li>
+            <li><a href="#topic-172">172. Przykładowe wzorce projektowe i wzorce architektoniczne</a></li>
+            <li><a href="#topic-173">173. Algorytmy wyznaczania najkrótszych ścieżek w grafach skierowanych</a></li>
+            <li><a href="#topic-174">174. Tablice i pętle w języku C++</a></li>
+            <li><a href="#topic-175">175. Algebra Boole’a</a></li>
+          </ol>
+        </nav>
+        <section class="topics">
         <article class="topic-card" id="topic-1">
           <span class="pill">1</span>
           <h3>Elementy sieci EPON i GPON</h3>
@@ -3888,7 +3913,8 @@ A B | A∨B
   </p>
 </article>
 
-      </section>
+        </section>
+      </div>
     </main>
   </body>
 </html>
