@@ -1,12 +1,540 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="pl">
 
   <head>
-  
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zagadnienia sieciowe 1–30</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f6fb;
+        --card: #ffffff;
+        --text: #1a1f36;
+        --muted: #5c627a;
+        --accent: #2b6cb0;
+        --accent-soft: #e3edf9;
+        --border: #d7daea;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.6;
+      }
+
+      header {
+        padding: 48px 20px 32px;
+        text-align: center;
+        background: linear-gradient(135deg, #dae7ff, #f7f9ff 60%);
+        border-bottom: 1px solid var(--border);
+      }
+
+      header h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 3vw, 2.8rem);
+      }
+
+      header p {
+        margin: 0 auto;
+        max-width: 720px;
+        color: var(--muted);
+      }
+
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 20px 64px;
+      }
+
+      .topics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+      }
+
+      .topic-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 24px rgba(30, 50, 110, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .topic-card h2 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: var(--accent);
+      }
+
+      .topic-card h3 {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .topic-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      section > h2 {
+        grid-column: 1 / -1;
+        margin: 8px 0 4px;
+        font-size: 1.4rem;
+        color: var(--text);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.85rem;
+        font-weight: 600;
+        align-self: flex-start;
+      }
+
+      .placeholder {
+        border: 1px dashed var(--border);
+        background: #fbfbff;
+      }
+    </style>
   </head>
 
   <body>
+    <header>
+      <h1>Zagadnienia sieciowe 1–30</h1>
+      <p>
+        Poniżej znajdziesz zwięzłe objaśnienia tematów związanych z sieciami i
+        telekomunikacją. Lista obejmuje zakres 1–30, zgodnie z podanymi
+        zagadnieniami.
+      </p>
+    </header>
+    <main>
+      <section class="topics">
+        <article class="topic-card">
+          <span class="pill">1</span>
+          <h3>Elementy sieci EPON i GPON</h3>
+          <p>
+            EPON/GPON to pasywne sieci optyczne. Kluczowe elementy to OLT w
+            centrali, pasywne splittery oraz ONT/ONU po stronie abonenta.
+          </p>
+        </article>
 
-    
+        <article class="topic-card">
+          <span class="pill">2</span>
+          <h3>Budowa ruterów i przełączników</h3>
+          <p>
+            Routery realizują trasowanie na warstwie 3, a przełączniki komutację
+            ramek w warstwie 2. Wspólne są moduły zasilania, porty uplink i
+            bufory ruchu.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">3</span>
+          <h3>Zasilanie urządzeń 802.3af/802.3at</h3>
+          <p>
+            Standardy PoE dostarczają energię przez skrętkę. 802.3af oferuje
+            moc do ok. 15 W, a 802.3at (PoE+) do ok. 30 W, z negocjacją klasy.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">4</span>
+          <h3>Urządzenia przewodowych sieci dostępowych</h3>
+          <p>
+            Do typowych elementów należą DSLAM, OLT oraz przełączniki dostępowe,
+            które agregują ruch klientów i łączą go z siecią operatora.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">5</span>
+          <h3>Implementacja urządzeń sieciowych (procesory/FPGA)</h3>
+          <p>
+            Procesory sieciowe obsługują routing, QoS i filtrowanie, a układy
+            FPGA umożliwiają sprzętowe przyspieszenie i elastyczne prototypowanie.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">6</span>
+          <h3>Modele warstwowe systemów komunikujących się</h3>
+          <p>
+            Modele OSI i TCP/IP dzielą komunikację na warstwy, np. fizyczną,
+            łącza danych, sieciową i aplikacyjną, ułatwiając diagnostykę.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">7</span>
+          <h3>Sygnalizacja w sieciach telekomunikacyjnych</h3>
+          <p>
+            Sygnalizacja (np. SS7, SIP) zestawia i kończy połączenia, przenosząc
+            informacje kontrolne niezależnie od strumienia danych.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">8</span>
+          <h3>Integracja usług w sieciach telekomunikacyjnych</h3>
+          <p>
+            Konwergencja łączy głos, dane i wideo w jednej infrastrukturze,
+            umożliwiając usługi takie jak VoIP czy IPTV.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">9</span>
+          <h3>Metody protekcji i odtwarzania</h3>
+          <p>
+            Obejmują redundancję łączy, przełączenia awaryjne oraz szybką
+            rekonwergencję, by zminimalizować przerwy w pracy sieci.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">10</span>
+          <h3>Numeracja i adresacja w sieciach telekomunikacyjnych</h3>
+          <p>
+            Zasady identyfikowania usług i węzłów (np. E.164, adresy IP) ułatwiają
+            kierowanie ruchu i mapowanie użytkowników na usługi.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">11</span>
+          <h3>Obsługa połączenia w sieci telefonii komórkowej</h3>
+          <p>
+            Proces obejmuje rejestrację, zestawienie połączenia, handover między
+            stacjami bazowymi i rozłączenie z użyciem sygnalizacji.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">12</span>
+          <h3>Adresy MAC i IP</h3>
+          <p>
+            MAC identyfikuje interfejs w sieci lokalnej, a IP określa węzeł w
+            skali sieci. Wspólnie umożliwiają dostarczanie ramek i pakietów.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">13</span>
+          <h3>Protokoły routingu</h3>
+          <p>
+            Protokoły takie jak OSPF, BGP czy RIP wyznaczają ścieżki w sieci i
+            reagują na zmiany topologii, optymalizując przepływ danych.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">14</span>
+          <h3>Funkcje routerów i przełączników ethernetowych</h3>
+          <p>
+            Routery decydują o trasie pakietów, a przełączniki uczą się adresów
+            MAC i przesyłają ramki w LAN, wspierając QoS i bezpieczeństwo.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">15</span>
+          <h3>Charakterystyka systemu operacyjnego</h3>
+          <p>
+            System operacyjny zarządza zasobami sprzętowymi, procesami, pamięcią
+            i plikami, zapewniając środowisko do działania aplikacji.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">16</span>
+          <h3>Procesy i wątki</h3>
+          <p>
+            Proces to uruchomiona instancja programu z własną pamięcią, a wątek
+            jest lżejszą jednostką wykonawczą współdzielącą zasoby procesu.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">17</span>
+          <h3>Zarządzanie pamięcią</h3>
+          <p>
+            System operacyjny przydziela pamięć procesom, izoluje je oraz stosuje
+            stronicowanie i pamięć wirtualną dla stabilności i bezpieczeństwa.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">18</span>
+          <h3>Routing w sieciach IP</h3>
+          <p>
+            Routing wybiera trasę dla pakietów IP na podstawie tablic routingu,
+            metryk i protokołów dynamicznych, łącząc różne sieci.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">19</span>
+          <h3>Adresacja IPv4 i IPv6</h3>
+          <p>
+            IPv4 używa 32-bitowych adresów, a IPv6 128-bitowych, zapewniając
+            większą pulę adresową, uproszczony nagłówek i lepszy multicast.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">20</span>
+          <h3>Protokoły i przesyłanie danych w sieci</h3>
+          <p>
+            Protokoły (np. TCP, UDP, HTTP) definiują format danych, kontrolę
+            błędów i niezawodność transmisji w zależności od potrzeb aplikacji.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">21</span>
+          <h3>Przełączanie w sieciach LAN</h3>
+          <p>
+            Przełączniki uczą się adresów MAC i kierują ramki do właściwych portów,
+            ograniczając kolizje i poprawiając wydajność sieci lokalnej.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">22</span>
+          <h3>Metody zapewnienia niezawodności sieci przełączalnych</h3>
+          <p>
+            Redundancja łączy, STP/RSTP oraz agregacja łączy (LACP) utrzymują
+            ciągłość działania nawet przy awariach elementów sieci.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">23</span>
+          <h3>Wirtualne sieci lokalne (VLAN)</h3>
+          <p>
+            VLAN-y logicznie dzielą sieć na segmenty, poprawiając bezpieczeństwo,
+            separację ruchu i łatwiejsze zarządzanie infrastrukturą.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">24</span>
+          <h3>Listy sterowania dostępem (ACL)</h3>
+          <p>
+            ACL filtrują ruch według adresów, portów i protokołów, umożliwiając
+            egzekwowanie polityk bezpieczeństwa oraz kontroli dostępu.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">25</span>
+          <h3>Mechanizmy obecne w adresacji IP</h3>
+          <p>
+            Obejmują m.in. podsieci, maski, CIDR oraz NAT, które pomagają planować
+            adresację i oszczędnie gospodarować przestrzenią adresową.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">26</span>
+          <h3>Warstwa łącza danych</h3>
+          <p>
+            Protokoły i urządzenia tej warstwy (np. Ethernet, przełączniki)
+            realizują przesył ramek, kontrolę dostępu do medium i wykrywanie błędów.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">27</span>
+          <h3>Warstwa sieci</h3>
+          <p>
+            Warstwa sieci odpowiada za adresowanie logiczne, wybór trasy i
+            dostarczanie pakietów między sieciami z użyciem protokołu IP.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">28</span>
+          <h3>Funkcjonalność systemów operacyjnych</h3>
+          <p>
+            Systemy operacyjne oferują narzędzia administracyjne i sieciowe
+            (np. ping, traceroute, netstat), wspierające diagnostykę i zarządzanie.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">29</span>
+          <h3>Usługi i sposób ich realizacji w Data Center</h3>
+          <p>
+            Data Center dostarcza usługi obliczeniowe, pamięci masowej i sieci,
+            często z użyciem wirtualizacji, kontenerów i orkiestracji zasobów.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">30</span>
+          <h3>Programowalność sieci komputerowych</h3>
+          <p>
+            SDN i automatyzacja pozwalają centralnie sterować ruchem, wdrażać
+            polityki bezpieczeństwa i integrować sieć z API oraz narzędziami CI/CD.
+          </p>
+        </article>
+      </section>
+
+      <section class="topics" aria-labelledby="additional-topics">
+        <h2 id="additional-topics">Zagadnienia 159–163</h2>
+
+        <article class="topic-card">
+          <span class="pill">159</span>
+          <h3>Podstawowe układy cyfrowe</h3>
+          <p>
+            Układy cyfrowe operują na stanach logicznych 0 i 1. Najprostsze
+            elementy to bramki logiczne (AND, OR, NOT, NAND, NOR), które łączy się
+            w bardziej złożone bloki, np. multipleksery, dekodery czy przerzutniki.
+            Przerzutniki (RS, JK, D, T) przechowują informację, a rejestry i
+            liczniki buduje się z wielu przerzutników. Projektowanie układów
+            cyfrowych opiera się na algebrze Boole’a oraz tabelach prawdy, co
+            pozwala minimalizować liczbę bramek i upraszczać realizację sprzętową.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">160</span>
+          <h3>Podstawowe prawa teorii obwodów</h3>
+          <p>
+            Podstawę analizy obwodów stanowią prawa Kirchhoffa: prądowe (suma
+            prądów w węźle wynosi zero) oraz napięciowe (suma spadków napięć w
+            oczku jest równa zero). Uzupełnia je prawo Ohma, które opisuje
+            zależność między napięciem, prądem i rezystancją (U = I·R). W
+            praktyce używa się także zasad superpozycji, twierdzeń Thevenina i
+            Nortona oraz analizy mocy (P = U·I), aby uprościć złożone układy i
+            wyznaczać parametry zastępcze.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">161</span>
+          <h3>Pomiary napięcia, prądu i rezystancji</h3>
+          <p>
+            Napięcie mierzy się woltomierzem włączanym równolegle do elementu,
+            a prąd — amperomierzem włączanym szeregowo w obwód. Rezystancję
+            sprawdza się omomierzem lub mostkiem pomiarowym, często przy
+            odłączonym zasilaniu. Ważne jest dobranie zakresu pomiarowego,
+            uwzględnienie rezystancji wewnętrznej przyrządu oraz minimalizowanie
+            błędów wynikających z obciążenia badanego układu.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">162</span>
+          <h3>Pomiary bezpośrednie i pośrednie</h3>
+          <p>
+            Pomiar bezpośredni polega na odczycie wartości z przyrządu
+            (np. napięcia z woltomierza). Pomiar pośredni wyznacza wielkość
+            obliczeniowo na podstawie innych pomiarów, np. rezystancję z
+            zależności R = U/I. W pomiarach pośrednich istotna jest analiza
+            niepewności, ponieważ błędy składowe propagują się do wyniku.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">163</span>
+          <h3>Dzielniki napięcia i prądu</h3>
+          <p>
+            Dzielnik napięcia to układ rezystorów połączonych szeregowo, który
+            pozwala uzyskać niższe napięcie na wybranym elemencie zgodnie z
+            proporcjami rezystancji. Dzielnik prądu opiera się na połączeniu
+            równoległym, gdzie prąd rozdziela się odwrotnie proporcjonalnie do
+            rezystancji gałęzi. W praktyce uwzględnia się obciążenie oraz wpływ
+            rezystancji wewnętrznych, aby zachować dokładność podziału.
+          </p>
+        </article>
+      </section>
+
+      <section class="topics" aria-labelledby="additional-topics-164">
+        <h2 id="additional-topics-164">Zagadnienia 164–168</h2>
+
+        <article class="topic-card">
+          <span class="pill">164</span>
+          <h3>Przyrządy pomiarowe</h3>
+          <p>
+            Przyrządy pomiarowe dzielą się na analogowe i cyfrowe oraz na
+            laboratoryjne i eksploatacyjne. Woltomierze, amperomierze i
+            multimetry służą do podstawowych pomiarów, a oscyloskopy i analizatory
+            widma do obserwacji przebiegów czasowych i częstotliwościowych.
+            Kluczowe parametry to zakres, rozdzielczość, dokładność, klasa
+            przyrządu i rezystancja wejściowa. W praktyce istotne jest też
+            wzorcowanie, aby zapewnić wiarygodność wyników.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">165</span>
+          <h3>Pomiary charakterystyk elementów elektronicznych</h3>
+          <p>
+            Charakterystyki elementów (np. diod, tranzystorów, rezystorów) wyznacza
+            się poprzez pomiar zależności prądowo-napięciowych lub parametrów
+            częstotliwościowych. Wykorzystuje się źródła zasilania, układy
+            polaryzacji oraz przyrządy rejestrujące (multimetry, oscyloskopy).
+            Ważne jest stabilne warunki termiczne oraz dobór punktu pracy, aby
+            uzyskać powtarzalne krzywe i poprawnie odczytać parametry, takie jak
+            wzmocnienie, napięcie progowe czy rezystancja dynamiczna.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">166</span>
+          <h3>Komparator analogowy i jego zastosowania</h3>
+          <p>
+            Komparator analogowy porównuje dwa napięcia i generuje sygnał
+            binarny wskazujący, które z nich jest większe. Stosuje się go w
+            układach progowych, detekcji zera, generatorach PWM, przetwornikach
+            A/C oraz w zabezpieczeniach nadnapięciowych. Istotne parametry to
+            czas propagacji, histereza (komparator z przerzutnikiem Schmitta),
+            zakres napięć wejściowych i kompatybilność z logiką cyfrową.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">167</span>
+          <h3>Zjawiska w kanale radiokomunikacji ruchomej</h3>
+          <p>
+            Kanał ruchomy charakteryzuje się zanikiem sygnału (fading),
+            wielodrogowością i przesunięciem Dopplera wynikającym z ruchu
+            użytkownika. Pojawiają się też interferencje, szumy i zmiany
+            tłumienia w zależności od otoczenia. Systemy mobilne stosują
+            modulacje odporne na zakłócenia, równoważenie kanału i
+            kodowanie korekcyjne, aby utrzymać jakość transmisji.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">168</span>
+          <h3>Komórkowe sieci dostępowe</h3>
+          <p>
+            Sieci komórkowe dzielą obszar na komórki obsługiwane przez stacje
+            bazowe, co umożliwia wielokrotne wykorzystanie częstotliwości.
+            Architektura obejmuje warstwę radiową (RAN), rdzeń sieci oraz
+            systemy zarządzania. Kluczowe zagadnienia to planowanie komórek,
+            handover, kontrola mocy i obsługa wielu usług (głos, dane, IoT).
+          </p>
+        </article>
+      </section>
+    </main>
   </body>
 </html>
