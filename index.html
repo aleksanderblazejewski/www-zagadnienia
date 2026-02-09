@@ -53,9 +53,39 @@
         padding: 32px 20px 64px;
       }
 
+      .toc {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 24px rgba(30, 50, 110, 0.06);
+        margin-bottom: 24px;
+      }
+
+      .toc h2 {
+        margin: 0 0 12px;
+        font-size: 1.2rem;
+      }
+
+      .toc ol {
+        margin: 0;
+        padding-left: 20px;
+        columns: 2;
+        column-gap: 24px;
+      }
+
+      .toc a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .toc a:hover {
+        text-decoration: underline;
+      }
+
       .topics {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        grid-template-columns: 1fr;
         gap: 20px;
       }
 
@@ -123,8 +153,61 @@
       </p>
     </header>
     <main>
+      <nav class="toc" aria-label="Spis treści">
+        <h2>Spis treści</h2>
+        <ol>
+          <li><a href="#topic-1">1. Elementy sieci EPON i GPON</a></li>
+          <li><a href="#topic-2">2. Budowa ruterów i przełączników</a></li>
+          <li><a href="#topic-3">3. Zasilanie urządzeń 802.3af/802.3at</a></li>
+          <li><a href="#topic-4">4. Urządzenia przewodowych sieci dostępowych</a></li>
+          <li><a href="#topic-5">5. Implementacja urządzeń sieciowych (procesory/FPGA)</a></li>
+          <li><a href="#topic-6">6. Modele warstwowe systemów komunikujących się</a></li>
+          <li><a href="#topic-7">7. Sygnalizacja w sieciach telekomunikacyjnych</a></li>
+          <li><a href="#topic-8">8. Integracja usług w sieciach telekomunikacyjnych</a></li>
+          <li><a href="#topic-9">9. Metody protekcji i odtwarzania</a></li>
+          <li><a href="#topic-10">10. Numeracja i adresacja w sieciach telekomunikacyjnych</a></li>
+          <li><a href="#topic-11">11. Obsługa połączenia w sieci telefonii komórkowej</a></li>
+          <li><a href="#topic-12">12. Adresy MAC i IP</a></li>
+          <li><a href="#topic-13">13. Protokoły routingu</a></li>
+          <li><a href="#topic-14">14. Funkcje routerów i przełączników ethernetowych</a></li>
+          <li><a href="#topic-15">15. Charakterystyka systemu operacyjnego</a></li>
+          <li><a href="#topic-16">16. Procesy i wątki</a></li>
+          <li><a href="#topic-17">17. Zarządzanie pamięcią</a></li>
+          <li><a href="#topic-18">18. Routing w sieciach IP</a></li>
+          <li><a href="#topic-19">19. Adresacja IPv4 i IPv6</a></li>
+          <li><a href="#topic-20">20. Protokoły i przesyłanie danych w sieci</a></li>
+          <li><a href="#topic-21">21. Przełączanie w sieciach LAN</a></li>
+          <li><a href="#topic-22">22. Metody zapewnienia niezawodności sieci przełączalnych</a></li>
+          <li><a href="#topic-23">23. Wirtualne sieci lokalne (VLAN)</a></li>
+          <li><a href="#topic-24">24. Listy sterowania dostępem (ACL)</a></li>
+          <li><a href="#topic-25">25. Mechanizmy obecne w adresacji IP</a></li>
+          <li><a href="#topic-26">26. Warstwa łącza danych</a></li>
+          <li><a href="#topic-27">27. Warstwa sieci</a></li>
+          <li><a href="#topic-28">28. Funkcjonalność systemów operacyjnych</a></li>
+          <li><a href="#topic-29">29. Usługi i sposób ich realizacji w Data Center</a></li>
+          <li><a href="#topic-30">30. Programowalność sieci komputerowych</a></li>
+          <li><a href="#additional-topics">Zagadnienia 159–163</a></li>
+          <li><a href="#topic-159">159. Podstawowe układy cyfrowe</a></li>
+          <li><a href="#topic-160">160. Podstawowe prawa teorii obwodów</a></li>
+          <li><a href="#topic-161">161. Pomiary napięcia, prądu i rezystancji</a></li>
+          <li><a href="#topic-162">162. Pomiary bezpośrednie i pośrednie</a></li>
+          <li><a href="#topic-163">163. Dzielniki napięcia i prądu</a></li>
+          <li><a href="#topic-164">164. Przyrządy pomiarowe</a></li>
+          <li><a href="#topic-165">165. Pomiary charakterystyk elementów elektronicznych</a></li>
+          <li><a href="#topic-166">166. Komparator analogowy i jego zastosowania</a></li>
+          <li><a href="#topic-167">167. Zjawiska w kanale radiokomunikacji ruchomej</a></li>
+          <li><a href="#topic-168">168. Komórkowe sieci dostępowe</a></li>
+          <li><a href="#topic-169">169. Tworzenie stron internetowych z wykorzystaniem HTML i CSS</a></li>
+          <li><a href="#topic-170">170. Język XML, definiowanie zawartości dokumentu XML (DTD, XML Schema)</a></li>
+          <li><a href="#topic-171">171. Koncepcja korutyn oraz mechanizmu Dependency Injection (DI)</a></li>
+          <li><a href="#topic-172">172. Przykładowe wzorce projektowe i wzorce architektoniczne</a></li>
+          <li><a href="#topic-173">173. Algorytmy wyznaczania najkrótszych ścieżek w grafach skierowanych</a></li>
+          <li><a href="#topic-174">174. Tablice i pętle w języku C++</a></li>
+          <li><a href="#topic-175">175. Algebra Boole’a</a></li>
+        </ol>
+      </nav>
       <section class="topics">
-        <article class="topic-card">
+        <article class="topic-card" id="topic-1">
           <span class="pill">1</span>
           <h3>Elementy sieci EPON i GPON</h3>
           <p>
@@ -133,7 +216,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-2">
           <span class="pill">2</span>
           <h3>Budowa ruterów i przełączników</h3>
           <p>
@@ -143,7 +226,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-3">
           <span class="pill">3</span>
           <h3>Zasilanie urządzeń 802.3af/802.3at</h3>
           <p>
@@ -152,7 +235,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-4">
           <span class="pill">4</span>
           <h3>Urządzenia przewodowych sieci dostępowych</h3>
           <p>
@@ -161,7 +244,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-5">
           <span class="pill">5</span>
           <h3>Implementacja urządzeń sieciowych (procesory/FPGA)</h3>
           <p>
@@ -170,7 +253,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-6">
           <span class="pill">6</span>
           <h3>Modele warstwowe systemów komunikujących się</h3>
           <p>
@@ -179,7 +262,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-7">
           <span class="pill">7</span>
           <h3>Sygnalizacja w sieciach telekomunikacyjnych</h3>
           <p>
@@ -188,7 +271,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-8">
           <span class="pill">8</span>
           <h3>Integracja usług w sieciach telekomunikacyjnych</h3>
           <p>
@@ -197,7 +280,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-9">
           <span class="pill">9</span>
           <h3>Metody protekcji i odtwarzania</h3>
           <p>
@@ -206,7 +289,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-10">
           <span class="pill">10</span>
           <h3>Numeracja i adresacja w sieciach telekomunikacyjnych</h3>
           <p>
@@ -215,7 +298,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-11">
           <span class="pill">11</span>
           <h3>Obsługa połączenia w sieci telefonii komórkowej</h3>
           <p>
@@ -224,7 +307,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-12">
           <span class="pill">12</span>
           <h3>Adresy MAC i IP</h3>
           <p>
@@ -233,7 +316,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-13">
           <span class="pill">13</span>
           <h3>Protokoły routingu</h3>
           <p>
@@ -242,7 +325,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-14">
           <span class="pill">14</span>
           <h3>Funkcje routerów i przełączników ethernetowych</h3>
           <p>
@@ -251,7 +334,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-15">
           <span class="pill">15</span>
           <h3>Charakterystyka systemu operacyjnego</h3>
           <p>
@@ -260,7 +343,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-16">
           <span class="pill">16</span>
           <h3>Procesy i wątki</h3>
           <p>
@@ -269,7 +352,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-17">
           <span class="pill">17</span>
           <h3>Zarządzanie pamięcią</h3>
           <p>
@@ -278,7 +361,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-18">
           <span class="pill">18</span>
           <h3>Routing w sieciach IP</h3>
           <p>
@@ -287,7 +370,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-19">
           <span class="pill">19</span>
           <h3>Adresacja IPv4 i IPv6</h3>
           <p>
@@ -296,7 +379,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-20">
           <span class="pill">20</span>
           <h3>Protokoły i przesyłanie danych w sieci</h3>
           <p>
@@ -305,7 +388,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-21">
           <span class="pill">21</span>
           <h3>Przełączanie w sieciach LAN</h3>
           <p>
@@ -314,7 +397,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-22">
           <span class="pill">22</span>
           <h3>Metody zapewnienia niezawodności sieci przełączalnych</h3>
           <p>
@@ -323,7 +406,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-23">
           <span class="pill">23</span>
           <h3>Wirtualne sieci lokalne (VLAN)</h3>
           <p>
@@ -332,7 +415,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-24">
           <span class="pill">24</span>
           <h3>Listy sterowania dostępem (ACL)</h3>
           <p>
@@ -341,7 +424,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-25">
           <span class="pill">25</span>
           <h3>Mechanizmy obecne w adresacji IP</h3>
           <p>
@@ -350,7 +433,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-26">
           <span class="pill">26</span>
           <h3>Warstwa łącza danych</h3>
           <p>
@@ -359,7 +442,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-27">
           <span class="pill">27</span>
           <h3>Warstwa sieci</h3>
           <p>
@@ -368,7 +451,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-28">
           <span class="pill">28</span>
           <h3>Funkcjonalność systemów operacyjnych</h3>
           <p>
@@ -377,7 +460,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-29">
           <span class="pill">29</span>
           <h3>Usługi i sposób ich realizacji w Data Center</h3>
           <p>
@@ -386,7 +469,7 @@
           </p>
         </article>
 
-        <article class="topic-card">
+        <article class="topic-card" id="topic-30">
           <span class="pill">30</span>
           <h3>Programowalność sieci komputerowych</h3>
           <p>
