@@ -403,13 +403,16 @@
           <span class="pill">159</span>
           <h3>Podstawowe układy cyfrowe</h3>
           <p>
-            Układy cyfrowe operują na stanach logicznych 0 i 1. Najprostsze
-            elementy to bramki logiczne (AND, OR, NOT, NAND, NOR), które łączy się
-            w bardziej złożone bloki, np. multipleksery, dekodery czy przerzutniki.
-            Przerzutniki (RS, JK, D, T) przechowują informację, a rejestry i
-            liczniki buduje się z wielu przerzutników. Projektowanie układów
-            cyfrowych opiera się na algebrze Boole’a oraz tabelach prawdy, co
-            pozwala minimalizować liczbę bramek i upraszczać realizację sprzętową.
+            Układy cyfrowe operują na stanach logicznych 0 i 1 oraz na poziomach
+            napięć odpowiadających tym stanom. Najprostsze elementy to bramki
+            logiczne (AND, OR, NOT, NAND, NOR, XOR), które łączy się w bardziej
+            złożone bloki, np. multipleksery, dekodery, komparatory, sumatory i
+            rejestry. Przerzutniki (RS, JK, D, T) przechowują informację i
+            umożliwiają budowę liczników oraz układów sekwencyjnych, gdzie istotne
+            są pojęcia zegara, opóźnień propagacji i narzutów czasowych (setup/hold).
+            Projektowanie opiera się na algebrze Boole’a, tabelach prawdy i
+            minimalizacji (np. mapy Karnaugha), a w praktyce uwzględnia się
+            parametry technologii (TTL/CMOS), pobór mocy i odporność na zakłócenia.
           </p>
         </article>
 
@@ -419,11 +422,12 @@
           <p>
             Podstawę analizy obwodów stanowią prawa Kirchhoffa: prądowe (suma
             prądów w węźle wynosi zero) oraz napięciowe (suma spadków napięć w
-            oczku jest równa zero). Uzupełnia je prawo Ohma, które opisuje
-            zależność między napięciem, prądem i rezystancją (U = I·R). W
-            praktyce używa się także zasad superpozycji, twierdzeń Thevenina i
-            Nortona oraz analizy mocy (P = U·I), aby uprościć złożone układy i
-            wyznaczać parametry zastępcze.
+            oczku jest równa zero). Uzupełnia je prawo Ohma (U = I·R) oraz
+            definicje mocy i energii (P = U·I, W = P·t). W praktyce wykorzystuje
+            się zasady superpozycji, twierdzenia Thevenina i Nortona, zamiany
+            źródeł oraz analizę obwodów RC/RL (stałe czasowe, odpowiedzi
+            przejściowe). Ważne są też pojęcia impedancji, reaktancji i fazy,
+            które pozwalają opisywać obwody prądu przemiennego.
           </p>
         </article>
 
@@ -433,10 +437,12 @@
           <p>
             Napięcie mierzy się woltomierzem włączanym równolegle do elementu,
             a prąd — amperomierzem włączanym szeregowo w obwód. Rezystancję
-            sprawdza się omomierzem lub mostkiem pomiarowym, często przy
-            odłączonym zasilaniu. Ważne jest dobranie zakresu pomiarowego,
+            sprawdza się omomierzem lub mostkiem pomiarowym, zwykle przy
+            odłączonym zasilaniu. Kluczowe jest dobranie zakresu pomiarowego,
             uwzględnienie rezystancji wewnętrznej przyrządu oraz minimalizowanie
-            błędów wynikających z obciążenia badanego układu.
+            błędów obciążenia. W praktyce stosuje się też pomiary czteroprzewodowe
+            (Kelvina) dla małych rezystancji, pomiary True RMS dla przebiegów
+            odkształconych oraz ocenę niepewności i kalibrację przyrządów.
           </p>
         </article>
 
@@ -447,8 +453,11 @@
             Pomiar bezpośredni polega na odczycie wartości z przyrządu
             (np. napięcia z woltomierza). Pomiar pośredni wyznacza wielkość
             obliczeniowo na podstawie innych pomiarów, np. rezystancję z
-            zależności R = U/I. W pomiarach pośrednich istotna jest analiza
-            niepewności, ponieważ błędy składowe propagują się do wyniku.
+            zależności R = U/I lub moc z P = U·I. W pomiarach pośrednich kluczowa
+            jest analiza niepewności i propagacja błędów, dlatego stosuje się
+            metody statystyczne, wyznaczanie odchylenia standardowego oraz
+            budżet niepewności. W praktyce ważne są też warunki środowiskowe
+            (temperatura, wilgotność) i powtarzalność pomiaru.
           </p>
         </article>
 
@@ -458,10 +467,13 @@
           <p>
             Dzielnik napięcia to układ rezystorów połączonych szeregowo, który
             pozwala uzyskać niższe napięcie na wybranym elemencie zgodnie z
-            proporcjami rezystancji. Dzielnik prądu opiera się na połączeniu
-            równoległym, gdzie prąd rozdziela się odwrotnie proporcjonalnie do
-            rezystancji gałęzi. W praktyce uwzględnia się obciążenie oraz wpływ
-            rezystancji wewnętrznych, aby zachować dokładność podziału.
+            proporcjami rezystancji (Uwy = Uwe · R2 / (R1 + R2)). Dzielnik prądu
+            opiera się na połączeniu równoległym, gdzie prąd rozdziela się
+            odwrotnie proporcjonalnie do rezystancji gałęzi. W praktyce należy
+            uwzględniać obciążenie, rezystancję wejściową miernika oraz tolerancje
+            elementów. Dla prądu przemiennego stosuje się dzielniki impedancyjne
+            z kondensatorami lub cewkami, a przy wysokich napięciach dba się o
+            bezpieczeństwo i odpowiednią izolację.
           </p>
         </article>
       </section>
@@ -475,11 +487,13 @@
           <p>
             Przyrządy pomiarowe dzielą się na analogowe i cyfrowe oraz na
             laboratoryjne i eksploatacyjne. Woltomierze, amperomierze i
-            multimetry służą do podstawowych pomiarów, a oscyloskopy i analizatory
-            widma do obserwacji przebiegów czasowych i częstotliwościowych.
-            Kluczowe parametry to zakres, rozdzielczość, dokładność, klasa
-            przyrządu i rezystancja wejściowa. W praktyce istotne jest też
-            wzorcowanie, aby zapewnić wiarygodność wyników.
+            multimetry służą do podstawowych pomiarów, a oscyloskopy, generatory
+            funkcyjne i analizatory widma do obserwacji przebiegów czasowych i
+            częstotliwościowych. Kluczowe parametry to zakres, rozdzielczość,
+            dokładność, klasa przyrządu, rezystancja wejściowa, pasmo oraz
+            czas próbkowania. W praktyce zwraca się uwagę na kalibrację,
+            niepewność, wpływ obciążenia oraz procedury bezpieczeństwa
+            (np. kategorie przepięciowe CAT).
           </p>
         </article>
 
@@ -488,12 +502,14 @@
           <h3>Pomiary charakterystyk elementów elektronicznych</h3>
           <p>
             Charakterystyki elementów (np. diod, tranzystorów, rezystorów) wyznacza
-            się poprzez pomiar zależności prądowo-napięciowych lub parametrów
-            częstotliwościowych. Wykorzystuje się źródła zasilania, układy
-            polaryzacji oraz przyrządy rejestrujące (multimetry, oscyloskopy).
-            Ważne jest stabilne warunki termiczne oraz dobór punktu pracy, aby
-            uzyskać powtarzalne krzywe i poprawnie odczytać parametry, takie jak
-            wzmocnienie, napięcie progowe czy rezystancja dynamiczna.
+            się poprzez pomiar zależności prądowo-napięciowych oraz parametrów
+            częstotliwościowych. Stosuje się źródła zasilania, układy polaryzacji
+            i przyrządy rejestrujące (multimetry, oscyloskopy, analizatory).
+            Dla diod istotne są parametry progowe, prąd wsteczny i rezystancja
+            dynamiczna; dla tranzystorów — charakterystyki wejściowe i wyjściowe,
+            wzmocnienie, punkt pracy i obszary pracy. Ważne są stabilne warunki
+            termiczne, kompensacja temperatury oraz eliminacja błędów wynikających
+            z oporności przewodów i źródła zasilania.
           </p>
         </article>
 
@@ -504,9 +520,11 @@
             Komparator analogowy porównuje dwa napięcia i generuje sygnał
             binarny wskazujący, które z nich jest większe. Stosuje się go w
             układach progowych, detekcji zera, generatorach PWM, przetwornikach
-            A/C oraz w zabezpieczeniach nadnapięciowych. Istotne parametry to
-            czas propagacji, histereza (komparator z przerzutnikiem Schmitta),
-            zakres napięć wejściowych i kompatybilność z logiką cyfrową.
+            A/C oraz w zabezpieczeniach nadnapięciowych. Kluczowe parametry to
+            czas propagacji, histereza (przerzutnik Schmitta), napięcie
+            niezrównoważenia, zakres napięć wejściowych (common-mode) i
+            kompatybilność z logiką cyfrową. W praktyce uwzględnia się też
+            zakłócenia i potrzebę filtracji, aby uniknąć drgań na wyjściu.
           </p>
         </article>
 
@@ -516,10 +534,12 @@
           <p>
             Kanał ruchomy charakteryzuje się zanikiem sygnału (fading),
             wielodrogowością i przesunięciem Dopplera wynikającym z ruchu
-            użytkownika. Pojawiają się też interferencje, szumy i zmiany
-            tłumienia w zależności od otoczenia. Systemy mobilne stosują
-            modulacje odporne na zakłócenia, równoważenie kanału i
-            kodowanie korekcyjne, aby utrzymać jakość transmisji.
+            użytkownika. Pojawiają się interferencje, szumy, zmiany tłumienia
+            i zjawiska cieniowania. Istotne są modele propagacji (np. Rayleigh,
+            Rician), szerokość pasma koherencji i czas koherencji, które wpływają
+            na dobór modulacji i kodowania. Systemy mobilne stosują dywersyfikację,
+            równoważenie kanału, kodowanie korekcyjne i adaptację modulacji, aby
+            utrzymać jakość transmisji.
           </p>
         </article>
 
@@ -530,8 +550,105 @@
             Sieci komórkowe dzielą obszar na komórki obsługiwane przez stacje
             bazowe, co umożliwia wielokrotne wykorzystanie częstotliwości.
             Architektura obejmuje warstwę radiową (RAN), rdzeń sieci oraz
-            systemy zarządzania. Kluczowe zagadnienia to planowanie komórek,
-            handover, kontrola mocy i obsługa wielu usług (głos, dane, IoT).
+            systemy zarządzania i monitoringu. Kluczowe zagadnienia to planowanie
+            komórek, handover, kontrola mocy, alokacja zasobów radiowych i
+            obsługa wielu usług (głos, dane, IoT). W praktyce istotne są też
+            mechanizmy QoS, bezpieczeństwo, roaming oraz ewolucja standardów
+            (3G/4G/5G) wpływająca na opóźnienia i przepustowość.
+          </p>
+        </article>
+      </section>
+
+      <section class="topics" aria-labelledby="additional-topics-169">
+        <h2 id="additional-topics-169">Zagadnienia 169–175</h2>
+
+        <article class="topic-card">
+          <span class="pill">169</span>
+          <h3>Tworzenie stron HTML i CSS</h3>
+          <p>
+            HTML odpowiada za strukturę strony (nagłówki, akapity, listy,
+            formularze), a CSS za wygląd (kolory, typografia, układ). Dobre
+            praktyki obejmują semantyczne znaczniki, dostępność (np. opisy
+            alternatywne), responsywny układ siatki oraz użycie klas do
+            wielokrotnego stylowania. CSS oferuje układy Flexbox i Grid,
+            zmienne, media queries oraz system kaskady, który decyduje o
+            priorytecie reguł.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">170</span>
+          <h3>Język XML i definicje DTD/XML Schema</h3>
+          <p>
+            XML to format tekstowy do opisu danych o strukturze drzewiastej,
+            gdzie znaczniki definiują elementy i atrybuty. DTD i XML Schema
+            określają reguły poprawności dokumentu: dozwolone elementy,
+            kolejność, typy danych i ograniczenia. XML Schema jest bardziej
+            rozbudowane, wspiera typy proste i złożone oraz walidację
+            zgodności danych z definicją.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">171</span>
+          <h3>Korutyny i dependency injection</h3>
+          <p>
+            Korutyny to mechanizm współbieżności, który pozwala zawieszać i
+            wznawiać funkcje bez blokowania całego wątku, co ułatwia obsługę
+            zadań asynchronicznych. Dependency injection polega na przekazywaniu
+            zależności (np. usług, repozytoriów) z zewnątrz, zamiast tworzenia
+            ich wewnątrz klasy. Zwiększa to testowalność, modularność i
+            możliwość wymiany implementacji.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">172</span>
+          <h3>Wzorce projektowe i architektoniczne</h3>
+          <p>
+            Przykładowe wzorce projektowe to Singleton, Factory, Observer,
+            Strategy czy Decorator. Pomagają rozwiązywać powtarzalne problemy
+            projektowe. Wzorce architektoniczne, takie jak MVC, MVVM,
+            klient-serwer, mikroserwisy czy warstwowa architektura, opisują
+            organizację komponentów na poziomie całego systemu i wpływają na
+            skalowalność oraz utrzymanie aplikacji.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">173</span>
+          <h3>Najkrótsze ścieżki w grafach skierowanych</h3>
+          <p>
+            Algorytmy wyznaczania najkrótszych ścieżek obejmują Dijkstrę
+            (dla nieujemnych wag), Bellmana-Forda (obsługa wag ujemnych) oraz
+            Floyd-Warshalla (wszystkie pary wierzchołków). W grafach
+            skierowanych istotne jest rozróżnienie kierunku krawędzi i
+            odpowiednia reprezentacja (listy sąsiedztwa, macierze).
+            Zastosowania obejmują routing, logistykę i analizę sieci.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">174</span>
+          <h3>Tablice i pętle w języku C++</h3>
+          <p>
+            Tablice przechowują elementy tego samego typu w ciągłym obszarze
+            pamięci, a indeksowanie rozpoczyna się od zera. Pętle (for, while,
+            do-while) służą do powtarzania instrukcji, np. iterowania po
+            tablicach. W nowoczesnym C++ często używa się kontenerów STL
+            (std::vector, std::array) oraz pętli range-based for dla większego
+            bezpieczeństwa i czytelności.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">175</span>
+          <h3>Algebra Boole'a</h3>
+          <p>
+            Algebra Boole'a opisuje operacje logiczne (AND, OR, NOT) i prawa
+            upraszczania wyrażeń, takie jak prawa De Morgana, idempotentność
+            czy absorpcja. Jest podstawą projektowania układów cyfrowych i
+            minimalizacji funkcji logicznych, np. z użyciem map Karnaugha.
           </p>
         </article>
       </section>
