@@ -1,12 +1,445 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="pl">
 
   <head>
-  
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zagadnienia sieciowe 1–30</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f6fb;
+        --card: #ffffff;
+        --text: #1a1f36;
+        --muted: #5c627a;
+        --accent: #2b6cb0;
+        --accent-soft: #e3edf9;
+        --border: #d7daea;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.6;
+      }
+
+      header {
+        padding: 48px 20px 32px;
+        text-align: center;
+        background: linear-gradient(135deg, #dae7ff, #f7f9ff 60%);
+        border-bottom: 1px solid var(--border);
+      }
+
+      header h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 3vw, 2.8rem);
+      }
+
+      header p {
+        margin: 0 auto;
+        max-width: 720px;
+        color: var(--muted);
+      }
+
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 20px 64px;
+      }
+
+      .topics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+      }
+
+      .topic-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 24px rgba(30, 50, 110, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .topic-card h2 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: var(--accent);
+      }
+
+      .topic-card h3 {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .topic-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.85rem;
+        font-weight: 600;
+        align-self: flex-start;
+      }
+
+      .placeholder {
+        border: 1px dashed var(--border);
+        background: #fbfbff;
+      }
+    </style>
   </head>
 
   <body>
+    <header>
+      <h1>Zagadnienia sieciowe 1–30</h1>
+      <p>
+        Poniżej znajdziesz zwięzłe objaśnienia tematów związanych z sieciami i
+        telekomunikacją. Lista obejmuje zakres 1–30, zgodnie z podanymi
+        zagadnieniami.
+      </p>
+    </header>
+    <main>
+      <section class="topics">
+        <article class="topic-card">
+          <span class="pill">1</span>
+          <h3>Elementy sieci EPON i GPON</h3>
+          <p>
+            EPON/GPON to pasywne sieci optyczne. Kluczowe elementy to OLT w
+            centrali, pasywne splittery rozdzielające sygnał oraz ONT/ONU po
+            stronie abonenta. Różnią się m.in. przepływnością i enkapsulacją.
+          </p>
+          <h3>Budowa routerów i przełączników</h3>
+          <p>
+            Routery skupiają się na trasowaniu na warstwie 3, a przełączniki na
+            komutacji ramek w warstwie 2. Wspólne są moduły zasilania, porty
+            uplink, procesory sieciowe oraz pamięć do buforowania ruchu.
+          </p>
+        </article>
 
-    
+        <article class="topic-card placeholder">
+          <span class="pill">2</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 2.</p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">3</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 3.</p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">4</span>
+          <h3>Zasilanie zgodnie ze standardem 802.3af/802.3at</h3>
+          <p>
+            Power over Ethernet dostarcza energię przez skrętkę. 802.3af to
+            standard podstawowy (do ok. 15 W), a 802.3at (PoE+) oferuje wyższą
+            moc do ok. 30 W, z negocjacją klasy zasilania.
+          </p>
+          <h3>Urządzenia przewodowych sieci dostępowych</h3>
+          <p>
+            Typowe urządzenia to DSLAM, OLT, przełączniki dostępowe oraz
+            koncentratory ruchu. Ich rolą jest agregacja klientów i podłączenie
+            do sieci szkieletowej operatora.
+          </p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">5</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 5.</p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">6</span>
+          <h3>Procesory sieciowe i układy FPGA</h3>
+          <p>
+            Procesory sieciowe realizują zadania typu forwarding, QoS czy
+            filtrowanie. Układy FPGA pozwalają na szybkie prototypowanie i
+            sprzętowe przyspieszenie funkcji sieciowych.
+          </p>
+          <h3>Modele warstwowe systemów komunikujących się</h3>
+          <p>
+            Modele OSI i TCP/IP opisują podział funkcji komunikacji na warstwy,
+            np. fizyczną, łącza danych, sieciową i aplikacyjną, co ułatwia
+            projektowanie i diagnostykę sieci.
+          </p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">7</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 7.</p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">8</span>
+          <h3>Sygnalizacja w sieciach telekomunikacyjnych</h3>
+          <p>
+            Sygnalizacja odpowiada za zestawianie, utrzymanie i rozłączanie
+            połączeń (np. SS7, SIP). Przenosi informacje kontrolne, niezależne od
+            samego strumienia danych.
+          </p>
+          <h3>Integracja usług w sieciach telekomunikacyjnych</h3>
+          <p>
+            Konwergencja usług łączy głos, dane i wideo w jednej infrastrukturze,
+            umożliwiając np. VoIP, IPTV i usługi mobilne z wspólnym zarządzaniem.
+          </p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">9</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 9.</p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">10</span>
+          <h3>Metody protekcji i odtwarzania</h3>
+          <p>
+            Obejmują redundancję łączy, przełączenia awaryjne oraz mechanizmy
+            szybkiej rekonwergencji. Celem jest minimalizacja przerw w pracy
+            sieci.
+          </p>
+          <h3>Numeracja i adresacja</h3>
+          <p>
+            To zasady identyfikowania węzłów i usług (np. numery E.164, adresy
+            IP). Ułatwiają kierowanie ruchu i mapowanie użytkowników na usługi.
+          </p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">11</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 11.</p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">12</span>
+          <h3>Obsługa połączenia w sieci komórkowej</h3>
+          <p>
+            Proces obejmuje rejestrację, zestawienie połączenia, handover
+            między stacjami bazowymi oraz rozłączenie. Kluczowe są elementy
+            rdzenia sieci i sygnalizacja.
+          </p>
+          <h3>Adresy MAC i IP</h3>
+          <p>
+            MAC identyfikuje interfejs w sieci lokalnej, a IP określa węzeł w
+            skali sieci. Wspólnie umożliwiają dostarczanie ramek i pakietów.
+          </p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">13</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 13.</p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">14</span>
+          <h3>Protokoły routingu</h3>
+          <p>
+            Protokoły takie jak OSPF, BGP czy RIP wyznaczają ścieżki w sieci i
+            reagują na zmiany topologii, zapewniając optymalny przepływ danych.
+          </p>
+          <h3>Funkcje routerów i przełączników</h3>
+          <p>
+            Routery decydują o trasie pakietów, a przełączniki uczą się adresów
+            MAC i przesyłają ramki w obrębie sieci LAN. Oba urządzenia wspierają
+            bezpieczeństwo, QoS i segmentację ruchu.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">15</span>
+          <h3>Charakterystyka systemu operacyjnego</h3>
+          <p>
+            System operacyjny zarządza zasobami sprzętowymi, procesami,
+            pamięcią i plikami. Zapewnia interfejs dla użytkownika oraz usługi
+            niezbędne do działania aplikacji.
+          </p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">16</span>
+          <h3>Procesy i wątki</h3>
+          <p>
+            Proces to uruchomiona instancja programu z własną pamięcią, a wątek
+            to lżejsza jednostka wykonawcza współdzieląca zasoby procesu.
+            Wątki przyspieszają równoległe zadania i poprawiają responsywność.
+          </p>
+          <h3>Zarządzanie pamięcią</h3>
+          <p>
+            System operacyjny przydziela pamięć procesom, izoluje je oraz
+            kontroluje stronicowanie i wirtualizację. Mechanizmy te zwiększają
+            stabilność i bezpieczeństwo.
+          </p>
+          <h3>Routing w sieciach IP</h3>
+          <p>
+            Routing wybiera trasę dla pakietów IP w oparciu o tablice routingu,
+            metryki i protokoły dynamiczne. Zapewnia łączność między sieciami
+            lokalnymi i rozległymi.
+          </p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">17</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 17.</p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">18</span>
+          <h3>Adresacja IPv4 i IPv6</h3>
+          <p>
+            IPv4 używa 32-bitowych adresów, a IPv6 128-bitowych, co zwiększa
+            pulę adresową i ułatwia autokonfigurację. IPv6 wprowadza też uproszczony
+            nagłówek i lepsze wsparcie dla multicastu.
+          </p>
+          <h3>Protokoły i przesyłanie danych w sieci</h3>
+          <p>
+            Protokoły opisują zasady wymiany danych (np. TCP, UDP, HTTP). Określają
+            format pakietów, kontrolę błędów i mechanizmy niezawodności.
+          </p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">19</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 19.</p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">20</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 20.</p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">21</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 21.</p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">22</span>
+          <h3>Przełączanie w sieciach LAN</h3>
+          <p>
+            Przełączniki uczą się adresów MAC i kierują ramki do właściwych portów,
+            minimalizując kolizje i opóźnienia. Segmentacja sieci zwiększa
+            wydajność i bezpieczeństwo.
+          </p>
+          <h3>Metody zapewnienia niezawodności sieci przełączalnych</h3>
+          <p>
+            Stosuje się redundancję łączy, protokoły typu STP/RSTP oraz agregację
+            łączy (LACP), by utrzymać ciągłość działania mimo awarii.
+          </p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">23</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 23.</p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">24</span>
+          <h3>Wirtualne sieci lokalne (VLAN)</h3>
+          <p>
+            VLAN-y logicznie dzielą sieć na segmenty niezależnie od topologii
+            fizycznej. Ułatwiają izolację ruchu, poprawę bezpieczeństwa i
+            zarządzanie.
+          </p>
+          <h3>Listy kontroli dostępu (ACL)</h3>
+          <p>
+            ACL filtrują ruch na podstawie adresów, portów i protokołów. Pozwalają
+            egzekwować polityki bezpieczeństwa i ograniczać dostęp do zasobów.
+          </p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">25</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 25.</p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">26</span>
+          <h3>Mechanizmy obecne w adresacji IP</h3>
+          <p>
+            Obejmują m.in. podział na podsieci, maski, CIDR oraz mechanizmy
+            NAT. Ułatwiają planowanie adresacji i optymalizację wykorzystania
+            przestrzeni adresowej.
+          </p>
+          <h3>Warstwa łącza danych</h3>
+          <p>
+            Protokoły i urządzenia tej warstwy (np. Ethernet, przełączniki)
+            odpowiadają za niezawodne przesyłanie ramek, kontrolę dostępu do
+            medium i wykrywanie błędów.
+          </p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">27</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 27.</p>
+        </article>
+
+        <article class="topic-card">
+          <span class="pill">28</span>
+          <h3>Warstwa sieci</h3>
+          <p>
+            Odpowiada za adresowanie logiczne, wybór trasy i dostarczanie pakietów
+            między sieciami. Kluczowe są protokoły IP i mechanizmy routingu.
+          </p>
+          <h3>Możliwości i funkcjonalność systemów operacyjnych</h3>
+          <p>
+            Systemy operacyjne oferują narzędzia diagnostyczne i sieciowe
+            (np. ping, traceroute, netstat), które wspierają administrację i
+            analizę ruchu.
+          </p>
+          <h3>Usługi w Data Center</h3>
+          <p>
+            Data Center realizuje usługi obliczeniowe, pamięci masowej i sieci,
+            często poprzez wirtualizację, kontenery i orkiestrację zasobów.
+          </p>
+          <h3>Programowalność sieci komputerowych</h3>
+          <p>
+            SDN i automatyzacja umożliwiają centralne sterowanie ruchem,
+            tworzenie polityk i integrację z API, co przyspiesza wdrożenia
+            oraz redukuje błędy operacyjne.
+          </p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">29</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 29.</p>
+        </article>
+
+        <article class="topic-card placeholder">
+          <span class="pill">30</span>
+          <h3>Brak tematu</h3>
+          <p>Dodaj opis, gdy tylko ustalisz zakres zagadnienia nr 30.</p>
+        </article>
+      </section>
+    </main>
   </body>
 </html>
